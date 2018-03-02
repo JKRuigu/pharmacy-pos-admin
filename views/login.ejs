@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pharmacy-pos: login</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+	<style>
+		body{
+				font-family: arial;
+				margin: 0;
+			}
+			nav{
+				background-color: #ff5353;
+				padding: 20px 10px;
+			}
+			nav ul{
+				max-width: 960px;
+				margin: 0 auto;
+				padding: 0;
+			}
+			nav li{
+				list-style-type: none;
+				display: inline-block;
+				margin: 0 10px 0 0;
+			}
+			nav a{
+				color: #fff;
+				font-size: 18px;
+				background: rgba(255,255,255,0.2);
+				text-decoration: none;
+				padding: 10px;
+				display: block;
+			}
+			main,header{
+				max-width: 960px;
+				margin: 30px auto;
+				padding: 0 10px;
+				color: #333;
+			}
+			.google-btn{
+				color: #fff;
+				text-decoration: none;
+				font-size: 18px;
+				padding: 10px;
+				background-color: #ff5353;
+			}
+			.facebook-btn{
+				color: #fff;
+				text-decoration: none;
+				font-size: 18px;
+				padding: 10px;
+				background-color:blue;
+			}
+			.twitter-btn{
+				color: #fff;
+				text-decoration: none;
+				font-size: 18px;
+				padding: 10px;
+				background-color:#58FAF4;
+			}
+			.jumbotron{
+				margin-top: 20px;
+			}
+		</style>
+</head>
+<body>
+	<nav>
+				<ul>
+					<% if (user) { %>
+					<li><a href="/profile">Dashboard</a></li>
+					<li><a href="/profile/update">Updates</a></li>
+					<li><a href="/profile/contact">Contact us</a></li>
+					<li><a href="profile/services">More services</a></li>
+					<li><a href="/auth/logout">Log out</a></li>
+					<% } else { %>
+					<li><a href="/auth/login">Login</a></li>
+					<li><a href="/">Homepage</a></li>
+					<li><a href="#">FAQ</a></li>
+					<% } %>
+				</ul>
+	</nav>
+<div class="container">
+
+	<div class="jumbotron text-center">
+		<h1><span class="fa fa-lock"></span> choose one</h1>
+
+		<p>Login or Register with:</p>
+		<a href="/auth/google" class="google-btn"><span class="fa fa-user"></span> Google+</a>
+		<a href="/auth/register" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
+		<a href="/auth/login-local" class="btn btn-default"><span class="fa fa-user"></span> Local log in</a>
+		<a href="/auth/facebook" class="facebook-btn"><span class="fa fa-facebook"></span> Facebook</a>
+	</div>
+
+</div>
+</body>
+</html>

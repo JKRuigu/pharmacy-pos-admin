@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Pharmacy-pos: more services</title>
+	<style>
+	body{
+
+		margin: 0;
+	}
+	nav{
+		background-color: #ff5353;
+		padding: 20px 10px;
+	}
+	nav ul{
+		max-width: 960px;
+		margin: 0 auto;
+		padding: 0;
+	}
+	.nav-item{
+		list-style-type: none;
+		display: inline-block;
+		margin: 0 10px 0 0;
+	}
+	.nav-link:hover{
+		background-color: #00FF40;
+	}
+	.nav-link{
+		color: black;
+		font-size: 18px;
+		background:#E6E6E6;
+		text-decoration: none;
+		padding: 10px;
+		display: block;
+	}
+
+	main,header{
+		max-width: 960px;
+		margin: 30px auto;
+		padding: 0 10px;
+		color: #333;
+	}
+	.container{
+		margin-top:20px;
+	}
+
+
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+</head>
+<body>
+
+	<nav class="navbar navbar-toggleable-md navbar-light">
+<button class="navbar-toggler navbar-toggler-right " type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+</button>
+<a class="navbar-brand" href="#">Navbar</a>
+<div class="collapse navbar-collapse" id="navbarNavDropdown">
+	<ul class="navbar-nav">
+			<% if (user) { %>
+			<li class="nav-item active"><a href="/profile" class="nav-link">Dashboard</a></li>
+			<li class="nav-item active"><a href="/profile/update" class="nav-link">Updates</a></li>
+			<li class="nav-item active"><a href="/profile/contact" class="nav-link">Contact us</a></li>
+			<li class="nav-item active"><a href="/profile/services" class="nav-link">More services</a></li>
+			<li class="nav-item active"><a href="/auth/logout" class="nav-link">Log out</a></li>
+			<% } else { %>
+			<li class="nav-item active"><a href="/auth/login" class="nav-link">Login</a></li>
+			<li class="nav-item active"><a href="/" class="nav-link">Homepage</a></li>
+			<li class="nav-item active"><a href="#" class="nav-link">FAQ</a></li>
+			<% } %>
+	</ul>
+</div>
+</nav>
+	<header>
+		<h1><img src="<%=user.thumbnail%>"/>  <span><small>username:</small><span><%=user.username %> </h1>
+        <h2>More services</h2>
+</html>

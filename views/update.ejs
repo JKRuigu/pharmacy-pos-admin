@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	  <!-- Compiled and minified JavaScript -->
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+	<title>Pharmacy-pos: Lastest updates</title>
+	<style>
+	body{
+
+		margin: 0;
+	}
+	nav{
+		background-color: #ff5353;
+		padding: 20px 10px;
+	}
+	nav ul{
+		max-width: 960px;
+		margin: 0 auto;
+		padding: 0;
+	}
+	.nav-item{
+		list-style-type: none;
+		display: inline-block;
+		margin: 0 10px 0 0;
+	}
+	.nav-link:hover{
+		background-color: #00FF40;
+	}
+	.nav-link{
+		color: black;
+		font-size: 18px;
+		background:#E6E6E6;
+		text-decoration: none;
+		padding: 10px;
+		display: block;
+	}
+
+	main,header{
+		max-width: 960px;
+		margin: 30px auto;
+		padding: 0 10px;
+		color: #333;
+	}
+	.container{
+		margin-top:20px;
+	}
+
+
+</style>
+
+</head>
+<body>
+
+	<nav class="navbar navbar-toggleable-md navbar-light">
+<button class="navbar-toggler navbar-toggler-right " type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+</button>
+<a class="navbar-brand" href="#">Navbar</a>
+<div class="collapse navbar-collapse" id="navbarNavDropdown">
+	<ul class="navbar-nav">
+			<% if (user) { %>
+			<li class="nav-item active"><a href="/profile" class="nav-link">Dashboard</a></li>
+			<li class="nav-item active"><a href="/profile/update" class="nav-link">Updates</a></li>
+			<li class="nav-item active"><a href="/profile/contact" class="nav-link">Contact us</a></li>
+			<li class="nav-item active"><a href="/profile/services" class="nav-link">More services</a></li>
+			<li class="nav-item active"><a href="/auth/logout" class="nav-link">Log out</a></li>
+			<% } else { %>
+			<li class="nav-item active"><a href="/auth/login" class="nav-link">Login</a></li>
+			<li class="nav-item active"><a href="/" class="nav-link">Homepage</a></li>
+			<li class="nav-item active"><a href="#" class="nav-link">FAQ</a></li>
+			<% } %>
+	</ul>
+</div>
+</nav>
+	<header>
+        <h2>Updates</h2>
+				<div class="container" id="updates_div">
+
+				</div>
+
+
+				<script  src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="  crossorigin="anonymous"></script>
+			  <script src ="/js/updates.js"></script>
+
+
+				<script>
+				$(document).ready(function () {
+						$.getJSON("https://api.mlab.com/api/1/databases/pharmacy-updates/collections/updates?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON",
+						function (data) {
+							// console.log(data);
+							var updates_data ='';
+							$.each(data, function (key,value) {
+									updates_data += '<div>';
+									updates_data += '<h2>' +value.title+'</h2>';
+									updates_data += '<h4>' +value.date+'</h4>';
+									//updates_data += '<p>' +value.paragraph+'</p>';
+									updates_data += '<p>' +value.paragraph2+'</p>';
+									updates_data += '<p>' +value.others+'</p>';
+								 // updates_data += '<p>Pharmacy-pos powered by' +'<strong>'+'Magnum digitalke'+'</strong>'+'</p>';
+									updates_data += '</div>';
+							});
+							$('#updates_div').append(updates_data);
+						});
+
+				});
+				</script>
+
+	</body>
+</html>

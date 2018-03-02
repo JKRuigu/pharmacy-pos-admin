@@ -1,0 +1,30 @@
+{
+  "name": "pharmacy-pos",
+  "version": "1.0.0",
+  "description": "pharmacy pos offical website",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jkruigu",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "cookie-parser": "*",
+    "cookie-session": "^2.0.0-beta.3",
+    "dotenv": "^5.0.1",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongoose": "^5.0.6",
+    "morgan": "^1.9.0",
+    "passport-facebook": "^2.1.1",
+    "passport-http": "*",
+    "passport-local": "*",
+    "path": "^0.12.7"
+  }
+}
