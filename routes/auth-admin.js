@@ -32,10 +32,7 @@ router.post('/profile/ad-register', passport.authenticate('local-admin', {
   failureFlash: true
 }));
 
-//Admin Get LocalStrategy
-router.get('/profile/login-admin', function(req, res){
-  res.render('login-admin', { message: req.flash('loginMessage') });
-});
+
 
 //Admin Post LocalStrategy
 router.post('/profile/login-admin', passport.authenticate('admin-login', {
