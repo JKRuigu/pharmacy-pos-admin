@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Contact</title>
+    <title>Now UI Dashboard by Creative Tim</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -20,66 +20,73 @@
 
 <body class="">
     <div class="wrapper ">
-        <div class="sidebar" data-color="green">
+        <div class="sidebar" data-color="orange">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
-          <div class="logo">
-              <a href="#" class="simple-text logo-mini">
-                  ps
-              </a>
-              <a href="#" class="simple-text logo-normal">
-                  Pharmacy-pos
-              </a>
-          </div>
-          <div class="sidebar-wrapper">
-              <ul class="nav">
-                  <li class="active">
-                      <a href="/profile">
-                          <i class="now-ui-icons design_app"></i>
-                          <p>Dashboard</p>
-                      </a>
-                  </li>
-                  <li>
-                    <a href="/profile/update">
-                          <i class="now-ui-icons arrows-1_refresh-69"></i>
-                          <p>Updates</p>
-                      </a>
-                  </li>
-                  <li>
-                        <a href="/profile/contact">
-                          <i class="now-ui-icons ui-1_email-85"></i>
-                          <p>Contact Us</p>
-                      </a>
-                  </li>
-                  <li>
-                      <a href="/profile/services">
-                          <i class="now-ui-icons ui-1_zoom-bold"></i>
-                          <p>More services</p>
-                      </a>
-                  </li>
-                      <!-- <a href="#">
-                          <i class="now-ui-icons design_bullet-list-67"></i>
-                          <p>Table List</p>
-                      </a>
-                  </li>
-                  <li>
-                      <a href="#">
-                          <i class="now-ui-icons text_caps-small"></i>
-                          <p>Typography</p>
-                      </a>
-                  </li>
-                  <li class="#">
-                      <a href="#">
-                          <i class="now-ui-icons arrows-1_cloud-download-93"></i>
-                          <p>Upgrade to PRO</p>
-                      </a>
-                  </li> -->
-              </ul>
-          </div>
-      </div>
+                <div class="logo">
+                    <a href="#" class="simple-text logo-mini">
+                        ps
+                    </a>
+                    <a href="#" class="simple-text logo-normal">
+                        Pharmacy-pos
+                    </a>
+                </div>
+                <div class="sidebar-wrapper">
+                    <ul class="nav">
+                        <li class="active">
+                            <a href="../examples/dashboard.html">
+                                <i class="now-ui-icons design_app"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/ad-users">
+                                <i class="now-ui-icons education_atom"></i>
+                                <p>Users</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/ad-messages">
+                                <i class="now-ui-icons ui-1_email-85"></i>
+                                <p>Messages</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/ad-updates">
+                                <i class="now-ui-icons ui-1_bell-53"></i>
+                                <p>Updates</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/ad-register">
+                                <i class="now-ui-icons users_single-02"></i>
+                                <p>Admin</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="now-ui-icons design_bullet-list-67"></i>
+                                <p>Table List</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="now-ui-icons text_caps-small"></i>
+                                <p>Typography</p>
+                            </a>
+                        </li>
+                        <li class="#">
+                            <a href="#">
+                                <i class="now-ui-icons arrows-1_cloud-download-93"></i>
+                                <p>Upgrade to PRO</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <!-- Navbar -->
-          <div class="main-panel">
+        <div class="main-panel">
             <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
@@ -90,6 +97,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
+                        <a class="navbar-brand" href="#pablo">User Profile</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -115,7 +123,7 @@
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="now-ui-icons location_world"></i>
                                     <p>
                                         <span class="d-lg-none d-md-block">Some Actions</span>
@@ -128,7 +136,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/auth/logout" id="logoutlink"><p><%=user.google.username %><%=user.facebook.name %><%=user.local.username %></p> Log Out
+                                <a class="nav-link" href="#pablo">
                                     <i class="now-ui-icons users_single-02"></i>
                                     <p>
                                         <span class="d-lg-none d-md-block">Account</span>
@@ -147,30 +155,42 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="title">Edit Profile</h5>
+                                <h5 class="title">Add admin</h5>
                             </div>
                             <div class="card-body">
-                              <div class="panel-body">
-                                      <form id="add-message">
-                                        <div class="form-group">
-                                          <label>Name</label>
-                                          <input type="text" id="name" class="form-control" value="<%=user.facebook.name %>">
+                                <form action="/profile/ad-register" method="post">
+                                    <div class="row">
+                                        <div class="col-md-6 pr-1">
+                                            <div class="form-group">
+                                                <label>First Name</label>
+                                                <input type="text" class="form-control" placeholder="First Name">
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                          <label>Email</label>
-                                          <input type="email" id="email" class="form-control" value="<%=user.google.username %><%=user.local.username %>">
+                                        <div class="col-md-6 pl-1">
+                                            <div class="form-group">
+                                                <label>Last Name</label>
+                                                <input type="text" class="form-control" placeholder="Last Name">
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                          <label>Phone Number</label>
-                                          <input type="tel" id="tel" class="form-control">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 pr-1">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="text" class="form-control" placeholder="Enter Email">
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                          <label>Message</label>
-                                          <input type="text" id="message" class="form-control">
+                                        <div class="col-md-6 pl-1">
+                                            <div class="form-group">
+                                                <label>Password</label>
+                                                <input type="password" class="form-control" placeholder="Enter Password">
+                                            </div>
                                         </div>
-                                        <input type="submit" name="submit" value="SUBMIT" class="btn btn-primary">
-                                      </form>
-                              </div>
+                                    </div>
+                                    <div class="row">
+                                        <button type="submit" name="button" class="btn btn-block btn-success">ADD ADMIN</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -181,39 +201,31 @@
                             </div>
                             <div class="card-body">
                                 <div class="author">
+                                    <a href="#">
                                         <img class="avatar border-gray" src="../assets/img//mike.jpg" alt="...">
-                                        <h6 class="title"><%=user.google.username %><%=user.facebook.name %><%=user.local.username %>, welcome to our suggestion Box</h6>
+                                        <h5 class="title">Mike Andrew</h5>
+                                    </a>
                                     <p class="description">
+                                        michael24
                                     </p>
                                 </div>
                                 <p class="description text-center">
-                                  We promise to get intouch within 24 Hours
+                                    "Lamborghini Mercy
+                                    <br> Your chick she so thirsty
+                                    <br> I'm in that two seat Lambo"
                                 </p>
                             </div>
                             <hr>
                             <div class="button-container">
-                              <% if(!user.facebook.id) {%>
                                 <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                  <i class="fab fa-facebook-f"></i>
+                                    <i class="fab fa-facebook-f"></i>
                                 </button>
                                 <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                  <i class="fab fa-twitter"></i>
+                                    <i class="fab fa-twitter"></i>
                                 </button>
-                                <%} else{%>
-                                  Share your Email with Us
-                                  <form id=add-email>
-                                    <div class="row">
-                                    <div class="form-group col-md-8 " >
-                                      <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-                                      <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                      <input type="submit" name="submit" value="SHARE" class="btn btn-success">
-                                    </div>
-                                  </div>
-                                  </form>
-                                <%}%>
-
+                                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+                                    <i class="fab fa-google-plus-g"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -252,15 +264,15 @@
             </footer>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
-    <script src="/js/email.js" ></script>
 </body>
 <!--   Core JS Files   -->
 <script src="../assets/js/core/jquery.min.js"></script>
 <script src="../assets/js/core/popper.min.js"></script>
 <script src="../assets/js/core/bootstrap.min.js"></script>
 <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- Chart JS -->
 <script src="../assets/js/plugins/chartjs.min.js"></script>
 <!--  Notifications Plugin    -->
 <script src="../assets/js/plugins/bootstrap-notify.js"></script>

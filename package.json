@@ -23,6 +23,7 @@
     "mongoose": "^5.0.6",
     "morgan": "^1.9.0",
     "passport-facebook": "^2.1.1",
+    "passport": "*",
     "passport-http": "*",
     "passport-local": "*",
     "path": "^0.12.7"

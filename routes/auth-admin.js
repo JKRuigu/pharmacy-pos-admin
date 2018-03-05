@@ -12,21 +12,23 @@ var url = 'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?a
 
 
 
-//Admin Get LocalStrategy-signup
-router.get('/admin-register', function(req, res){
-  res.render('admin-register');
-});
+// //Admin Get LocalStrategy-signup
+// router.get('/ad-register', function(req, res){
+//   res.render('ad-register');
+// });
 
 //Admin logout
 router.get('/admin/logout', function(req, res){
   req.logout();
   res.redirect('/');
 });
+//icons
+
 
 //Admin Post LocalStrategy-signup
-router.post('/admin-register', passport.authenticate('local-admin', {
-  successRedirect: '',
-  failureRedirect: '/',
+router.post('/profile/ad-register', passport.authenticate('local-admin', {
+  successRedirect: '/admin',
+  failureRedirect: '/admin',
   failureFlash: true
 }));
 

@@ -6,76 +6,85 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Dashboard</title>
+    <title>Dashboard-Users</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <!-- CSS Files -->
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="/assets/demo/demo.css" rel="stylesheet" />
+    <link href="../assets/demo/demo.css" rel="stylesheet" />
 </head>
 
 <body class="">
     <div class="wrapper ">
-        <div class="sidebar" data-color="green">
+        <div class="sidebar" data-color="orange">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
-            <div class="logo">
-                <a href="#" class="simple-text logo-normal">
-                    Pharmacy-pos
-                </a>
-            </div>
-            <div class="sidebar-wrapper">
-                <ul class="nav">
-                    <li class="active">
-                        <a href="/profile">
-                            <i class="now-ui-icons design_app"></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                    <li>
-                      <a href="/profile/update">
-                            <i class="now-ui-icons arrows-1_refresh-69"></i>
-                            <p>Updates</p>
-                        </a>
-                    </li>
-                    <li>
-                          <a href="/profile/contact">
-                            <i class="now-ui-icons ui-1_email-85"></i>
-                            <p>Contact Us</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/profile/services">
-                            <i class="now-ui-icons ui-1_zoom-bold"></i>
-                            <p>More services</p>
-                        </a>
-                    </li>
-                        <!-- <a href="#">
-                            <i class="now-ui-icons design_bullet-list-67"></i>
-                            <p>Table List</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="now-ui-icons text_caps-small"></i>
-                            <p>Typography</p>
-                        </a>
-                    </li>
-                    <li class="#">
-                        <a href="#">
-                            <i class="now-ui-icons arrows-1_cloud-download-93"></i>
-                            <p>Upgrade to PRO</p>
-                        </a>
-                    </li> -->
-                </ul>
-            </div>
-        </div>
-        <div class="main-panel">
+              <div class="logo">
+                  <a href="#" class="simple-text logo-mini">
+                      ps
+                  </a>
+                  <a href="#" class="simple-text logo-normal">
+                      Pharmacy-pos
+                  </a>
+              </div>
+              <div class="sidebar-wrapper">
+                  <ul class="nav">
+                      <li class="active">
+                          <a href="/admin">
+                              <i class="now-ui-icons design_app"></i>
+                              <p>Dashboard</p>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="/admin/ad-users">
+                              <i class="now-ui-icons education_atom"></i>
+                              <p>Users</p>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="/admin/ad-messages">
+                              <i class="now-ui-icons ui-1_email-85"></i>
+                              <p>Messages</p>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="/admin/ad-updates">
+                              <i class="now-ui-icons ui-1_bell-53"></i>
+                              <p>Updates</p>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="#">
+                              <i class="now-ui-icons users_single-02"></i>
+                              <p>Admin</p>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="#">
+                              <i class="now-ui-icons design_bullet-list-67"></i>
+                              <p>Table List</p>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="#">
+                              <i class="now-ui-icons text_caps-small"></i>
+                              <p>Typography</p>
+                          </a>
+                      </li>
+                      <li class="#">
+                          <a href="#">
+                              <i class="now-ui-icons arrows-1_cloud-download-93"></i>
+                              <p>Upgrade to PRO</p>
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
                 <div class="container-fluid">
@@ -87,7 +96,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo">Dashboard</a>
+                        <a class="navbar-brand" href="#pablo">USERS</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -101,12 +110,11 @@
                                 <span class="input-group-addon">
                                     <i class="now-ui-icons ui-1_zoom-bold"></i>
                                 </span>
-
-                              </div>
+                            </div>
                         </form>
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="#pablo">
                                     <i class="now-ui-icons media-2_sound-wave"></i>
                                     <p>
                                         <span class="d-lg-none d-md-block">Stats</span>
@@ -127,9 +135,9 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                    <a class="nav-link" href="/auth/logout" id="logoutlink"><p><%=user.google.username %><%=user.facebook.name %><%=user.local.username %></p> Log Out
-                                        <i class="now-ui-icons users_single-02"></i>
-                                        <p>
+                                <a class="nav-link" href="#pablo">
+                                    <i class="now-ui-icons users_single-02"></i>
+                                    <p>
                                         <span class="d-lg-none d-md-block">Account</span>
                                     </p>
                                 </a>
@@ -139,27 +147,67 @@
                 </div>
             </nav>
             <!-- End Navbar -->
-            <div class="panel-header panel-header-lg">
-
+            <div class="panel-header panel-header-sm">
             </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="title">Users</h5>
+                                <div class="container" >
+                                  <h4>Google Users</h4>
+                                  <table id="users2" class="table table-bordered table-hover table-striped">
+                                    <tr>
+                                      <th>GoogleId </th>
+                                      <th>Username</th>
+                                      <th>Email</th>
+                                    </tr>
+                                  </table>
+                                </div>
+                                <div class="container" >
+                                  <h4>Facebook Users</h4>
+                                  <table id="users3" class="table table-bordered table-hover table-striped">
+                                    <tr>
+                                      <th>GoogleId </th>
+                                      <th>Username</th>
+                                      <th>Email</th>
+                                    </tr>
+                                  </table>
+                                </div>
 
+                                <div class="container" >
+                                  <h4>Local Users</h4>
+                                  <table id="users" class="table table-bordered table-hover table-striped">
+                                    <tr>
+                                      <th>GoogleId </th>
+                                      <th>Username</th>
+                                    </tr>
+                                  </table>
+                                </div>
+                              <script  src="https://code.jquery.com/jquery-3.3.1.js" ></script>
+                              <script src ="/js/local.js"></script>
+                              <script src ="/js/google.js"></script>
+                              <script src ="/js/facebook.js"></script>
+                    </div>
+                </div>
             </div>
             <footer class="footer">
                 <div class="container-fluid">
                     <nav>
                         <ul>
                             <li>
-                                <a href="https://www.creative-tim.com">
-                                    Creative Tim
+                                <a href="#">
+                                    Pharmacy-pos
                                 </a>
                             </li>
                             <li>
-                                <a href="http://presentation.creative-tim.com">
+                                <a href="#">
                                     About Us
                                 </a>
                             </li>
                             <li>
-                                <a href="http://blog.creative-tim.com">
+                                <a href="#">
                                     Blog
                                 </a>
                             </li>
@@ -170,8 +218,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>, Designed by
-                        <a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by
-                        <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+                        <a href="#" target="_blank">Magnum digital media ke</a>.
                     </div>
                 </div>
             </footer>
@@ -193,11 +240,5 @@
 <script src="../assets/js/now-ui-dashboard.js?v=1.0.1"></script>
 <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
 <script src="../assets/demo/demo.js"></script>
-<script>
-    $(document).ready(function() {
-        // Javascript method's body can be found in assets/js/demos.js
-        demo.initDashboardPageCharts();
-    });
-</script>
 
 </html>

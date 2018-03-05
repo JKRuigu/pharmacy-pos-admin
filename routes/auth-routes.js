@@ -6,7 +6,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 // auth login
 router.get('/login', (req, res) => {
-    res.render('login', { user: req.user });
+    res.render('/', { user: req.user });
 });
 
 // auth logout
@@ -41,7 +41,7 @@ router.get('/auth/facebook/redirect', passport.authenticate('facebook'), (req, r
 
 //LocalStrategy-get-login
 router.get('/auth/login-local', function(req, res){
-  res.render('login-local', { message: req.flash('loginMessage') });
+  res.render('/', { message: req.flash('loginMessage') });
 });
 
 //LocalStrategy-post-login

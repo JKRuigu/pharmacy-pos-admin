@@ -67,7 +67,7 @@ passport.use(
 	    				var newUser = new User();
 	    				newUser.facebook.id = profile.id;
 	    				newUser.facebook.name = profile.displayName;
-              // newUser.facebook.email = profile.emails[0].value;
+              newUser.facebook.email = '';
 	    				newUser.save(function(err){
 	    					if(err)
 	    						throw err;
