@@ -60,11 +60,13 @@ router.get('/auth/register', function(req, res){
   res.render('register');
 });
 
+
+
 //LocalStrategy-register-post
 router.post('/auth/register', passport.authenticate('local-signup', {
   successRedirect: '/',
-  failureRedirect: '/',
-  failureFlash: true
+  failureRedirect: '/'
+
 }));
 
 

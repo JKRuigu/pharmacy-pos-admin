@@ -105,6 +105,8 @@ passport.use('local-signup', new LocalStrategy({
 					newUser.save(function(err){
 						if(err)
 							throw err;
+            req.app.locals.newUser = newUser;
+
 						return done(null, newUser);
 					})
 				}
@@ -132,7 +134,7 @@ passport.use('local-signup', new LocalStrategy({
             , req.flash('loginMessage', 'invalid password')
             );
 					}
-          done(null,user)
+
 					return done(null, user);
 				});
 			});
