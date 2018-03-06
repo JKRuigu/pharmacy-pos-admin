@@ -23,18 +23,14 @@
     "express-validator": "^5.0.3",
     "mongoose": "^5.0.6",
     "morgan": "^1.9.0",
-<<<<<<< HEAD
-    "passport": "*",
-    "passport-facebook": "^2.1.1",
-    "passport-google-oauth": "^1.0.0",
-=======
     "multer": "^1.3.0",
     "passport": "*",
     "passport-facebook": "^2.1.1",
->>>>>>> fd77c1ff659314ec6988f842d663b8431bd4f64f
+    "passport-google-oauth": "^1.0.0",
     "passport-http": "*",
     "passport-local": "*",
     "path": "^0.12.7",
+    "save": "^2.3.2",
     "sweetalert": "^2.1.0"
   }
 }
