@@ -4,9 +4,10 @@ const bcrypt = require('bcrypt');
 
 const adminSchema = new Schema({
   admins: {
+    lname :String,
+    fname: String,
 		username: String,
   	password: String,
-    admincode: String
 	}
 });
 

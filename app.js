@@ -3,6 +3,7 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const authRoutes = require('./routes/auth-routes');
 const adminRoutes = require('./routes/auth-admin');
+// const photoUpload = require('./routes/photo-upload');
 const profileRoutes = require('./routes/profile-routes');
 const profileAdmin = require('./routes/profile-admin');
 const passportSetup = require('./config/passport-setup');
@@ -15,6 +16,7 @@ const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
+const multer = require('multer');
 
 
 //App initialize

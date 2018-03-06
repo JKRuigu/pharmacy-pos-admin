@@ -32,11 +32,9 @@ passport.use('local-admin', new LocalStrategy({
 				} else {
         var newAdmin = new Admin();
 					newAdmin.admins.username = email;
-        //  newUser.local.lname = lname;
-        //  newUser.local.tel = tel;
-        //  newUser.local.tel = tel;
+					// newAdmin.admins.lname = lname;
+					// newAdmin.admins.fname = fname;
 					newAdmin.admins.password = newAdmin.generateHash(password);
-
 					newAdmin.save(function(err){
 						if(err)
 							throw err;
