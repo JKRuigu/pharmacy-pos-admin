@@ -9,11 +9,6 @@ const userSchema = new Schema({
     lname:String,
   	password: String
 	},
-  admin: {
-		username: String,
-  		password: String,
-      admincode: String
-	},
   google:{
     googleId: String,
     username: String,

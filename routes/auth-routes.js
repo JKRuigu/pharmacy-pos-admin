@@ -4,6 +4,8 @@ const User = require('../models/user-model');
 const Admin = require('../models/admin-model');
 const LocalStrategy = require('passport-local').Strategy;
 
+// const photoUpload = require('./routes/photo-upload');
+
 // auth login
 router.get('/login', (req, res) => {
     res.render('/', { user: req.user });
@@ -25,6 +27,7 @@ router.get('/auth/google', passport.authenticate('google', {
 // hand control to passport to use code to grab profile info
 router.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
     // res.send(req.user);
+    req.flash('success','successful login')
     res.redirect('/profile');
 });
 
@@ -41,21 +44,20 @@ router.get('/auth/facebook/redirect', passport.authenticate('facebook'), (req, r
 
 //LocalStrategy-get-login
 router.get('/auth/login-local', function(req, res){
-  res.render('/', { message: req.flash('loginMessage') });
+  req.flash('success','successful login')
+  res.render('/');
 });
 
 //LocalStrategy-post-login
 router.post('/auth/login-local', passport.authenticate('local-login', {
   successRedirect: '/profile',
   failureRedirect: '/',
- failureFlash: true
+  failureFlash: true
 }));
 
 //LocalStrategy-register-get
 router.get('/auth/register', function(req, res){
-  res.render('register'
-, { message: req.flash('signupMessage') }
-);
+  res.render('register');
 });
 
 //LocalStrategy-register-post

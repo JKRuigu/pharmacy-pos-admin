@@ -3,7 +3,6 @@ const router = require('express').Router();
 //  isLoggedIn function
 function isLoggedIn(req, res, next) {
   req.admin = req.app.locals.admin;
-
   if (!req.admin) {
     res.redirect('/');
   }else {

@@ -5,7 +5,7 @@ const User = require('../models/user-model');
 const Admin = require('../models/admin-model');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const LocalStrategy = require('passport-local');
 
 var url = 'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON';
 
@@ -26,16 +26,16 @@ router.get('/admin/logout', function(req, res){
 
 
 //Admin Post LocalStrategy-signup
-router.post('/profile/ad-register', passport.authenticate('local-admin', {
-  successRedirect: '/admin',
-  failureRedirect: '/admin',
+router.post('/admin/ad-register', passport.authenticate('local-admin', {
+  successRedirect: '/admin/ad-register',
+  failureRedirect: '/admin/ad-register',
   failureFlash: true
 }));
 
 
 
 //Admin Post LocalStrategy
-router.post('/profile/login-admin', passport.authenticate('admin-login', {
+router.post('/admin/login-admin', passport.authenticate('admin-login', {
   successRedirect: '/admin',
   failureRedirect: '/',
  failureFlash: true

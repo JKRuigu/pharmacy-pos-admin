@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Now UI Dashboard by Creative Tim</title>
+    <title>Admin-register</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -35,7 +35,7 @@
                 <div class="sidebar-wrapper">
                     <ul class="nav">
                         <li class="active">
-                            <a href="../examples/dashboard.html">
+                            <a href="/admin">
                                 <i class="now-ui-icons design_app"></i>
                                 <p>Dashboard</p>
                             </a>
@@ -136,7 +136,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#pablo">
+                                <a class="nav-link" href="/admin/logout"><%=admin.admins.username %>
                                     <i class="now-ui-icons users_single-02"></i>
                                     <p>
                                         <span class="d-lg-none d-md-block">Account</span>
@@ -156,9 +156,12 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="title">Add admin</h5>
+                                <!-- <% if (message.length > 0) { %>
+                              		<div class="alert alert-danger"><%= message %></div>
+                              	<% } %> -->
                             </div>
                             <div class="card-body">
-                                <form action="/profile/ad-register" method="post">
+                                <form action="/admin/ad-register" method="post">
                                     <div class="row">
                                         <div class="col-md-6 pr-1">
                                             <div class="form-group">
@@ -203,16 +206,14 @@
                                 <div class="author">
                                     <a href="#">
                                         <img class="avatar border-gray" src="../assets/img//mike.jpg" alt="...">
-                                        <h5 class="title">Mike Andrew</h5>
+                                        <h5 class="title">pharmacyplus-pos</h5>
                                     </a>
                                     <p class="description">
-                                        michael24
+
                                     </p>
                                 </div>
                                 <p class="description text-center">
-                                    "Lamborghini Mercy
-                                    <br> Your chick she so thirsty
-                                    <br> I'm in that two seat Lambo"
+
                                 </p>
                             </div>
                             <hr>
