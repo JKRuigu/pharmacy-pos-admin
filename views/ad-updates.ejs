@@ -238,19 +238,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-8 ml-auto mr-auto">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <button class="btn btn-primary btn-block" onclick="demo.showNotification('top','left')">Top Left</button>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <button class="btn btn-primary btn-block" onclick="demo.showNotification('top','center')">Top Center</button>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <button class="btn btn-primary btn-block" onclick="demo.showNotification('top','right')">Top Right</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                      <div class="container" id="updates_div"></div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-8 ml-auto mr-auto">
@@ -308,15 +296,37 @@
     </div>
     <script src ="/js/updates.js"></script>
      <script src ="/js/user.js"></script>
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
+     <script  src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="  crossorigin="anonymous"></script>
+     <script src ="/js/updates.js"></script>
+     <script>
+     $(document).ready(function () {
+         $.getJSON("https://api.mlab.com/api/1/databases/pharmacy-updates/collections/updates?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON",
+         function (data) {
+           // console.log(data);
+           var updates_data ='';
+           $.each(data, function (key,value) {
+               updates_data += '<div class="card">';
+               updates_data += '<h6 class="card-header ">' +value.title+'</h6>';
+               updates_data += '<div class="card-body">';
+               updates_data += '<p>' +value.paragraph2+'</p>';
+               updates_data += '<p>' +value.others+'</p>';
+               updates_data += '</div>';
+               updates_data += '<small class="card-footer">' +value.date+ ' Pharmacy-pos:powered by :'+ ' <a href="http://magnumdigitalke.com/" class="card-link">'+'Magnum digital Media Ke'+'</a>'+'  '+'</small>';
+               updates_data += '</div>';
+           });
+           $('#updates_div').append(updates_data);
+         });
+
+     });
+     </script>
 </body>
 <!--   Core JS Files   -->
 <script src="../assets/js/core/jquery.min.js"></script>
 <script src="../assets/js/core/popper.min.js"></script>
 <script src="../assets/js/core/bootstrap.min.js"></script>
 <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-<!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-<!-- Chart JS -->
 <script src="../assets/js/plugins/chartjs.min.js"></script>
 <!--  Notifications Plugin    -->
 <script src="../assets/js/plugins/bootstrap-notify.js"></script>
