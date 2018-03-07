@@ -66,7 +66,6 @@ router.get('/auth/register', function(req, res){
 router.post('/auth/register', passport.authenticate('local-signup', {
   successRedirect: '/',
   failureRedirect: '/'
-
 }));
 
 

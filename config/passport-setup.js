@@ -4,6 +4,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const keys = require('./keys');
 const User = require('../models/user-model');
 const LocalStrategy = require('passport-local').Strategy;
+const swal = require('sweetalert');
 
 
 
@@ -78,7 +79,7 @@ passport.use(
         });
     })
 );
-//LocalStrategy
+// LocalStrategy
 passport.use('local-signup', new LocalStrategy({
 		usernameField: 'email',
   //  lnameField: 'lname',
@@ -105,13 +106,11 @@ passport.use('local-signup', new LocalStrategy({
 					newUser.save(function(err){
 						if(err)
 							throw err;
-            req.app.locals.newUser = newUser;
-
-						return done(null, newUser);
+             req.app.locals.newUser = newUser;
+						return done(null,newUser);
 					})
 				}
 			})
-
 		});
 	}));
 

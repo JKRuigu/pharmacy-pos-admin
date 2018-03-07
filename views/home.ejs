@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-		<title>Pharmacy POS Portal</title>
+		<title>Pharmacy-pos</title>
 		<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Pacifico|Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/css/modal.css">
 </head>
 <body>
 	<div class="container">
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal">GET STARTED</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal">GET STRATED</button>
 		<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 	    	<div class="modal-content">
 	      		<div class="modal-header login_modal_header">
-	        		<h2 class="modal-title " id="myModalLabel">Login to Download</h2>
+	        		<h2 class="modal-title" id="myModalLabel">Login to Your Account</h2>
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 	      		</div>
 	      		<div class="modal-body login-modal">
 
 	      			<hr>
 	      			<div class="clearfix"></div>
-	      			<div id='social-icons-container'> 
+	      			<div id='social-icons-conatainer'>
 		        		<div class="modal-body-left well">
 									<form action="/auth/login-local" method="post" >
 										<div class="form-group">
 				              <input type="text" id="username" placeholder="Enter your Email" name="email" class="form-control login-field" required>
-				              
-							</div>
+				              <i class="fa fa-envelope login-field-icon"></i>
+			            	</div>
 			            	<div class="form-group">
 			            	  <input type="password" id="login-pass" placeholder="Password" name="password" class="form-control login-field" required>
-			              
+			              	<i class="fa fa-lock login-field-icon"></i>
 			            	</div>
 										<button type="submit" class="btn btn-success modal-login-btn">Sign in</button>
 									</form>
@@ -46,8 +46,8 @@
 		        	</div>
 	        		<div class="clearfix"></div>
 							<div class="card-header" id="headingOne">
-								<button class="btn btn-default" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> Register Manually to Login</button>
-								<button class="btn btn-default" data-toggle="collapse" href="#collapseExamp" role="button" aria-expanded="false" aria-controls="collapseExamp"> Login as Admin</button>
+								<button class="btn btn-default" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" id="button"> New User want to Register ?</button>
+								<button class="btn btn-default" data-toggle="collapse" href="#collapseExamp" role="button" aria-expanded="false" aria-controls="collapseExamp"> Admin ?</button>
 							</div>
 							<div id="accordion">
 	        		<div class="form-group modal-register-btn">
@@ -56,18 +56,18 @@
 								  <div class="card card-body">
 										<form action="/auth/register" method="post">
 											<div class="form-group">
-											<input type="text" class="form-control" name="lname" placeholder="Enter your username" >
+											<input type="text" class="form-control" name="lname" placeholder="Enter your username" required>
 											</div>
 											<div class="form-group">
-												<input type="tel" class="form-control" name="tel" placeholder="Enter your Phone number" >
+												<input type="tel" class="form-control" name="tel" placeholder="Enter your Phone number" required>
 											</div>
 											<div class="form-group">
-												<input type="text" class="form-control" name="email"placeholder="Enter your Email" >
+												<input type="email"  name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your Email">
 											</div>
 											<div class="form-group">
-												<input type="password" class="form-control"placeholder="Enter your Password" name="password" >
+												<input type="password" class="form-control"placeholder="Enter your Password" name="password" required>
 											</div>
-											<button type="submit"  class="btn btn-success modal-login-btn" >Sign up</button>
+											<input  type="submit" name="" class="btn btn-success modal-login-btn" value="Sign up">
 										</form>
 								  </div>
 	      		</div>
@@ -82,8 +82,7 @@
 										<label>Password</label>
 										<input type="password" class="form-control" name="password">
 									</div>
-
-									<button type="submit" onclick="validation();" class="btn btn-success modal-login-btn">Sign in</button>
+									<input id="enviar" type="submit" name="" class="btn btn-success modal-login-btn" value="Sign up">
 								</form>
 							</div>
 						</div>
@@ -98,20 +97,18 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
-<script>
-function validation() {
-	// if (form.isValid()) {
-		swal({
-			title: "Good job!",
-			text: "You can now login ",
-			icon: "success",
-			button: "ok"
-			});
-		// }else {
-			// swal("Error!", "invalid !", "error");
-		// };
-	};
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/0.5.0/sweet-alert.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
+		$("#button").click(function() {
+		swal('Want to create new account..?', 'Fill all spaces and try to login after you have signed up' ,'success');
+		});
 </script>
+
 	</body>
 </html>
