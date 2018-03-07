@@ -28,7 +28,7 @@
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
           <div class="logo">
-             
+
               <a href="#" class="simple-text logo-normal">
                   Pharmacy-pos
               </a>
@@ -181,19 +181,22 @@
                                           </button>
                                         </div>
                                         <div class="modal-body">
-                                          <%= typeof msg != 'undefined' ? msg : '' %>
-                                      		<form action="/profile/upload" method="POST" enctype="multipart/form-data">
-                                          	<div class="file-field input-field">
-                                            		<div class="btn grey">
-                                              <span>File</span>
-                                              <input type="file" name="myImage">
+                                          <form id="edit-details">
+                                            <div class="row">
+                                            <div class="form-group col-md-8 " >
+                                              <input type="email" class="form-control" value="<%=user.google.email %>" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                                              <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                                             </div>
-                                            <div class="file-path-wrapper">
-                                              <input class="file-path validate" type="text" placeholder="Click File button to choose your photo">
+                                            <!-- <div class="form-group col-md-8 " >
+                                              <input type="tel" class="form-control" id="tel" aria-describedby="emailHelp" placeholder="Enter tel">
+                                            </div> -->
+
+                                            <div class="form-group col-md-4">
+                                              <input type="submit" name="submit" value="UPDATE" class="btn btn-success">
                                             </div>
                                           </div>
-                                          <button type="sumbit" class="btn">UPLOAD</button>
-                                        </form>
+                                          </div>
+                                          </form>
                                         </div>
                                         <div class="modal-footer">
                                         </div>
@@ -211,26 +214,17 @@
                             <hr>
                             <div class="button-container">
                               <p>link your other social media platform with</p>
-                              <% if(!user.facebook.id) {%>
-                                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                    <i class="fab fa-twitter"></i>
-                                </button>
-                                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                    <i class="fab fa-google-plus-g"></i>
-                                </button>
-                                <%} else{%>
-                                  <form id=add-email>
-                                    <div class="row">
-                                    <div class="form-group col-md-8 " >
-                                      <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-                                      <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                      <input type="submit" name="submit" value="SHARE" class="btn btn-success">
-                                    </div>
-                                  </div>
-                                  </form>
-                                <%}%>
+                                <% if (user.google.token) { %>
+                                   <p>
+                                       <strong>id</strong>: <%= user.google.id %><br>
+                                       <strong>token</strong>: <%= user.google.token %><br>
+                                       <strong>email</strong>: <%= user.google.email %><br>
+                                       <strong>name</strong>: <%= user.google.username %>
+                                   </p>
+                                   <a href="/unlink/google" class="btn btn-danger">Unlink</a>
+                               <% } else { %>
+                                   <a href="/connect/google" class="btn btn-danger">Share your email with Us</a>
+                               <% } %>
                             </div>
                         </div>
                     </div>
@@ -274,6 +268,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
 <script  src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="  crossorigin="anonymous"></script>
 <script src ="/js/updates.js"></script>
+<script src ="/js/edit-details.js"></script>
 
 
     <script>
@@ -297,7 +292,31 @@
 
     });
     </script>
+<script type="text/javascript">
+$(document).ready(function () {
+  $('#edit-details').on('submit',function (e) {
+    e.preventDefault();
+    var email = $('#email').val();
+    $.ajax( {
+      url:'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON&q="user._id"',
+      data: JSON.stringify({
+         "email" :email,
+     }),
+      type: "POST",
+      contentType: "application/json",
+      success:function (data,msg) {
+          window.location.href="contact",
+          alert( msg)
 
+      },
+      error: function (xhr,status,err) {
+        console.log(err);
+      }
+    });
+  });
+});
+
+</script>
 </body>
 <!--   Core JS Files   -->
 <script src="../assets/js/core/jquery.min.js"></script>

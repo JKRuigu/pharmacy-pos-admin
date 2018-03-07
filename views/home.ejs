@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="container">
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal">GET STRATED</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal" style="font-family: 'Pacifico', cursive;">GET STRATED</button>
 		<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 	    	<div class="modal-content">
@@ -27,7 +27,7 @@
 		        		<div class="modal-body-left well">
 									<form action="/auth/login-local" method="post" >
 										<div class="form-group">
-				              <input type="text" id="username" placeholder="Enter your Email" name="email" class="form-control login-field" required>
+											<input type="email"  name="email" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter your Email"  required>
 				              <i class="fa fa-envelope login-field-icon"></i>
 			            	</div>
 			            	<div class="form-group">

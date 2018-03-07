@@ -25,7 +25,7 @@
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
           <div class="logo">
-              
+
               <a href="#" class="simple-text logo-normal">
                   Pharmacy-pos
               </a>
@@ -179,7 +179,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="author">
-                                        <img class="avatar border-gray" src="../assets/img//mike.jpg" alt="...">
+                                        <img class="avatar border-gray" src="../assets/img/mike.jpg" alt="...">
                                         <h6 class="title"><%=user.google.username %><%=user.facebook.name %><%=user.local.username %>, welcome to our suggestion Box</h6>
                                     <p class="description">
                                     </p>
@@ -191,16 +191,9 @@
                             <hr>
                             <div class="button-container">
                               <% if(!user.facebook.id) {%>
-                                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                  <i class="fab fa-facebook-f"></i>
-                                </button>
-                                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                  <i class="fab fa-twitter"></i>
-                                </button>
-                                <%} else{%>
-                                  Share your Email with Us
-                                  <form id=add-email>
-                                    <div class="row">
+                                Share your Email with Us
+                                <form id=add-email>
+                                  <div class="row">
                                     <div class="form-group col-md-8 " >
                                       <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
                                       <small class="form-text text-muted">We'll never share your email with anyone else.</small>
@@ -209,7 +202,14 @@
                                       <input type="submit" name="submit" value="SHARE" class="btn btn-success">
                                     </div>
                                   </div>
-                                  </form>
+                                </form>
+                                <%} else{%>
+                                  <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+                                    <i class="fab fa-facebook-f"></i>
+                                  </button>
+                                  <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+                                    <i class="fab fa-twitter"></i>
+                                  </button>
                                 <%}%>
 
                             </div>

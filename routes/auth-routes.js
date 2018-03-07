@@ -32,9 +32,10 @@ router.get('/auth/google/redirect', passport.authenticate('google'), (req, res) 
 });
 
 //FacebookStrategy
-router.get('/auth/facebook', passport.authenticate('facebook'
-  // {scope: ['email']}
-));
+router.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
+
+//facebook Connnect
+router.get('/connect/facebook', passport.authorize('facebook', { scope: 'email' }));
 
 //FacebookStrategy-redirect
 router.get('/auth/facebook/redirect', passport.authenticate('facebook'), (req, res) => {
@@ -59,6 +60,11 @@ router.post('/auth/login-local', passport.authenticate('local-login', {
 router.get('/auth/register', function(req, res){
   res.render('register');
 });
+
+// connect google
+router.get('/connect/google', passport.authorize('google',{
+  scope: ['profile', 'email']
+}));
 
 
 

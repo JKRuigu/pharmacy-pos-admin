@@ -11,14 +11,16 @@ const userSchema = new Schema({
 	},
   google:{
     googleId: String,
+    token: String,
     username: String,
     thumbnail: String,
     email: String
   },
-  facebook: {
+	facebook: {
 		id: String,
-	   name: String,
-		email: String
+		token: String,
+		email: String,
+		name: String
 	}
 });
 
