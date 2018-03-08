@@ -7,7 +7,7 @@ $(function () {
     success:function (data) {
       $.each(data, function (i, data) {
         if (data.google)
-          $data.append('<tr>'+ '<td>'+data.google.googleId+ '</td>' + '<td>'+data.google.username+ '</td>' + '<td>'+  data.google.email+'</td>' +'</tr');
+          $data.append('<tr>'+'<td>'+data.google.username+ '</td>' + '<td>'+  data.google.email+'</td>' +'</tr');
         }
       );
     }

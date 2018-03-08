@@ -4,6 +4,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const keys = require('./keys');
 const User = require('../models/user-model');
 const LocalStrategy = require('passport-local').Strategy;
+const swal = require('sweetalert');
 
 
 
@@ -19,66 +20,108 @@ passport.deserializeUser((id, done) => {
 
 
 //GoogleStrategy
-passport.use(
-    new GoogleStrategy({
-        // options for google strategy
-        clientID: keys.google.clientID,
-        clientSecret: keys.google.clientSecret,
-        callbackURL: '/auth/google/redirect'
-    }, (accessToken, refreshToken, profile, done) => {
-        // check if user already exists in our own db
-        User.findOne({'google.googleId': profile.id}).then((currentUser) => {
-            if(currentUser){
-                // already have this user
-                // console.log(profile);
-                // console.log('user is: ', currentUser);
-                done(null, currentUser);
-            } else {
-                // if not, create user in our db
-                var newUser = new User();
-  	    				newUser.google.googleId = profile.id;
-                newUser.google.username = profile.displayName;
-                newUser.google.thumbnail = profile._json.image.url;
-                newUser.google.email = profile.emails[0].value;
-                newUser.save().then((newUser) => {
-                  //  console.log('created new user: ', newUser);
-                    done(null, newUser);
-                });
-            }
-        });
-    })
-);
+        passport.use(new GoogleStrategy({
+    	    clientID: keys.google.clientID,
+    	    clientSecret: keys.google.clientSecret,
+    	    callbackURL: '/auth/google/redirect',
+    	    passReqToCallback: true
+    	  },
+    	  function(req, accessToken, refreshToken, profile, done) {
+    	    	process.nextTick(function(){
+
+    	    		if(!req.user){
+    	    			User.findOne({'google.id': profile.id}, function(err, user){
+    		    			if(err)
+    		    				return done(err);
+    		    			if(user)
+    		    				return done(null, user);
+    		    			else {
+    		    				var newUser = new User();
+    		    				newUser.google.googleId = profile.id;
+    		    				newUser.google.token = accessToken;
+    		    				newUser.google.username = profile.displayName;
+    		    				newUser.google.email = profile.emails[0].value;
+
+    		    				newUser.save(function(err){
+    		    					if(err)
+    		    						throw err;
+    		    					return done(null, newUser);
+    		    				})
+    		    			}
+    		    		});
+    	    		} else {
+    	    			var user = req.user;
+    	    			user.google.googleId = profile.id;
+      					user.google.token = accessToken;
+      					user.google.username = profile.displayName;
+      					user.google.email = profile.emails[0].value;
+
+    					user.save(function(err){
+    						if(err)
+    							throw err;
+    						return done(null, user);
+    					});
+    	    		}
+
+    	    	});
+    	    }
+
+    	));
 
 //FacebookStrategy
-passport.use(
-    new FacebookStrategy({
-        // options for google strategy
-        clientID: keys.facebook.clientID,
-        clientSecret: keys.facebook.clientSecret,
-        callbackURL: '/auth/facebook/redirect',
-    }, (accessToken, refreshToken, profile, done) => {
-        // check if user already exists in our own db
-        User.findOne({'facebook.id': profile.id}).then((currentUser) => {
-            if(currentUser){
-                // already have this user
-                //console.log('user is: ', emails);
-                done(null, currentUser);
-            }else {
-	    				var newUser = new User();
-	    				newUser.facebook.id = profile.id;
-	    				newUser.facebook.name = profile.displayName;
-              newUser.facebook.email = '';
-	    				newUser.save(function(err){
-	    					if(err)
-	    						throw err;
-	    					return done(null, newUser);
-	    				})
-	    				console.log(profile.displayName);
-	    			}
-        });
-    })
-);
-//LocalStrategy
+        passport.use(new FacebookStrategy({
+        	    clientID: keys.facebook.clientID,
+        	    clientSecret: keys.facebook.clientSecret,
+        	    callbackURL: '/auth/facebook/redirect',
+        	    passReqToCallback: true
+        	  },
+        	  function(req, accessToken, refreshToken, profile, done) {
+        	    	process.nextTick(function(){
+        	    		//user is not logged in yet
+        	    		if(!req.user){
+        					User.findOne({'facebook.id': profile.id}, function(err, user){
+        		    			if(err)
+        		    				return done(err);
+        		    			if(user)
+        		    				return done(null, user);
+        		    			else {
+        		    				var newUser = new User();
+        		    				newUser.facebook.id = profile.id;
+        		    				newUser.facebook.token = accessToken;
+        		    				newUser.facebook.name = profile.displayName;
+        		    				// newUser.facebook.email = profile.emails[0].value;
+
+        		    				newUser.save(function(err){
+        		    					if(err)
+        		    						throw err;
+                            console.log(profile);
+        		    					return done(null, newUser);
+        		    				})
+        		    			}
+        		    		});
+        	    		}
+
+        	    		//user is logged in already, and needs to be merged
+        	    		else {
+        	    			var user = req.user;
+        	    			user.facebook.id = profile.id;
+        	    			user.facebook.token = accessToken;
+        	    			user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+        	    			user.facebook.email = profile.emails[0].value;
+
+        	    			user.save(function(err){
+        	    				if(err)
+        	    					throw err
+        	    				return done(null, user);
+        	    			})
+        	    		}
+
+        	    	});
+        	    }
+
+        	));
+
+// LocalStrategy
 passport.use('local-signup', new LocalStrategy({
 		usernameField: 'email',
   //  lnameField: 'lname',
@@ -105,11 +148,12 @@ passport.use('local-signup', new LocalStrategy({
 					newUser.save(function(err){
 						if(err)
 							throw err;
-						return done(null, newUser);
+             req.app.locals.newUser = newUser;
+						return done(null,newUser);
+
 					})
 				}
 			})
-
 		});
 	}));
 
@@ -132,7 +176,7 @@ passport.use('local-signup', new LocalStrategy({
             , req.flash('loginMessage', 'invalid password')
             );
 					}
-          done(null,user)
+
 					return done(null, user);
 				});
 			});

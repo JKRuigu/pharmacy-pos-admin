@@ -5,9 +5,10 @@ $(function () {
     type:'GET',
     url:'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON',
     success:function (data) {
+      console.log(data);
       $.each(data,function (i, data) {
             if (data.facebook)
-        $data.append('<tr>'+ '<td>'+data.facebook.id+ '</td>' + '<td>'+data.facebook.name+ '</td>'+'</td');
+        $data.append('<tr>'+ '<td>'+data.facebook.name+ '</td>' + '<td>'+data.google.email+ '</td>'+'</td');
       });
     }
   });
