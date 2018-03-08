@@ -19,6 +19,26 @@
 </head>
 
 <body class="">
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : keys.facebook.clientID,
+      xfbml      : true,
+      version    : 'v2.12'
+    });
+
+    FB.AppEvents.logPageView();
+
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
     <div class="wrapper ">
         <div class="sidebar" data-color="orange">
             <!--
@@ -59,6 +79,12 @@
                         <a href="/admin/ad-register">
                             <i class="now-ui-icons users_single-02"></i>
                             <p>Add Admins</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://web.facebook.com/analytics/388180578274860/?section=dashboards&view=DETAILS&dashboard_id=400366097056308&since=1517961600000&until=1520294400000">
+                            <i class="now-ui-icons users_single-02"></i>
+                            <p>Facebook analytics</p>
                         </a>
                     </li>
                     <!-- <li>

@@ -22,6 +22,26 @@
 </head>
 
 <body class="">
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : keys.facebook.clientID,
+      xfbml      : true,
+      version    : 'v2.12'
+    });
+
+    FB.AppEvents.logPageView();
+
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
     <div class="wrapper ">
         <div class="sidebar" data-color="green">
             <!--
@@ -221,7 +241,7 @@
                                        <strong>email</strong>: <%= user.google.email %><br>
                                        <strong>name</strong>: <%= user.google.username %>
                                    </p>
-                                   <a href="/unlink/google" class="btn btn-danger">Unlink</a>
+                                   <a href="/unlink/google" class="btn btn-danger">You have coonected your facebook Account</a>
                                <% } else { %>
                                    <a href="/connect/google" class="btn btn-danger">Share your email with Us</a>
                                <% } %>
