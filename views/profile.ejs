@@ -43,6 +43,7 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
     <div class="wrapper ">
+<<<<<<< HEAD
         <div class="sidebar" data-color="green">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
@@ -99,6 +100,58 @@
               </ul>
           </div>
       </div>
+=======
+        <div class="sidebar" data-color="orange">
+            <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+            <div class="logo">
+                <a href="#" class="simple-text logo-normal">
+                    Pharmacy-pos
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="active">
+                        <a href="/profile">
+                            <i class="now-ui-icons design_app"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                     <li>
+                          <a href="/profile/contact">
+                            <i class="now-ui-icons ui-1_email-85"></i>
+                            <p>Contact Us</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/profile/services">
+                            <i class="now-ui-icons ui-1_zoom-bold"></i>
+                            <p>More services</p>
+                        </a>
+                    </li>
+                        <!-- <a href="#">
+                            <i class="now-ui-icons design_bullet-list-67"></i>
+                            <p>Table List</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="now-ui-icons text_caps-small"></i>
+                            <p>Typography</p>
+                        </a>
+                    </li>
+                    <li class="#">
+                        <a href="#">
+                            <i class="now-ui-icons arrows-1_cloud-download-93"></i>
+                            <p>Upgrade to PRO</p>
+                        </a>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+>>>>>>> 5464ed838a477bd412f0797f8339ed98318f0576
             <!-- Navbar -->
           <div class="main-panel">
             <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
@@ -162,8 +215,14 @@
                 </div>
             </nav>
             <!-- End Navbar -->
+<<<<<<< HEAD
             <div class="panel-header panel-header-sm">
             </div>
+=======
+            <div class="panel-header panel-header-sm"></div>
+
+
+>>>>>>> 5464ed838a477bd412f0797f8339ed98318f0576
             <div class="content">
                 <div class="row">
                     <div class="col-md-8">
@@ -255,6 +314,7 @@
                     <nav>
                         <ul>
                             <li>
+<<<<<<< HEAD
                                 <a href="#">
                                     Creative Tim
                                 </a>
@@ -267,8 +327,13 @@
                             <li>
                                 <a href="http://blog.creative-tim.com">
                                     Blog
+=======
+                                <a href="https://pharmacypluspos.com">
+                                    Go to Home Page
+>>>>>>> 5464ed838a477bd412f0797f8339ed98318f0576
                                 </a>
                             </li>
+
                         </ul>
                     </nav>
                     <div class="copyright">
@@ -276,13 +341,14 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>, Designed by
-                        <a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by
-                        <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+                        <a href="https://magnumdigitalke.com" target="_blank">Magnum</a>.
+
                     </div>
                 </div>
             </footer>
         </div>
     </div>
+<<<<<<< HEAD
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
@@ -337,6 +403,33 @@ $(document).ready(function () {
 });
 
 </script>
+=======
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
+    <script  src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="  crossorigin="anonymous"></script>
+    <script src ="/js/updates.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.getJSON("https://api.mlab.com/api/1/databases/pharmacy-updates/collections/updates?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON",
+            function (data) {
+              // console.log(data);
+              var updates_data ='';
+              $.each(data, function (key,value) {
+                  updates_data += '<div class="card">';
+                  updates_data += '<h6 class="card-header ">' +value.title+'</h6>';
+                  updates_data += '<div class="card-body">';
+                  updates_data += '<p>' +value.paragraph2+'</p>';
+                  updates_data += '<p>' +value.others+'</p>';
+                  updates_data += '</div>';
+                  updates_data += '<small class="card-footer">' +value.date+ ' Pharmacy-pos:powered by :'+ ' <a href="http://magnumdigitalke.com/" class="card-link">'+'Magnum digital Media Ke'+'</a>'+'  '+'</small>';
+                  updates_data += '</div>';
+              });
+              $('#updates_div').append(updates_data);
+            });
+
+        });
+        </script>
+>>>>>>> 5464ed838a477bd412f0797f8339ed98318f0576
 </body>
 <!--   Core JS Files   -->
 <script src="../assets/js/core/jquery.min.js"></script>
@@ -350,5 +443,6 @@ $(document).ready(function () {
 <script src="../assets/js/now-ui-dashboard.js?v=1.0.1"></script>
 <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
 <script src="../assets/demo/demo.js"></script>
+
 
 </html>
