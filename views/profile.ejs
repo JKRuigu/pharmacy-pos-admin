@@ -6,20 +6,101 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Customer's Dashboard</title>
+    <title>Contact</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/cosmo/bootstrap.min.css">
     <!-- CSS Files -->
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="/assets/demo/demo.css" rel="stylesheet" />
+    <link href="../assets/demo/demo.css" rel="stylesheet" />
 </head>
 
 <body class="">
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : keys.facebook.clientID,
+      xfbml      : true,
+      version    : 'v2.12'
+    });
+
+    FB.AppEvents.logPageView();
+
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
     <div class="wrapper ">
+<<<<<<< HEAD
+        <div class="sidebar" data-color="green">
+            <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+          <div class="logo">
+
+              <a href="#" class="simple-text logo-normal">
+                  Pharmacy-pos
+              </a>
+          </div>
+          <div class="sidebar-wrapper">
+              <ul class="nav">
+                  <li class="active">
+                      <a href="/profile">
+                          <i class="now-ui-icons design_app"></i>
+                          <p>Dashboard</p>
+                      </a>
+                  </li>
+                  <li>
+                    <a href="/profile/update">
+                          <i class="now-ui-icons arrows-1_refresh-69"></i>
+                          <p>Updates</p>
+                      </a>
+                  </li>
+                  <li>
+                        <a href="/profile/contact">
+                          <i class="now-ui-icons ui-1_email-85"></i>
+                          <p>Contact Us</p>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="/profile/services">
+                          <i class="now-ui-icons ui-1_zoom-bold"></i>
+                          <p>More services</p>
+                      </a>
+                  </li>
+                      <!-- <a href="#">
+                          <i class="now-ui-icons design_bullet-list-67"></i>
+                          <p>Table List</p>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#">
+                          <i class="now-ui-icons text_caps-small"></i>
+                          <p>Typography</p>
+                      </a>
+                  </li>
+                  <li class="#">
+                      <a href="#">
+                          <i class="now-ui-icons arrows-1_cloud-download-93"></i>
+                          <p>Upgrade to PRO</p>
+                      </a>
+                  </li> -->
+              </ul>
+          </div>
+      </div>
+=======
         <div class="sidebar" data-color="orange">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
@@ -70,7 +151,9 @@
             </div>
         </div>
         <div class="main-panel">
+>>>>>>> 5464ed838a477bd412f0797f8339ed98318f0576
             <!-- Navbar -->
+          <div class="main-panel">
             <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
@@ -81,7 +164,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo">This is your Pharmacy Plus POS Dashboard</a>
+                        <a class="navbar-brand" href="#pablo">User Profile</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -95,19 +178,18 @@
                                 <span class="input-group-addon">
                                     <i class="now-ui-icons ui-1_zoom-bold"></i>
                                 </span>
-
-                              </div>
+                            </div>
                         </form>
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <!-- <i class="now-ui-icons media-2_sound-wave"></i> -->
+                                <a class="nav-link" href="#pablo">
+                                    <i class="now-ui-icons media-2_sound-wave"></i>
                                     <p>
                                         <span class="d-lg-none d-md-block">Stats</span>
                                     </p>
                                 </a>
                             </li>
-                            <!-- <li class="nav-item dropdown">
+                            <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="now-ui-icons location_world"></i>
                                     <p>
@@ -119,11 +201,11 @@
                                     <a class="dropdown-item" href="#">Another action</a>
                                     <a class="dropdown-item" href="#">Something else here</a>
                                 </div>
-                            </li> -->
+                            </li>
                             <li class="nav-item">
-                                   <p>You are logged in as </p> <a class="nav-link" href="/auth/logout" id="logoutlink"><p><%=user.google.username %><%=user.facebook.name %><%=user.local.username %></p> Log Out
-                                        <i class="now-ui-icons users_single-02"></i>
-                                        <p>
+                                <a class="nav-link" href="/auth/logout" id="logoutlink"><p><%=user.google.username %><%=user.facebook.name %><%=user.local.username %></p> Log Out
+                                    <i class="now-ui-icons users_single-02"></i>
+                                    <p>
                                         <span class="d-lg-none d-md-block">Account</span>
                                     </p>
                                 </a>
@@ -133,9 +215,14 @@
                 </div>
             </nav>
             <!-- End Navbar -->
+<<<<<<< HEAD
+            <div class="panel-header panel-header-sm">
+            </div>
+=======
             <div class="panel-header panel-header-sm"></div>
 
-            
+
+>>>>>>> 5464ed838a477bd412f0797f8339ed98318f0576
             <div class="content">
                 <div class="row">
                     <div class="col-md-8">
@@ -173,19 +260,22 @@
                                           </button>
                                         </div>
                                         <div class="modal-body">
-                                          <%= typeof msg != 'undefined' ? msg : '' %>
-                                      		<form action="/profile/upload" method="POST" enctype="multipart/form-data">
-                                          	<div class="file-field input-field">
-                                            		<div class="btn grey">
-                                              <span>File</span>
-                                              <input type="file" name="myImage">
+                                          <form id="edit-details">
+                                            <div class="row">
+                                            <div class="form-group col-md-8 " >
+                                              <input type="email" class="form-control" value="<%=user.google.email %>" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                                              <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                                             </div>
-                                            <div class="file-path-wrapper">
-                                              <input class="file-path validate" type="text" placeholder="Click File button to choose your photo">
+                                            <!-- <div class="form-group col-md-8 " >
+                                              <input type="tel" class="form-control" id="tel" aria-describedby="emailHelp" placeholder="Enter tel">
+                                            </div> -->
+
+                                            <div class="form-group col-md-4">
+                                              <input type="submit" name="submit" value="UPDATE" class="btn btn-success">
                                             </div>
                                           </div>
-                                          <button type="sumbit" class="btn">UPLOAD</button>
-                                        </form>
+                                          </div>
+                                          </form>
                                         </div>
                                         <div class="modal-footer">
                                         </div>
@@ -203,26 +293,17 @@
                             <hr>
                             <div class="button-container">
                               <p>link your other social media platform with</p>
-                              <% if(!user.facebook.id) {%>
-                                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                    <i class="fab fa-twitter"></i>
-                                </button>
-                                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                    <i class="fab fa-google-plus-g"></i>
-                                </button>
-                                <%} else{%>
-                                  <form id=add-email>
-                                    <div class="row">
-                                    <div class="form-group col-md-8 " >
-                                      <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-                                      <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                      <input type="submit" name="submit" value="SHARE" class="btn btn-success">
-                                    </div>
-                                  </div>
-                                  </form>
-                                <%}%>
+                                <% if (user.google.token) { %>
+                                   <p>
+                                       <strong>id</strong>: <%= user.google.id %><br>
+                                       <strong>token</strong>: <%= user.google.token %><br>
+                                       <strong>email</strong>: <%= user.google.email %><br>
+                                       <strong>name</strong>: <%= user.google.username %>
+                                   </p>
+                                   <a href="/unlink/google" class="btn btn-danger">You have coonected your facebook Account</a>
+                               <% } else { %>
+                                   <a href="/connect/google" class="btn btn-danger">Share your email with Us</a>
+                               <% } %>
                             </div>
                         </div>
                     </div>
@@ -233,11 +314,26 @@
                     <nav>
                         <ul>
                             <li>
-                                <a href="https://pharmacypluspos.com">
-                                    Go to Home Page
+<<<<<<< HEAD
+                                <a href="#">
+                                    Creative Tim
                                 </a>
                             </li>
-                                                       
+                            <li>
+                                <a href="http://presentation.creative-tim.com">
+                                    About Us
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://blog.creative-tim.com">
+                                    Blog
+=======
+                                <a href="https://pharmacypluspos.com">
+                                    Go to Home Page
+>>>>>>> 5464ed838a477bd412f0797f8339ed98318f0576
+                                </a>
+                            </li>
+
                         </ul>
                     </nav>
                     <div class="copyright">
@@ -245,13 +341,69 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>, Designed by
-                        <a href="https://magnumdigitalke.com" target="_blank">Magnum</a>. 
-                        
+                        <a href="https://magnumdigitalke.com" target="_blank">Magnum</a>.
+
                     </div>
                 </div>
             </footer>
         </div>
     </div>
+<<<<<<< HEAD
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
+<script  src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="  crossorigin="anonymous"></script>
+<script src ="/js/updates.js"></script>
+
+
+
+    <script>
+    $(document).ready(function () {
+        $.getJSON("https://api.mlab.com/api/1/databases/pharmacy-updates/collections/updates?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON",
+        function (data) {
+          // console.log(data);
+          var updates_data ='';
+          $.each(data, function (key,value) {
+              updates_data += '<div class="card">';
+              updates_data += '<h6 class="card-header ">' +value.title+'</h6>';
+              updates_data += '<div class="card-body">';
+              updates_data += '<p>' +value.paragraph2+'</p>';
+              updates_data += '<p>' +value.others+'</p>';
+              updates_data += '</div>';
+              updates_data += '<small class="card-footer">' +value.date+ ' Pharmacy-pos:powered by :'+ ' <a href="http://magnumdigitalke.com/" class="card-link">'+'Magnum digital Media Ke'+'</a>'+'  '+'</small>';
+              updates_data += '</div>';
+          });
+          $('#updates_div').append(updates_data);
+        });
+
+    });
+    </script>
+<script type="text/javascript">
+$(document).ready(function () {
+  $('#edit-details').on('submit',function (e) {
+    e.preventDefault();
+    var email = $('#email').val();
+    $.ajax( {
+      url:'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON&q="user._id"',
+      data: JSON.stringify({
+         "email" :email,
+     }),
+      type: "POST",
+      contentType: "application/json",
+      success:function (data,msg) {
+          window.location.href="contact",
+          alert( msg)
+
+      },
+      error: function (xhr,status,err) {
+        console.log(err);
+      }
+    });
+  });
+});
+
+</script>
+=======
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
     <script  src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="  crossorigin="anonymous"></script>
@@ -274,18 +426,16 @@
               });
               $('#updates_div').append(updates_data);
             });
-    
+
         });
         </script>
+>>>>>>> 5464ed838a477bd412f0797f8339ed98318f0576
 </body>
 <!--   Core JS Files   -->
 <script src="../assets/js/core/jquery.min.js"></script>
 <script src="../assets/js/core/popper.min.js"></script>
 <script src="../assets/js/core/bootstrap.min.js"></script>
 <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-<!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-<!-- Chart JS -->
 <script src="../assets/js/plugins/chartjs.min.js"></script>
 <!--  Notifications Plugin    -->
 <script src="../assets/js/plugins/bootstrap-notify.js"></script>
@@ -293,12 +443,6 @@
 <script src="../assets/js/now-ui-dashboard.js?v=1.0.1"></script>
 <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
 <script src="../assets/demo/demo.js"></script>
-<script>
-    $(document).ready(function() {
-        // Javascript method's body can be found in assets/js/demos.js
-        demo.initDashboardPageCharts();
-    });
-</script>
 
 
 </html>

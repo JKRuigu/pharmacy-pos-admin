@@ -2,3 +2,4 @@ node_modules/
 npm-debug.json
 .env-copy
 .env
+update.ejs
