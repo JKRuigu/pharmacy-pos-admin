@@ -24,6 +24,7 @@
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
+<<<<<<< HEAD
             <div class="logo">
                 <a href="#" class="simple-text logo-normal">
                     Pharmacy-pos
@@ -69,6 +70,60 @@
                 </ul>
             </div>
         </div>
+=======
+          <div class="logo">
+
+              <a href="#" class="simple-text logo-normal">
+                  Pharmacy-pos
+              </a>
+          </div>
+          <div class="sidebar-wrapper">
+              <ul class="nav">
+                  <li class="active">
+                      <a href="/profile">
+                          <i class="now-ui-icons design_app"></i>
+                          <p>Dashboard</p>
+                      </a>
+                  </li>
+                  <li>
+                    <a href="/profile/update">
+                          <i class="now-ui-icons arrows-1_refresh-69"></i>
+                          <p>Updates</p>
+                      </a>
+                  </li>
+                  <li>
+                        <a href="/profile/contact">
+                          <i class="now-ui-icons ui-1_email-85"></i>
+                          <p>Contact Us</p>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="/profile/services">
+                          <i class="now-ui-icons ui-1_zoom-bold"></i>
+                          <p>More services</p>
+                      </a>
+                  </li>
+                      <!-- <a href="#">
+                          <i class="now-ui-icons design_bullet-list-67"></i>
+                          <p>Table List</p>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#">
+                          <i class="now-ui-icons text_caps-small"></i>
+                          <p>Typography</p>
+                      </a>
+                  </li>
+                  <li class="#">
+                      <a href="#">
+                          <i class="now-ui-icons arrows-1_cloud-download-93"></i>
+                          <p>Upgrade to PRO</p>
+                      </a>
+                  </li> -->
+              </ul>
+          </div>
+      </div>
+>>>>>>> 7945c69d8f254a4c0e57241df11aca2e57df8a75
             <!-- Navbar -->
           <div class="main-panel">
             <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
@@ -172,7 +227,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="author">
-                                        <img class="avatar border-gray" src="../assets/img//mike.jpg" alt="...">
+                                        <img class="avatar border-gray" src="../assets/img/mike.jpg" alt="...">
                                         <h6 class="title"><%=user.google.username %><%=user.facebook.name %><%=user.local.username %>, welcome to our suggestion Box</h6>
                                     <p class="description">
                                     </p>
@@ -184,16 +239,9 @@
                             <hr>
                             <div class="button-container">
                               <% if(!user.facebook.id) {%>
-                                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                  <i class="fab fa-facebook-f"></i>
-                                </button>
-                                <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                  <i class="fab fa-twitter"></i>
-                                </button>
-                                <%} else{%>
-                                  Share your Email with Us
-                                  <form id=add-email>
-                                    <div class="row">
+                                Share your Email with Us
+                                <form id=add-email>
+                                  <div class="row">
                                     <div class="form-group col-md-8 " >
                                       <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
                                       <small class="form-text text-muted">We'll never share your email with anyone else.</small>
@@ -202,7 +250,14 @@
                                       <input type="submit" name="submit" value="SHARE" class="btn btn-success">
                                     </div>
                                   </div>
-                                  </form>
+                                </form>
+                                <%} else{%>
+                                  <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+                                    <i class="fab fa-facebook-f"></i>
+                                  </button>
+                                  <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
+                                    <i class="fab fa-twitter"></i>
+                                  </button>
                                 <%}%>
 
                             </div>
