@@ -10,7 +10,7 @@ const userSchema = new Schema({
   	password: String
 	},
   google:{
-    googleId: String,
+    id: String,
     token: String,
     username: String,
     thumbnail: String,

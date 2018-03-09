@@ -60,22 +60,23 @@ router.post('/auth/login-local', passport.authenticate('local-login', {
   failureFlash: true
 }));
 
-//LocalStrategy-register-get
-router.get('/auth/register', function(req, res){
-  res.render('register');
-});
 
 // connect google
 router.get('/connect/google', passport.authorize('google',{
   scope: ['profile', 'email']
 }));
 
+//LocalStrategy-register-get
+router.get('/auth/register', function(req, res){
+  res.render('register',{message:req.flash('signupMessage')});
+});
 
 
 //LocalStrategy-register-post
 router.post('/auth/register', passport.authenticate('local-signup', {
   successRedirect: '/',
-  failureRedirect: '/'
+  failureRedirect: '/',
+  failureFlash:true
 }));
 
 
