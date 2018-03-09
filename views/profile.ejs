@@ -6,14 +6,11 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Contact</title>
+    <title>Now UI Dashboard by Creative Tim</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/cosmo/bootstrap.min.css">
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
@@ -43,18 +40,19 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
     <div class="wrapper ">
-        <div class="sidebar" data-color="green">
+        <div class="sidebar" data-color="orange">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
             <div class="logo">
+
                 <a href="#" class="simple-text logo-normal">
                     Pharmacy-pos
                 </a>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="active">
+                    <li class="active">>
                         <a href="/profile">
                             <i class="now-ui-icons design_app"></i>
                             <p>Dashboard</p>
@@ -94,7 +92,6 @@
         </div>
         <div class="main-panel">
             <!-- Navbar -->
-          <div class="main-panel">
             <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
@@ -105,7 +102,6 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo">User Profile</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -131,7 +127,7 @@
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="now-ui-icons location_world"></i>
                                     <p>
                                         <span class="d-lg-none d-md-block">Some Actions</span>
@@ -144,9 +140,18 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/auth/logout" id="logoutlink"><p><%=user.google.username %><%=user.facebook.name %><%=user.local.username %></p> Log Out
-                                    <i class="now-ui-icons users_single-02"></i>
-                                    <p>
+                                 <a class="nav-link" href="/auth/logout" id="logoutlink"><p>
+                                   <% if (user.facebook.name) { %>
+                                   <% if (!user.google.email) { %>
+                                     <%=user.facebook.name %>
+                                  <% } else { %>
+                                    <%=user.google.email %>
+                                  <% } %>
+                                  <% } %>
+                                  <%=user.local.username %>
+                                  </p> Log Out
+                                      <i class="now-ui-icons users_single-02"></i>
+                                      <p>
                                         <span class="d-lg-none d-md-block">Account</span>
                                     </p>
                                 </a>
@@ -156,88 +161,119 @@
                 </div>
             </nav>
             <!-- End Navbar -->
-
+            <div class="panel-header panel-header-sm">
+                <div class="header text-center">
+                    <!-- <h3 class="title">Other Services from Magnum</h3> -->
+                </div>
+            </div>
             <div class="content">
-                <div class="row">
-                    <div class="col-md-8">
+
+                    <div class="col-md-6">
                         <div class="card">
-                            <div class="card-header">
-                                <h5 class="title">Latest Updates</h5>
-                            </div>
-                            <div class="card-body">
-                              <div class="panel-body">
-                                <div class="container" id="updates_div"></div>
-                              </div>
-                            </div>
+
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card card-user">
-                            <div class="image">
-                                <img src="../assets/img//bg5.jpg" alt="...">
-                            </div>
+                    <div class="col-md-12">
+                        <div class="card">
                             <div class="card-body">
-                                <div class="author">
-                                  <img src="	<%= typeof file != 'undefined' ? file : '' %>" class="avatar border-gray">
-                                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                                    Edit your profile
-                                    </button>
+                                <div class="places-buttons">
+                                    <div class="row">
 
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h5 class="modal-title" id="exampleModalLongTitle">Modify your profile</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                          </button>
-                                        </div>
-                                        <div class="modal-body">
-                                          <form id="edit-details">
-                                            <div class="row">
-                                            <div class="form-group col-md-8 " >
-                                              <input type="email" class="form-control" value="<%=user.google.email %>" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-                                              <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                            </div>
-                                            <!-- <div class="form-group col-md-8 " >
-                                              <input type="tel" class="form-control" id="tel" aria-describedby="emailHelp" placeholder="Enter tel">
-                                            </div> -->
+                                                  <div class="content">
+                                                      <div class="row">
+                                                          <div class="col-md-8">
+                                                              <div class="card">
+                                                                  <div class="card-header">
+                                                                      <h5 class="title">Latest Updates</h5>
+                                                                  </div>
+                                                                  <div class="card-body">
+                                                                    <div class="panel-body">
+                                                                      <div class="container" id="updates_div"></div>
+                                                                    </div>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="col-md-4">
+                                                              <div class="card card-user">
+                                                                  <div class="image">
+                                                                      <img src="../assets/img//bg5.jpg" alt="...">
+                                                                  </div>
+                                                                  <div class="card-body">
+                                                                      <div class="author">
+                                                                        <img src="	<%= typeof file != 'undefined' ? file : '' %>" class="avatar border-gray">
+                                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                                                          Edit your profile
+                                                                          </button>
 
-                                            <div class="form-group col-md-4">
-                                              <input type="submit" name="submit" value="UPDATE" class="btn btn-success">
-                                            </div>
-                                          </div>
-                                          </div>
-                                          </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                        </div>
-                                      </div>
+                                                                          <!-- Modal -->
+                                                                          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                          <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                            <div class="modal-content">
+                                                                              <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLongTitle">Modify your profile</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                  <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                              </div>
+                                                                              <div class="modal-body">
+                                                                                <form id="edit-details">
+                                                                                  <div class="row">
+                                                                                  <div class="form-group col-md-8 " >
+                                                                                    <input type="email" class="form-control" value="<%=user.google.email %>" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                                                                                    <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                                                                  </div>
+                                                                                  <!-- <div class="form-group col-md-8 " >
+                                                                                    <input type="tel" class="form-control" id="tel" aria-describedby="emailHelp" placeholder="Enter tel">
+                                                                                  </div> -->
+
+                                                                                  <div class="form-group col-md-4">
+                                                                                    <input type="submit" name="submit" value="UPDATE" class="btn btn-success">
+                                                                                  </div>
+                                                                                </div>
+                                                                                </div>
+                                                                                </form>
+                                                                              </div>
+                                                                              <div class="modal-footer">
+                                                                              </div>
+                                                                            </div>
+                                                                          </div>
+                                                                          </div>
+                                                                              <h6 class="title">
+                                                                                <% if (user.facebook.name) { %>
+                                                                                <% if (!user.google.email) { %>
+                                                                                  <%=user.facebook.name %>
+                                                                               <% } else { %>
+                                                                                 <%=user.google.email %>
+                                                                               <% } %>
+                                                                               <% } %>
+                                                                                 <%=user.local.username %>
+                                                                              </h6><p>we make sure you get every update we make..!!</p>
+
+                                                                          </p>
+                                                                      </div>
+                                                                      <p class="description text-center">
+                                                                      </p>
+                                                                  </div>
+                                                                  <hr>
+                                                                  <div class="button-container">
+                                                                    <p>link your other social media platform with</p>
+                                                                      <% if (user.local.username) { %>
+                                                                        <% } else { %>
+                                                                      <% if (user.google.email) { %>
+                                                                         <a href="#" class="btn btn-default">You have connected your google Account</a>
+                                                                     <% } else { %>
+                                                                         <a href="/connect/google" class="btn btn-danger">Share your email with Us</a>
+                                                                     <% } %>
+                                                                     <% } %>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
                                     </div>
-                                    </div>
-                                        <h6 class="title"><%=user.google.username %><%=user.facebook.name %><%=user.local.username %>, </h6><p>we make sure you get every update we make..!!</p>
-                                    <p class="description">
-                                    </p>
+                                    <div class="row">
+
                                 </div>
-                                <p class="description text-center">
-                                  We are the best pharmacy software dealers in Kenya
-                                </p>
-                            </div>
-                            <hr>
-                            <div class="button-container">
-                              <p>link your other social media platform with</p>
-                                <% if (user.google.token) { %>
-                                   <p>
-                                       <strong>id</strong>: <%= user.google.id %><br>
-                                       <strong>token</strong>: <%= user.google.token %><br>
-                                       <strong>email</strong>: <%= user.google.email %><br>
-                                       <strong>name</strong>: <%= user.google.username %>
-                                   </p>
-                                   <a href="/unlink/google" class="btn btn-danger">You have coonected your facebook Account</a>
-                               <% } else { %>
-                                   <a href="/connect/google" class="btn btn-danger">Share your email with Us</a>
-                               <% } %>
                             </div>
                         </div>
                     </div>
@@ -267,67 +303,13 @@
             </footer>
         </div>
     </div>
-<<<<<<< HEAD
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
-<script  src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="  crossorigin="anonymous"></script>
-<script src ="/js/updates.js"></script>
-
-
-
-    <script>
-    $(document).ready(function () {
-        $.getJSON("https://api.mlab.com/api/1/databases/pharmacy-updates/collections/updates?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON",
-        function (data) {
-          // console.log(data);
-          var updates_data ='';
-          $.each(data, function (key,value) {
-              updates_data += '<div class="card">';
-              updates_data += '<h6 class="card-header ">' +value.title+'</h6>';
-              updates_data += '<div class="card-body">';
-              updates_data += '<p>' +value.paragraph2+'</p>';
-              updates_data += '<p>' +value.others+'</p>';
-              updates_data += '</div>';
-              updates_data += '<small class="card-footer">' +value.date+ ' Pharmacy-pos:powered by :'+ ' <a href="http://magnumdigitalke.com/" class="card-link">'+'Magnum digital Media Ke'+'</a>'+'  '+'</small>';
-              updates_data += '</div>';
-          });
-          $('#updates_div').append(updates_data);
-        });
-
-    });
     </script>
-<script type="text/javascript">
-$(document).ready(function () {
-  $('#edit-details').on('submit',function (e) {
-    e.preventDefault();
-    var email = $('#email').val();
-    $.ajax( {
-      url:'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON&q="user._id"',
-      data: JSON.stringify({
-         "email" :email,
-     }),
-      type: "POST",
-      contentType: "application/json",
-      success:function (data,msg) {
-          window.location.href="contact",
-          alert( msg)
-
-      },
-      error: function (xhr,status,err) {
-        console.log(err);
-      }
-    });
-  });
-});
-
-</script>
-=======
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
     <script  src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="  crossorigin="anonymous"></script>
     <script src ="/js/updates.js"></script>
-    <script>
+
+        <script>
         $(document).ready(function () {
             $.getJSON("https://api.mlab.com/api/1/databases/pharmacy-updates/collections/updates?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON",
             function (data) {
@@ -348,13 +330,39 @@ $(document).ready(function () {
 
         });
         </script>
->>>>>>> 5464ed838a477bd412f0797f8339ed98318f0576
+    <script type="text/javascript">
+    $(document).ready(function () {
+      $('#edit-details').on('submit',function (e) {
+        e.preventDefault();
+        var email = $('#email').val();
+        $.ajax( {
+          url:'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON&q="user._id"',
+          data: JSON.stringify({
+             "email" :email,
+         }),
+          type: "POST",
+          contentType: "application/json",
+          success:function (data,msg) {
+              window.location.href="contact",
+              alert( msg)
+
+          },
+          error: function (xhr,status,err) {
+            console.log(err);
+          }
+        });
+      });
+    });
+
+    </script>
+
 </body>
 <!--   Core JS Files   -->
 <script src="../assets/js/core/jquery.min.js"></script>
 <script src="../assets/js/core/popper.min.js"></script>
 <script src="../assets/js/core/bootstrap.min.js"></script>
 <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+
 <script src="../assets/js/plugins/chartjs.min.js"></script>
 <!--  Notifications Plugin    -->
 <script src="../assets/js/plugins/bootstrap-notify.js"></script>
@@ -362,6 +370,5 @@ $(document).ready(function () {
 <script src="../assets/js/now-ui-dashboard.js?v=1.0.1"></script>
 <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
 <script src="../assets/demo/demo.js"></script>
-
 
 </html>
