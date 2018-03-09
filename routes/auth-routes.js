@@ -16,6 +16,10 @@ router.get('/auth/logout', (req, res) => {
     req.logout();
     res.redirect('/');
 });
+// google Analytics
+router.get('/auth/HelloAnalytics', (req, res) => {
+    res.render('HelloAnalytics');
+});
 
 
 // auth with google+
