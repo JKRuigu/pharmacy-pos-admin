@@ -1,0 +1,149 @@
+<%- include('../partials/header.ejs', {title: "Subscribed users"});%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+<div class="panel-header panel-header-sm">
+  <div class="header text-center">
+    <h3 class="title">Subscribed users</h3>
+  </div>
+</div>
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Users</h5>
+          <div class="container" >
+            <h4>Google Users</h4>
+            <table class="table table-bordered table-hover table-striped">
+              <thead>
+                <tr>
+                  <th>ID #</th>
+                  <th>Username/ Email</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="userTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="activate-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Subscription modal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" id="activateForm" class="form">
+        <div class="modal-body">
+          <h3 id="user"></h3>
+          <div class="form-group">
+            <label for="time">Select a subscription package</label>
+            <select name="time" id="time" class="form-control" onchange="getOption()">
+              <option value="nul">-- Select a subscription package --</option>
+              <option value="0">Months</option>
+              <option value="1">Years</option>
+              <option value="2">Life time</option>
+            </select>
+          </div>
+          <div class="form-group" style="display: none;" id="monthsInput">
+            <label for="months">Select no. of months</label>
+            <input type="text" id="months" name="months" class="form-control">
+          </div>
+          <div class="form-group" style="display: none;" id="yearsInput">
+            <label for="years">Select no. of years</label>
+            <input type="text" id="years" name="years" class="form-control">
+          </div>
+          <input type="hidden" id="userId" name="userId">
+        </div>
+        <div class="modal-footer">
+          <p id="activationError"></p>
+          <button type="submit" class="btn btn-primary">Activate</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  $(function () {
+    var userTable = $("#userTable");
+    $.ajax({
+      type:'GET',
+      url:'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON',
+      success:function (users) {
+        $.each(users,function (i, data) {
+          let id = data._id.$oid;
+          if (data.local){
+            userTable.append('<tr><td>'+(i+1)+'</td><td>'+data.local.username+ '</td><td><buttton class="btn btn-sm btn-success" onClick="showActivateModal(\''+id+'\')">Activate</buttton><button class="btn btn-warning btn-sm">Deactivate</button><button class="btn btn-danger btn-sm">Delete</button></td></tr>');
+          }
+          if (data.facebook) {
+            userTable.append('<tr><td>'+(i+1)+'</td><td>'+data.facebook.name+ '</td><td><buttton class="btn btn-sm btn-success" onClick="showActivateModal(\''+id+'\')">Activate</buttton><button class="btn btn-warning btn-sm">Deactivate</button><button class="btn btn-danger btn-sm">Delete</button></td></tr>');
+          }
+          if (data.google) {
+            userTable.append('<tr><td>'+(i+1)+'</td><td>'+data.google.email+ '</td><td><buttton class="btn btn-sm btn-success" onClick="showActivateModal(\''+id+'\')">Activate</buttton><button class="btn btn-warning btn-sm">Deactivate</button><button class="btn btn-danger btn-sm">Delete</button></td></tr>');
+          }
+        });
+      }
+    });
+  });
+
+  $("#activateForm").submit((e) =>{
+    e.preventDefault();
+    var selected = $("#time").val();
+    var now = moment()
+    var expiryDate = now;
+    if (selected === '0'){
+      expiryDate = now.add(parseInt($("#months").val()), 'months');
+    } else if (selected === '1'){
+      expiryDate = now.add(parseInt($("#years").val()), 'years');
+    } else if (selected === '2'){
+      expiryDate = now.add(10, 'years');
+    } else {
+      $("#activationError").text("No package selected");
+      return;
+    }
+    let data = {
+      id: $("#userId").val(),
+      expiryDate: expiryDate._d,
+      activationDate: moment()._d,
+      status: 1
+    };
+    console.log(data);
+
+  });
+
+  function showActivateModal(id) {
+    $("#userId").val(id);
+    $("#activationError").text('');
+    $("#activate-modal").modal("show");
+  }
+
+  function getOption() {
+    let option = $("#time").val();
+    let error = $("#activationError");
+    let monthsInput = $("#monthsInput");
+    let yearsInput = $("#yearsInput");
+    error.text('');
+    if (option === '0') {
+      monthsInput.show();
+      yearsInput.hide();
+    } else if (option === '1') {
+      monthsInput.hide();
+      yearsInput.show();
+    } else if (option === '2') {
+      monthsInput.hide();
+      yearsInput.hide();
+    } else {
+      monthsInput.hide();
+      yearsInput.hide();
+      error.text("Please selecting a package");
+    }
+
+  }
+</script>
+<%- include('../partials/footer.ejs')%>

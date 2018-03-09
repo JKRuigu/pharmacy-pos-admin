@@ -36,6 +36,15 @@ function isLoggedIn(req, res, next) {
     res.render('ad-register',{admin:req.admin});
   });
 
+  router.get('/subscriptions', (req, res) =>{
+    res.render('subscription/index');
+  });
+
+  router.post('/:userId/activate', (req, res) =>{
+    res.render('subscription/activate');
+  });
+
+
   router.get('/*',isLoggedIn,(req,res)=>{
     res.render('admin',{admin:req.admin});
   });
