@@ -142,12 +142,13 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/auth/logout" id="logoutlink"><p>
                                   <% if (user.facebook.name) { %>
-                                  <% if (!user.google.email) { %>
-                                    <%=user.facebook.name %>
+                                  <% if (user.googleplus.email) { %>
+                                    <%=user.googleplus.email %>
                                     <% } %>
                                  <% } else { %>
-                                   <%=user.google.email %>
+                                   <%=user.facebook.name %>
                                  <% } %>
+                                    <%=user.google.email %>
                                    <%=user.local.username %>
                                 </p> Log Out
                                     <i class="now-ui-icons users_single-02"></i>
@@ -179,7 +180,7 @@
                                         </div>
                                         <div class="form-group">
                                           <label>Email</label>
-                                          <input type="email" id="email" class="form-control" value="<%=user.google.username %><%=user.local.username %>">
+                                          <input type="email" id="email" class="form-control" value="<%=user.google.username %><%=user.local.username %><%=user.googleplus.email %>">
                                         </div>
                                         <div class="form-group">
                                           <label>Phone Number</label>
@@ -205,12 +206,13 @@
                                         <img class="avatar border-gray" src="../assets/img/mike.jpg" alt="...">
                                         <h6 class="title">
                                         <% if (user.facebook.name) { %>
-                                        <% if (!user.google.email) { %>
-                                          <%=user.facebook.name %>
+                                        <% if (user.googleplus.email) { %>
+                                          <%=user.googleplus.email %>
                                           <% } %>
                                        <% } else { %>
-                                         <%=user.google.email %>
+                                         <%=user.facebook.name %>
                                        <% } %>
+                                       <%=user.google.email %>
                                        <%=user.local.username %>, welcome to our suggestion Box</h6>
                                     <p class="description">
                                     </p>
@@ -222,7 +224,7 @@
                             <hr>
                             <div class="button-container">
                               <% if (user.facebook.name) { %>
-                              <% if (!user.google.email) { %>
+                              <% if (!user.googleplus.email) { %>
                                 <a href="/connect/google" class="btn btn-danger">Share your email with Us</a>
                                 <% } %>
                              <% } else { %>

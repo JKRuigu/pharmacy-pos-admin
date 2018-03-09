@@ -16,6 +16,13 @@ const userSchema = new Schema({
     thumbnail: String,
     email: String
   },
+  googleplus:{
+    id: String,
+    token: String,
+    username: String,
+    thumbnail: String,
+    email: String
+  },
 	facebook: {
 		id: String,
 		token: String,

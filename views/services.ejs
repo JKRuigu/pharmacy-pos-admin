@@ -142,13 +142,14 @@
                             <li class="nav-item">
                                  <a class="nav-link" href="/auth/logout" id="logoutlink"><p>
                                    <% if (user.facebook.name) { %>
-                                   <% if (!user.google.email) { %>
-                                     <%=user.facebook.name %>
+                                   <% if (user.googleplus.email) { %>
+                                     <%=user.googleplus.email %>
                                      <% } %>
                                   <% } else { %>
-                                    <%=user.google.email %>
+                                    <%=user.facebook.name %>
                                   <% } %>
-                                    <%=user.local.username %>
+                                  <%=user.google.email %>
+                                  <%=user.local.username %>
                                  </p> Log Out
                                       <i class="now-ui-icons users_single-02"></i>
                                       <p>
@@ -181,6 +182,7 @@
                                         <div class="col-md-6 ml-auto mr-auto text-center">
                                             <h4 class="card-title">
                                                 Magnum Services
+
                                             </h4>
 
                                         </div>

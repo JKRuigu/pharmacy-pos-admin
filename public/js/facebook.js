@@ -8,7 +8,7 @@ $(function () {
       console.log(data);
       $.each(data,function (i, data) {
             if (data.facebook)
-        $data.append('<tr>'+ '<td>'+data.facebook.name+ '</td>' + '<td>'+data.google.email+ '</td>'+'</td');
+        $data.append('<tr>'+ '<td>'+data.facebook.name+ '</td>' + '<td>'+data.googleplus.email+ '</td>'+'</td');
       });
     }
   });

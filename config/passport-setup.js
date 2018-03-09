@@ -39,7 +39,7 @@ passport.deserializeUser((id, done) => {
         		    				var newUser = new User();
         		    				newUser.google.id = profile.id;
         		    				newUser.google.token = accessToken;
-        		    				newUser.google.name = profile.displayName;
+        		    				newUser.google.username = profile.displayName;
         		    				newUser.google.email = profile.emails[0].value;
 
         		    				newUser.save(function(err){
@@ -51,10 +51,10 @@ passport.deserializeUser((id, done) => {
         		    		});
         	    		} else {
         	    			var user = req.user;
-        	    			user.google.id = profile.id;
-        					user.google.token = accessToken;
-        					user.google.name = profile.displayName;
-        					user.google.email = profile.emails[0].value;
+        	    			user.googleplus.id = profile.id;
+        					user.googleplus.token = accessToken;
+        					user.googleplus.username = profile.displayName;
+        					user.googleplus.email = profile.emails[0].value;
 
         					user.save(function(err){
         						if(err)
@@ -107,7 +107,7 @@ passport.deserializeUser((id, done) => {
         	    			var user = req.user;
         	    			user.facebook.id = profile.id;
         	    			user.facebook.token = accessToken;
-        	    			user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+        	    			user.facebook.name = profile.displayName;
         	    			// user.facebook.email = profile.emails[0].value;
 
         	    			user.save(function(err){
