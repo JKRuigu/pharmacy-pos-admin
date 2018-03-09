@@ -140,7 +140,16 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                 <a class="nav-link" href="/auth/logout" id="logoutlink"><p><%=user.google.username %><%=user.facebook.name %><%=user.local.username %></p> Log Out
+                                 <a class="nav-link" href="/auth/logout" id="logoutlink"><p>
+                                   <% if (user.facebook.name) { %>
+                                   <% if (!user.google.email) { %>
+                                     <%=user.facebook.name %>
+                                     <% } %>
+                                  <% } else { %>
+                                    <%=user.google.email %>
+                                  <% } %>
+                                    <%=user.local.username %>
+                                 </p> Log Out
                                       <i class="now-ui-icons users_single-02"></i>
                                       <p>
                                         <span class="d-lg-none d-md-block">Account</span>

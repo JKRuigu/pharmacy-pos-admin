@@ -140,7 +140,16 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/auth/logout" id="logoutlink"><p><%=user.google.username %><%=user.facebook.name %><%=user.local.username %></p> Log Out
+                                <a class="nav-link" href="/auth/logout" id="logoutlink"><p>
+                                  <% if (user.facebook.name) { %>
+                                  <% if (!user.google.email) { %>
+                                    <%=user.facebook.name %>
+                                    <% } %>
+                                 <% } else { %>
+                                   <%=user.google.email %>
+                                 <% } %>
+                                   <%=user.local.username %>
+                                </p> Log Out
                                     <i class="now-ui-icons users_single-02"></i>
                                     <p>
                                         <span class="d-lg-none d-md-block">Account</span>
@@ -194,12 +203,13 @@
                             <div class="card-body">
                                 <div class="author">
                                         <img class="avatar border-gray" src="../assets/img/mike.jpg" alt="...">
-                                        <h6 class="title"><% if (user.facebook.name) { %>
+                                        <h6 class="title">
+                                        <% if (user.facebook.name) { %>
                                         <% if (!user.google.email) { %>
                                           <%=user.facebook.name %>
+                                          <% } %>
                                        <% } else { %>
                                          <%=user.google.email %>
-                                       <% } %>
                                        <% } %>
                                        <%=user.local.username %>, welcome to our suggestion Box</h6>
                                     <p class="description">
@@ -211,14 +221,13 @@
                             </div>
                             <hr>
                             <div class="button-container">
-                              <% if (user.local.username) { %>
-                                <% } else { %>
-                              <% if (user.google.email) { %>
-                                 <a href="#" class="btn btn-default">You have connected your google Account</a>
+                              <% if (user.facebook.name) { %>
+                              <% if (!user.google.email) { %>
+                                <a href="/connect/google" class="btn btn-danger">Share your email with Us</a>
+                                <% } %>
                              <% } else { %>
-                                 <a href="/connect/google" class="btn btn-danger">Share your email with Us</a>
-                             <% } %>
-                             <% } %>
+                               <a href="#" class="btn btn-default"></a>
+                               <% } %>
                             </div>
                         </div>
                     </div>
