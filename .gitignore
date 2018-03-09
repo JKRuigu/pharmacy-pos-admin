@@ -3,3 +3,4 @@ npm-debug.json
 .env-copy
 .env
 update.ejs
+.idea
