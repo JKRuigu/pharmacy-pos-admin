@@ -47,11 +47,11 @@ router.get('/auth/facebook/redirect', passport.authenticate('facebook'), (req, r
     res.redirect('/profile');
 });
 
-//LocalStrategy-get-login
-router.get('/auth/login-local', function(req, res){
-  req.flash('success','successful login')
-  res.render('/');
-});
+// //LocalStrategy-get-login
+// router.get('/auth/login-local', function(req, res){
+//   req.flash('success','successful login')
+//   res.render('/');
+// });
 
 //LocalStrategy-post-login
 router.post('/auth/login-local', passport.authenticate('local-login', {
@@ -68,7 +68,7 @@ router.get('/connect/google', passport.authorize('google',{
 
 //LocalStrategy-register-get
 router.get('/auth/register', function(req, res){
-  res.render('register',{message:req.flash('signupMessage')});
+  res.render('/auth/register',{message:req.flash('signupMessage')});
 });
 
 

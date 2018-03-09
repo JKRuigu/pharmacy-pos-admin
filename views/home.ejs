@@ -31,7 +31,8 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
 	<div class="container">
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal" style="font-family: 'Pacifico', cursive;">GET STARTED</button>
+		<a href="#modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal" style="font-family: 'Pacifico', cursive;" id="myBtnClick">GET STARTED</a>
+		<button type="button" name="button" id="myElement">start</button>
 		<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 	    	<div class="modal-content">
@@ -74,14 +75,14 @@
 								</div>
 								<div class="collapse" id="collapseExample" data-parent="#accordion">
 									<!-- show any messages that come back with authentication -->
-								
+
 								  <div class="card card-body">
-										<form action="/auth/register" method="post">
+										<form action="/auth/register" method="post" id="form">
 											<div class="form-group">
 											<input type="text" class="form-control" name="lname" placeholder="Enter your username" required>
 											</div>
 											<div class="form-group">
-												<input type="tel" class="form-control" name="tel" placeholder="Enter your Phone number" required>
+												<input type="number" class="form-control" name="tel" placeholder="Enter your Phone number" required>
 											</div>
 											<div class="form-group">
 												<input type="email"  name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your Email">
@@ -102,7 +103,7 @@
 									</div>
 									<div class="form-group">
 										<label>Password</label>
-										<input type="password" class="form-control" name="password">
+										<input type="password" class="form-control" name="password" value="123">
 									</div>
 									<input id="enviar" type="submit" name="" class="btn btn-success modal-login-btn" value="Sign up" value="123">
 								</form>
@@ -127,9 +128,20 @@
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
-		$("#button").click(function() {
-		swal('Want to create new account..?', 'Fill all spaces and try to login after you have signed up' ,'success');
-		});
+$("#form").submit(function (e) {
+							window.swal({
+								icon: "success",
+								text: "success....You can now login",
+								timer: 5000,
+								showConfirmButton: true,
+								allowOutsideClick: true
+							});
+
+        });
+</script>
+<script>
+
+
 </script>
 
 	</body>
