@@ -1,14 +1,14 @@
 const router = require('express').Router();
 
-
 //authenticate function
 const authCheck = (req,res,next)=>{
   if (!req.user) {
+    // TODO:: Redirect to login instead
     res.redirect('/');
   }else {
     next();
   }
-}
+};
 
 //Users profile-dashboard
 router.get('/',authCheck,(req,res)=>{
@@ -30,14 +30,10 @@ router.get('/update',authCheck,(req,res)=>{
   res.render('update',{user:req.user});
 });
 
-// //Admin
-// router.get('/login-admin',authCheck,(req,res)=>{
-//   res.render('login-admin',{user:req.user});
-// });
+//Admin
 router.get('/*',authCheck,(req,res)=>{
   res.render('profile',{user:req.user});
 });
 
 
-
-module.exports= router;
+module.exports = router;

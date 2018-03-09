@@ -4,6 +4,7 @@ const router = require('express').Router();
 function isLoggedIn(req, res, next) {
   req.admin = req.app.locals.admin;
   if (!req.admin) {
+    // TODO :: Redirect to login
     res.redirect('/');
   }else {
     next();
