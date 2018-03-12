@@ -101,3 +101,7 @@
     background-color: #0089bb;
     border-color: #0089bb;
 }
+
+#userTable button {
+    margin:2px 5px;
+}
