@@ -66,18 +66,18 @@ router.get('/connect/google', passport.authorize('google',{
   scope: ['profile', 'email']
 }));
 
-//LocalStrategy-register-get
-router.get('/auth/register', function(req, res){
-  res.render('/auth/register',{message:req.flash('signupMessage')});
-});
-
-
-//LocalStrategy-register-post
-router.post('/auth/register', passport.authenticate('local-signup', {
-  successRedirect: '/',
-  failureRedirect: '/',
-  failureFlash:true
-}));
+// //LocalStrategy-register-get
+// router.get('/auth/register', function(req, res){
+//   res.render('/auth/register',{message:req.flash('signupMessage')});
+// });
+//
+//
+// //LocalStrategy-register-post
+// router.post('/auth/register', passport.authenticate('local-signup', {
+//   successRedirect: '/',
+//   failureRedirect: '/',
+//   failureFlash:true
+// }));
 
 
 
