@@ -12,10 +12,10 @@ var url = 'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?a
 
 
 
-// //Admin Get LocalStrategy-signup
-// router.get('/ad-register', function(req, res){
-//   res.render('ad-register');
-// });
+//Admin subcrition
+router.get('/admin/ad-subscription', function(req, res){
+  res.render('ad-subscription');
+});
 
 //Admin logout
 router.get('/admin/logout', function(req, res){

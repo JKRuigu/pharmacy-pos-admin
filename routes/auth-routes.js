@@ -32,7 +32,7 @@ router.get('/auth/google', passport.authenticate('google', {
 router.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
     // res.send(req.user);
     req.flash('success','successful login')
-    res.redirect('/profile');
+    res.redirect('/users/profile');
 });
 
 //FacebookStrategy
@@ -47,11 +47,11 @@ router.get('/auth/facebook/redirect', passport.authenticate('facebook'), (req, r
     res.redirect('/profile');
 });
 
-//LocalStrategy-get-login
-router.get('/auth/login-local', function(req, res){
-  req.flash('success','successful login')
-  res.render('/');
-});
+// //LocalStrategy-get-login
+// router.get('/auth/login-local', function(req, res){
+//   req.flash('success','successful login')
+//   res.render('/');
+// });
 
 //LocalStrategy-post-login
 router.post('/auth/login-local', passport.authenticate('local-login', {
@@ -66,18 +66,18 @@ router.get('/connect/google', passport.authorize('google',{
   scope: ['profile', 'email']
 }));
 
-//LocalStrategy-register-get
-router.get('/auth/register', function(req, res){
-  res.render('register',{message:req.flash('signupMessage')});
-});
-
-
-//LocalStrategy-register-post
-router.post('/auth/register', passport.authenticate('local-signup', {
-  successRedirect: '/',
-  failureRedirect: '/',
-  failureFlash:true
-}));
+// //LocalStrategy-register-get
+// router.get('/auth/register', function(req, res){
+//   res.render('/auth/register',{message:req.flash('signupMessage')});
+// });
+//
+//
+// //LocalStrategy-register-post
+// router.post('/auth/register', passport.authenticate('local-signup', {
+//   successRedirect: '/',
+//   failureRedirect: '/',
+//   failureFlash:true
+// }));
 
 
 

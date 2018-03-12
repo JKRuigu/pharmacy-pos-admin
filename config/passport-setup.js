@@ -39,7 +39,7 @@ passport.deserializeUser((id, done) => {
         		    				var newUser = new User();
         		    				newUser.google.id = profile.id;
         		    				newUser.google.token = accessToken;
-        		    				newUser.google.name = profile.displayName;
+        		    				newUser.google.username = profile.displayName;
         		    				newUser.google.email = profile.emails[0].value;
 
         		    				newUser.save(function(err){
@@ -51,10 +51,10 @@ passport.deserializeUser((id, done) => {
         		    		});
         	    		} else {
         	    			var user = req.user;
-        	    			user.google.id = profile.id;
-        					user.google.token = accessToken;
-        					user.google.name = profile.displayName;
-        					user.google.email = profile.emails[0].value;
+        	    			user.googleplus.id = profile.id;
+        					user.googleplus.token = accessToken;
+        					user.googleplus.username = profile.displayName;
+        					user.googleplus.email = profile.emails[0].value;
 
         					user.save(function(err){
         						if(err)
@@ -107,7 +107,7 @@ passport.deserializeUser((id, done) => {
         	    			var user = req.user;
         	    			user.facebook.id = profile.id;
         	    			user.facebook.token = accessToken;
-        	    			user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+        	    			user.facebook.name = profile.displayName;
         	    			// user.facebook.email = profile.emails[0].value;
 
         	    			user.save(function(err){
@@ -122,41 +122,41 @@ passport.deserializeUser((id, done) => {
 
         	));
 
-// LocalStrategy
-passport.use('local-signup', new LocalStrategy({
-		usernameField: 'email',
-  //  lnameField: 'lname',
-		passwordField: 'password',
-		passReqToCallback: true
-	},
-	function(req, email, password, done){
-		process.nextTick(function(){
-			User.findOne({'local.username': email}, function(err, user){
-				if(err)
-					return done(err);
-				if(user){
-					return done(null, false
-          , req.flash('signupMessage', 'That email already taken')
-          );
-				} else {
-        var newUser = new User();
-					newUser.local.username = email;
-        //  newUser.local.lname = lname;
-        //  newUser.local.tel = tel;
-        //  newUser.local.tel = tel;
-					newUser.local.password = newUser.generateHash(password);
-
-					newUser.save(function(err){
-						if(err)
-							throw err;
-             req.app.locals.newUser = newUser;
-						return done(null,newUser);
-
-					})
-				}
-			})
-		});
-	}));
+// // LocalStrategy
+// passport.use('local-signup', new LocalStrategy({
+// 		usernameField: 'email',
+//   //  lnameField: 'lname',
+// 		passwordField: 'password',
+// 		passReqToCallback: true
+// 	},
+// 	function(req, email, password, done){
+// 		process.nextTick(function(){
+// 			User.findOne({'local.username': email}, function(err, user){
+// 				if(err)
+// 					return done(err);
+// 				if(user){
+// 					return done(null, false
+//           , req.flash('signupMessage', 'That email already taken')
+//           );
+// 				} else {
+//         var newUser = new User();
+// 					newUser.local.username = email;
+//         //  newUser.local.lname = lname;
+//         //  newUser.local.tel = tel;
+//         //  newUser.local.tel = tel;
+// 					newUser.local.password = newUser.generateHash(password);
+//
+// 					newUser.save(function(err){
+// 						if(err)
+// 							throw err;
+//              req.app.locals.newUser = newUser;
+// 						return done(null,newUser);
+//
+// 					})
+// 				}
+// 			})
+// 		});
+// 	}));
 
 	passport.use('local-login', new LocalStrategy({
 			usernameField: 'email',
@@ -165,14 +165,18 @@ passport.use('local-signup', new LocalStrategy({
 		},
 		function(req, email, password, done){
 			process.nextTick(function(){
-				User.findOne({ 'local.username': email}, function(err, user){
+				User.findOne({ 'local.email': email}, function(err, user){
+          console.log('Our pass ',password);
+          console.log('db hash ', user.local);
 					if(err)
+            console.log('test');
 						return done(err);
 					if(!user)
 						return done(null, false
             , req.flash('loginMessage', 'No User found')
             );
-					if(!user.validPassword(password)){
+					if(!User.validPassword(password)){
+            console.log("invalid password");
 						return done(null, false
             , req.flash('loginMessage', 'invalid password')
             );

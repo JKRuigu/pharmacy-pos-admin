@@ -3,13 +3,14 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
-  local: {
-		username: String,
-    tel:String,
-    lname:String,
-  	password: String
-	},
   google:{
+    id: String,
+    token: String,
+    username: String,
+    thumbnail: String,
+    email: String
+  },
+  googleplus:{
     id: String,
     token: String,
     username: String,

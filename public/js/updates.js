@@ -29,4 +29,21 @@ $(document).ready(function () {
       }
     });
   });
+      $.getJSON("https://api.mlab.com/api/1/databases/pharmacy-updates/collections/updates?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON",
+      function (data) {
+        // console.log(data);
+        var updates_data ='';
+        $.each(data, function (key,value) {
+            updates_data += '<div class="card">';
+            updates_data += '<h6 class="card-header ">' +value.title+'</h6>';
+            updates_data += '<div class="card-body">';
+            updates_data += '<p>' +value.paragraph2+'</p>';
+            updates_data += '<p>' +value.others+'</p>';
+            updates_data += '</div>';
+            updates_data += '<button>'+Edit+'</button>'+'<button>'+Delete+'</button>';
+            updates_data += '<small class="card-footer">' +value.date+ ' Pharmacy-pos:powered by :'+ ' <a href="http://magnumdigitalke.com/" class="card-link">'+'Magnum digital Media Ke'+'</a>'+'  '+'</small>';
+            updates_data += '</div>';
+        });
+        $('#updates_div').append(updates_data);
+      });
 });
