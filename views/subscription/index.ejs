@@ -12,7 +12,7 @@
         <div class="card-header">
           <h5 class="title">Users</h5>
           <div class="container" >
-            <h4>Google Users</h4>
+            <h4>Users Subscription</h4>
             <table class="table table-bordered table-hover table-striped">
               <thead>
                 <tr>
@@ -69,6 +69,7 @@
     </div>
   </div>
 </div>
+
 <script>
   $(function () {
     var userTable = $("#userTable");
@@ -113,6 +114,7 @@
       activationDate: moment()._d,
       status: 1
     };
+    // TODO:: Make an api request
     console.log(data);
 
   });

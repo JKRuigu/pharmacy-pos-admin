@@ -30,6 +30,11 @@ router.get('/update',authCheck,(req,res)=>{
   res.render('update',{user:req.user});
 });
 
+//Subscription status
+router.get('/subscription',authCheck,(req,res)=>{
+  res.render('subscription/users',{user:req.user});
+});
+
 //Admin
 router.get('/*',authCheck,(req,res)=>{
   res.render('profile',{user:req.user});
