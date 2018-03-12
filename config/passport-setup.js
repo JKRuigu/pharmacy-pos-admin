@@ -166,17 +166,13 @@ passport.deserializeUser((id, done) => {
 		function(req, email, password, done){
 			process.nextTick(function(){
 				User.findOne({ 'local.email': email}, function(err, user){
-          console.log('Our pass ',password);
-          console.log('db hash ', user.local);
 					if(err)
-            console.log('test');
 						return done(err);
 					if(!user)
 						return done(null, false
             , req.flash('loginMessage', 'No User found')
             );
 					if(!User.validPassword(password)){
-            console.log("invalid password");
 						return done(null, false
             , req.flash('loginMessage', 'invalid password')
             );

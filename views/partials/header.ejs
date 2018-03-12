@@ -18,28 +18,7 @@
   <link href="/css/modal.css" rel="stylesheet" />
   <script  src="https://code.jquery.com/jquery-3.3.1.js" ></script>
 </head>
-
 <body class="">
-  <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : keys.facebook.clientID,
-      xfbml      : true,
-      version    : 'v2.12'
-    });
-
-    FB.AppEvents.logPageView();
-
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
     <div class="wrapper ">
         <div class="sidebar" data-color="orange">
             <!--
@@ -53,7 +32,7 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="active">>
+                    <li class="active">
                         <a href="/profile">
                             <i class="now-ui-icons design_app"></i>
                             <p>Dashboard</p>
@@ -71,23 +50,6 @@
                             <p>More services</p>
                         </a>
                     </li>
-                        <!-- <a href="#">
-                            <i class="now-ui-icons design_bullet-list-67"></i>
-                            <p>Table List</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="now-ui-icons text_caps-small"></i>
-                            <p>Typography</p>
-                        </a>
-                    </li>
-                    <li class="#">
-                        <a href="#">
-                            <i class="now-ui-icons arrows-1_cloud-download-93"></i>
-                            <p>Upgrade to PRO</p>
-                        </a>
-                    </li> -->
                 </ul>
             </div>
         </div>

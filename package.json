@@ -4,7 +4,7 @@
   "description": "pharmacy pos offical website",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "author": "jkruigu",
   "license": "ISC",
@@ -21,6 +21,8 @@
     "express-messages": "^1.0.1",
     "express-session": "*",
     "express-validator": "^5.0.3",
+    "moment": "^2.21.0",
+    "mongodb": "^3.0.4",
     "mongoose": "^5.0.6",
     "morgan": "^1.9.0",
     "multer": "^1.3.0",

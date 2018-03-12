@@ -9,9 +9,6 @@ const LocalStrategy = require('passport-local');
 
 var url = 'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON';
 
-
-
-
 //Admin subcrition
 router.get('/admin/ad-subscription', function(req, res){
   res.render('ad-subscription');
@@ -22,8 +19,6 @@ router.get('/admin/logout', function(req, res){
   req.logout();
   res.redirect('/');
 });
-//icons
-
 
 //Admin Post LocalStrategy-signup
 router.post('/admin/ad-register', passport.authenticate('local-admin', {
@@ -32,17 +27,12 @@ router.post('/admin/ad-register', passport.authenticate('local-admin', {
   failureFlash: true
 }));
 
-
-
 //Admin Post LocalStrategy
 router.post('/admin/login-admin', passport.authenticate('admin-login', {
   successRedirect: '/admin',
   failureRedirect: '/',
  failureFlash: true
 }));
-
-
-
 
 //messages
 router.get('/get-data', function(req, res, next) {
