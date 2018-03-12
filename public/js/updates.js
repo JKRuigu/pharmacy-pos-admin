@@ -40,7 +40,6 @@ $(document).ready(function () {
             updates_data += '<p>' +value.paragraph2+'</p>';
             updates_data += '<p>' +value.others+'</p>';
             updates_data += '</div>';
-            updates_data += '<button>'+Edit+'</button>'+'<button>'+Delete+'</button>';
             updates_data += '<small class="card-footer">' +value.date+ ' Pharmacy-pos:powered by :'+ ' <a href="http://magnumdigitalke.com/" class="card-link">'+'Magnum digital Media Ke'+'</a>'+'  '+'</small>';
             updates_data += '</div>';
         });
