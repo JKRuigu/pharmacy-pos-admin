@@ -96,25 +96,7 @@
 <script>
   let systemUsers = [];
   $(function () {
-    $.ajax({
-      type:'GET',
-      url:'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON',
-      success:function (users) {
-        $.each(users,function (i, data) {
-          let _id = data._id.$oid;
-          let username = '';
-          if (data.local) username = data.local.username;
-          if (data.facebook) username = data.facebook.name;
-          if (data.google) username = data.google.email
-          systemUsers[_id] = {
-            _id,
-            username,
-            subscriptions: data.subscriptions
-          }
-        });
-        reloadUsersTable();
-      }
-    });
+    getUsers();
   });
 
   $("#activateForm").submit((e) =>{
@@ -145,6 +127,7 @@
         icon: "info"
       }).then( ()=> {
         $("#activate-modal").modal("hide"); // Hide modal
+        getUsers();
       })
     }).catch( error => {
       swal({
@@ -156,14 +139,35 @@
     });
 
   });
+
+  function getUsers() {
+    $.ajax({
+      type:'GET',
+      url:'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON',
+      success:function (users) {
+        $.each(users,function (i, data) {
+          let _id = data._id.$oid;
+          let username = '';
+          if (data.local) username = data.local.username;
+          if (data.facebook) username = data.facebook.name;
+          if (data.google) username = data.google.email
+          systemUsers[_id] = {
+            _id,
+            username,
+            subscriptions: data.subscriptions
+          }
+        });
+        reloadUsersTable();
+      }
+    });
+  }
   
-  function reloadUsersTable(id=null) {
+  function reloadUsersTable() {
     var userTable = $("#userTable");
     userTable.text('');
     if(systemUsers) {
       let i =1;
       for(let user in systemUsers){
-        if(user == id) continue
         userTable.append('<tr><td>'+(i)+'</td><td>'+systemUsers[user].username+ '</td>'+
           '<td><buttton class="btn btn-sm btn-success" onClick="showActivateModal(\''+systemUsers[user]._id+'\')">Activate</buttton>'+
           '<button class="btn btn-warning btn-sm '+(systemUsers[user].subscriptions===undefined?'disabled': '')+'\" onClick="showDeactivateModal(\''+systemUsers[user]._id+'\')">Deactivate</button>'+
@@ -207,7 +211,7 @@
         swal("Poof! User deleted!", {
           icon: "success",
         });
-        reloadUsersTable(id);
+        getUsers();
       }
     }).catch(error =>{
       swal("User not deleted!"+error);
