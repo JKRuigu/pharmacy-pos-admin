@@ -32,7 +32,7 @@ router.get('/auth/google', passport.authenticate('google', {
 router.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
     // res.send(req.user);
     req.flash('success','successful login')
-    res.redirect('/profile');
+    res.redirect('/users/profile');
 });
 
 //FacebookStrategy

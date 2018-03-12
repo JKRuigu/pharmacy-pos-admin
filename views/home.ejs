@@ -32,7 +32,6 @@
 </script>
 	<div class="container">
 		<a href="#modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal" style="font-family: 'Pacifico', cursive;" id="myBtnClick">GET STARTED</a>
-		<button type="button" name="button" id="myElement">start</button>
 		<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 	    	<div class="modal-content">
@@ -122,54 +121,5 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function () {
-  $('#myform').on('submit',function (e) {
-    e.preventDefault();
-		// var newUser = new User();
-    var username = $('#lname').val();
-    var tel = $('#tel').val();
-		var email = $('#email').val();
-    var password = $('#password').val();
-		if (!username || !tel || !email || !password) {
-			swal({
-				title: "Error!",
-				text: "Try to fil all the spaces !",
-				icon: "warning",
-			});
-		}else {
-			$.ajax({
-				url: 'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON',
-				data: JSON.stringify({
-					local:{
-						"username" :username,
-						"email" :email,
-						"tel" : tel,
-						"password" : password
-					}
-				}),
-				type: "POST",
-				contentType: "application/json",
-				success:function (data,msg) {
-					if (data) {
-						$("#myform").get(0).reset()
-						swal({
-							title: "Successful registration!",
-							text: "You can now login!",
-							icon: "success",
-						});
-					}
-				},
-				error: function (xhr,status,err) {
-					if (err) {
-						console.log(err);
-					}
-				}
-			});
-
-		}
-  });
-});
-</script>
+<script src="/js/contact.js"></script>
 	</body>
-</html>
