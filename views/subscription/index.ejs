@@ -81,7 +81,17 @@
       </div>
       <form method="post" id="deactivateForm" class="form">
         <div class="modal-body">
-
+          <table class="table table-bordered table-hover table-striped">
+            <thead>
+              <tr>
+                <th>ID #</th>
+                <th>Activation Date</th>
+                <th>Expiry Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="subscriptionsTable"></tbody>
+          </table>
           <input type="hidden" id="userIdDe" name="userId">
         </div>
         <div class="modal-footer">
@@ -140,6 +150,44 @@
 
   });
 
+  $("#deactivateForm").submit((e) =>{
+      e.preventDefault();
+      const id =$("#userIdDe").val();
+      let user = systemUsers[id];
+      let updates = [];
+      $("#subscriptionsTable").children('.subscription-row').each((index, element)=>{
+        updates[index] ={
+          index: $(element).find('.index').val(),
+          status: $(element).find('.statusValue').val(),
+          checked: $(element).find('.status')[0].checked
+        };
+      });
+      user.subscriptions.forEach((subscription, index)=> {
+        if (updates[index].status==='1')
+          subscription.status = updates[index].checked?0:1;
+        else
+          subscription.status = updates[index].checked?1:0;
+      });
+      axios.post(`/admin/${id}/deactivate`, user.subscriptions).then( response => {
+        if(response.data.status === 'ok') swal({
+          title: "Success...",
+          text: "Subscription updated...!!",
+          icon: "info"
+        }).then( ()=> {
+          $("#deactivate-modal").modal("hide"); // Hide modal
+          getUsers();
+        })
+      }).catch( error => {
+        swal({
+          title: "Error updating subscription...!!",
+          text: error.message,
+          icon: "error",
+          dangerMode: true,
+        })
+      });
+
+    });
+
   function getUsers() {
     $.ajax({
       type:'GET',
@@ -189,9 +237,31 @@
 
   function showDeactivateModal(id) {
     let user = systemUsers[id];
-    console.log(user.subscriptions);
-    $("#deactivateUsername").text(user.username);
-    $("#userIdDe").val(id);
+    let subscriptionsTable = $("#subscriptionsTable");
+    subscriptionsTable.text('');
+    user.subscriptions.forEach( (subscription, index) =>{
+      let activationDate = moment(subscription.activationDate).format('DD/MM/YYYY');
+      let expiryDate = moment(subscription.expiryDate).format('DD/MM/YYYY');
+      let color = subscription.status===1?'success':'warning';
+      let disabled = subscription.status===0?'check':'simple-remove';
+      let data = subscription.status===0?'Activate':'Deactivate';
+      subscriptionsTable.append(`<tr class="text-${color} subscription-row">
+          <td><input type="hidden" class="index" value="${index}"><input type="hidden" class="statusValue" value="${subscription.status}">${index+1}</td>
+          <td>${activationDate}</td>
+          <td>${expiryDate}</td>
+          <td>
+            <div class="form-check" title="${data}">
+              <label class="form-check-label">
+                <input class="form-check-input status" type="checkbox">
+                <span class="form-check-sign"></span>
+              </label>
+              <i class="now-ui-icons ui-1_${disabled}"></i>
+            </div>
+        </td>
+      </tr>`);
+    });
+    $("#deactivateUsername").html(`<i class="now-ui-icons users_single-02"></i> ${user.username}`);
+    $("#userIdDe").val(user._id);
     $("#deactivationError").text('');
     $("#deactivate-modal").modal("show");
   }
