@@ -35,14 +35,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Subscription modal</h5>
+        <h5 class="modal-title" id="activateUsername"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <form method="post" id="activateForm" class="form">
         <div class="modal-body">
-          <h3 id="user"></h3>
           <div class="form-group">
             <label for="time">Select a subscription package</label>
             <select name="time" id="time" class="form-control" onchange="getOption()">
@@ -75,14 +74,14 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Deactivate Subscription</h5>
+        <h5 class="modal-title" id="deactivateUsername"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <form method="post" id="deactivateForm" class="form">
         <div class="modal-body">
-          <h3 id="user"></h3>
+
           <input type="hidden" id="userIdDe" name="userId">
         </div>
         <div class="modal-footer">
@@ -95,23 +94,25 @@
   </div>
 </div>
 <script>
+  let systemUsers = [];
   $(function () {
-    var userTable = $("#userTable");
     $.ajax({
       type:'GET',
       url:'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON',
       success:function (users) {
         $.each(users,function (i, data) {
-          let id = data._id.$oid;
+          let _id = data._id.$oid;
           let username = '';
           if (data.local) username = data.local.username;
           if (data.facebook) username = data.facebook.name;
           if (data.google) username = data.google.email
-          userTable.append('<tr><td>'+(i+1)+'</td><td>'+username+ '</td>'+
-            '<td><buttton class="btn btn-sm btn-success" onClick="showActivateModal(\''+id+'\')">Activate</buttton>'+
-            '<button class="btn btn-warning btn-sm" onClick="showDeactivateModal(\''+id+'\')">Deactivate</button>'+
-            '<button class="btn btn-danger btn-sm" onclick="deleteUser(\''+id+'\')">Delete</button></td></tr>');
+          systemUsers[_id] = {
+            _id,
+            username,
+            subscriptions: data.subscriptions
+          }
         });
+        reloadUsersTable();
       }
     });
   });
@@ -137,7 +138,6 @@
       activationDate: moment()._d,
       status: 1
     };
-    // TODO:: Make an api request
     axios.post(`/admin/${id}/activate`, data).then( response => {
       if(response.data.status === 'ok') swal({
         title: "Success...",
@@ -156,14 +156,37 @@
     });
 
   });
+  
+  function reloadUsersTable(id=null) {
+    var userTable = $("#userTable");
+    userTable.text('');
+    if(systemUsers) {
+      let i =1;
+      for(let user in systemUsers){
+        if(user == id) continue
+        userTable.append('<tr><td>'+(i)+'</td><td>'+systemUsers[user].username+ '</td>'+
+          '<td><buttton class="btn btn-sm btn-success" onClick="showActivateModal(\''+systemUsers[user]._id+'\')">Activate</buttton>'+
+          '<button class="btn btn-warning btn-sm '+(systemUsers[user].subscriptions===undefined?'disabled': '')+'\" onClick="showDeactivateModal(\''+systemUsers[user]._id+'\')">Deactivate</button>'+
+          '<button class="btn btn-danger btn-sm" onclick="deleteUser(\''+systemUsers[user]._id+'\')">Delete</button></td></tr>');
+        i++;
+      }
+    }else {
+      userTable.text("No subscribed users...");
+    }
+  }
 
   function showActivateModal(id) {
+    let user = systemUsers[id];
+    $("#activateUsername").text(user.username);
     $("#userId").val(id);
     $("#activationError").text('');
     $("#activate-modal").modal("show");
   }
 
   function showDeactivateModal(id) {
+    let user = systemUsers[id];
+    console.log(user.subscriptions);
+    $("#deactivateUsername").text(user.username);
     $("#userIdDe").val(id);
     $("#deactivationError").text('');
     $("#deactivate-modal").modal("show");
@@ -177,14 +200,18 @@
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
-        if (willDelete) {
-          swal("Poof! User deleted!", {
-            icon: "success",
-          });
-        } else {
-          swal("User not deleted!");
-        }
-      });
+        if(willDelete)
+          return axios.delete(`/admin/${id}/delete`);
+    }).then(deleted => {
+      if (deleted){
+        swal("Poof! User deleted!", {
+          icon: "success",
+        });
+        reloadUsersTable(id);
+      }
+    }).catch(error =>{
+      swal("User not deleted!"+error);
+    });
   }
 
   function getOption() {

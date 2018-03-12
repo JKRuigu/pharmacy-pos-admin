@@ -46,7 +46,6 @@ function isLoggedIn(req, res, next) {
   router.post('/:userId/activate', (req, res) =>{
     if(req.body) {
       MongoClient.connect(url).then(client =>{
-        console.log("Connected successfully to server");
         let db = client.db('pharmacy-pos');
         db.collection('users').update(
           {_id:ObjectId(req.params.userId)},
@@ -63,6 +62,20 @@ function isLoggedIn(req, res, next) {
       res.status(404).json({message:"Send a valid body"});
     }
   });
+
+router.delete('/:userId/delete', (req, res) =>{
+  MongoClient.connect(url).then(client =>{
+    let db = client.db('pharmacy-pos');
+    db.collection('users').deleteOne({_id:ObjectId(req.params.userId)}).then( ()=>{
+      res.json({status:'ok'});
+    }).catch(error => {
+      res.status(404).json({message:error.message});
+    });
+    client.close();
+  }).catch( error => {
+    res.status(404).json({message:error.message});
+  });
+});
 
 
   router.get('/*',isLoggedIn,(req,res)=>{
