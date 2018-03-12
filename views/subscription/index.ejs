@@ -1,6 +1,7 @@
 <%- include('../partials/header.ejs', {title: "Subscribed users"});%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <div class="panel-header panel-header-sm">
   <div class="header text-center">
     <h3 class="title">Subscribed users</h3>
@@ -120,6 +121,7 @@
     var selected = $("#time").val();
     var now = moment()
     var expiryDate = now;
+    const id =$("#userId").val();
     if (selected === '0'){
       expiryDate = now.add(parseInt($("#months").val()), 'months');
     } else if (selected === '1'){
@@ -131,13 +133,27 @@
       return;
     }
     let data = {
-      id: $("#userId").val(),
       expiryDate: expiryDate._d,
       activationDate: moment()._d,
       status: 1
     };
     // TODO:: Make an api request
-    console.log(data);
+    axios.post(`/admin/${id}/activate`, data).then( response => {
+      if(response.data.status === 'ok') swal({
+        title: "Success...",
+        text: "Subscription added...!!",
+        icon: "info"
+      }).then( ()=> {
+        $("#activate-modal").modal("hide"); // Hide modal
+      })
+    }).catch( error => {
+      swal({
+        title: "Error adding subscription...!!",
+        text: error.message,
+        icon: "error",
+        dangerMode: true,
+      })
+    });
 
   });
 

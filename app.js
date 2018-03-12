@@ -22,6 +22,7 @@ app.set('port',(process.env.PORT || 3001));
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.use(cookieSession({ maxAge: 12 * 60 * 60 * 1000, keys: [keys.session.cookieKey]}));
 
 // initialize passport

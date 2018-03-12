@@ -1,5 +1,8 @@
 const router = require('express').Router();
 
+const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
+const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
 //  isLoggedIn function
 function isLoggedIn(req, res, next) {
   req.admin = req.app.locals.admin;
@@ -41,7 +44,24 @@ function isLoggedIn(req, res, next) {
   });
 
   router.post('/:userId/activate', (req, res) =>{
-    res.render('subscription/activate');
+    if(req.body) {
+      MongoClient.connect(url).then(client =>{
+        console.log("Connected successfully to server");
+        let db = client.db('pharmacy-pos');
+        db.collection('users').update(
+          {_id:ObjectId(req.params.userId)},
+          {$push:{subscriptions: req.body}}).then( ()=>{
+          res.json({status:'ok'});
+        }).catch(error => {
+          res.status(404).json({message:error.message});
+        });
+        client.close();
+      }).catch( error => {
+       res.status(404).json({message:error.message});
+      });
+    } else {
+      res.status(404).json({message:"Send a valid body"});
+    }
   });
 
 
