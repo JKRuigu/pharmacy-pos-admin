@@ -1,5 +1,6 @@
 <%- include('../partials/header.ejs', {title: "Subscribed users"});%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <div class="panel-header panel-header-sm">
   <div class="header text-center">
     <h3 class="title">Subscribed users</h3>
@@ -69,7 +70,29 @@
     </div>
   </div>
 </div>
-
+<div class="modal fade" id="deactivate-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Deactivate Subscription</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" id="deactivateForm" class="form">
+        <div class="modal-body">
+          <h3 id="user"></h3>
+          <input type="hidden" id="userIdDe" name="userId">
+        </div>
+        <div class="modal-footer">
+          <p id="deactivationError"></p>
+          <button type="submit" class="btn btn-primary">Deactivate</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <script>
   $(function () {
     var userTable = $("#userTable");
@@ -79,15 +102,14 @@
       success:function (users) {
         $.each(users,function (i, data) {
           let id = data._id.$oid;
-          if (data.local){
-            userTable.append('<tr><td>'+(i+1)+'</td><td>'+data.local.username+ '</td><td><buttton class="btn btn-sm btn-success" onClick="showActivateModal(\''+id+'\')">Activate</buttton><button class="btn btn-warning btn-sm">Deactivate</button><button class="btn btn-danger btn-sm">Delete</button></td></tr>');
-          }
-          if (data.facebook) {
-            userTable.append('<tr><td>'+(i+1)+'</td><td>'+data.facebook.name+ '</td><td><buttton class="btn btn-sm btn-success" onClick="showActivateModal(\''+id+'\')">Activate</buttton><button class="btn btn-warning btn-sm">Deactivate</button><button class="btn btn-danger btn-sm">Delete</button></td></tr>');
-          }
-          if (data.google) {
-            userTable.append('<tr><td>'+(i+1)+'</td><td>'+data.google.email+ '</td><td><buttton class="btn btn-sm btn-success" onClick="showActivateModal(\''+id+'\')">Activate</buttton><button class="btn btn-warning btn-sm">Deactivate</button><button class="btn btn-danger btn-sm">Delete</button></td></tr>');
-          }
+          let username = '';
+          if (data.local) username = data.local.username;
+          if (data.facebook) username = data.facebook.name;
+          if (data.google) username = data.google.email
+          userTable.append('<tr><td>'+(i+1)+'</td><td>'+username+ '</td>'+
+            '<td><buttton class="btn btn-sm btn-success" onClick="showActivateModal(\''+id+'\')">Activate</buttton>'+
+            '<button class="btn btn-warning btn-sm" onClick="showDeactivateModal(\''+id+'\')">Deactivate</button>'+
+            '<button class="btn btn-danger btn-sm" onclick="deleteUser(\''+id+'\')">Delete</button></td></tr>');
         });
       }
     });
@@ -123,6 +145,30 @@
     $("#userId").val(id);
     $("#activationError").text('');
     $("#activate-modal").modal("show");
+  }
+
+  function showDeactivateModal(id) {
+    $("#userIdDe").val(id);
+    $("#deactivationError").text('');
+    $("#deactivate-modal").modal("show");
+  }
+
+  function deleteUser(id) {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover user information!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+          swal("Poof! User deleted!", {
+            icon: "success",
+          });
+        } else {
+          swal("User not deleted!");
+        }
+      });
   }
 
   function getOption() {
