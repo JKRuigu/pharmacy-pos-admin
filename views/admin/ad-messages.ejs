@@ -1,0 +1,79 @@
+<%- include('../partials/admin/header.ejs', {title: "Admin-messages"});%>
+            <!-- End Navbar -->
+            <div class="panel-header panel-header-sm">
+                    <div class="header text-center">
+                    </div>
+                </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card ">
+                            <div class="card-header ">
+                              <h3 class="title">Messages from Users</h3>
+                            </div>
+                            <div class="card-body ">
+                              <table class="table table-bordered table-hover table-striped"  id="messages_table">
+                                <thead>
+                                  <tr>
+                                    <th>Name</th>
+                                    <th>Tel </th>
+                                    <th>Email</th>
+                                    <th>Message</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="tbody">
+
+                              </tbody>
+                              </table>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="https://pharmacypluspos.com">
+                                    Go to Home Page
+                                </a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                    <div class="copyright">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>, Designed by
+                        <a href="https://magnumdigitalke.com" target="_blank">Magnum</a>.
+
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script  src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="  crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
+    <script src ="/js/contact.js"></script>
+    <script>
+    $(document).ready(function () {
+        $.getJSON("https://api.mlab.com/api/1/databases/pharmacy-contact/collections/contact?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON",function (data) {
+        //  console.log(data);
+          var message_data ='';
+          $.each(data, function (key,value) {
+              message_data += '<tr id="data">';
+              message_data += '<td>' +value.name+'</td>';
+              message_data += '<td>' +value.tel+'</td>';
+              message_data += '<td>' +value.email+'</td>';
+              message_data += '<td>' +value.message+'</td>';
+              message_data += '<tr>';
+          });
+          $('#messages_table').append(message_data);
+        });
+
+    });
+    </script>
+<%- include('../partials/admin/footer.ejs')%>
