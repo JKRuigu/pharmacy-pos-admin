@@ -139,14 +139,22 @@
 						if (data) {
 							$("#register").get(0).reset()
 							swal({
-								title: "Success!",
-								text: "we get in touch !",
-								icon: "success",
-							});
+                              title: "Success!",
+                              text: "we get in touch !",
+                              icon: "success"
+                            });
+							window.location = '/profile';
 						}
 					},
-					error: function (xhr,status,err) {
-						console.log(err);
+					error: function (xhr) {
+						if(xhr.status === 404){
+						  var error = xhr.responseJSON;
+                          swal({
+                            title: "Error!",
+                            text: error.message,
+                            icon: "error"
+                          });
+						}
 					}
 				});
 			}
