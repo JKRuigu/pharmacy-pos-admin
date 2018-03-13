@@ -2,9 +2,12 @@ const router = require('express').Router();
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
+
+
+
 //authenticate function
 const authCheck = (req,res,next)=>{
-  if (!req.user) {
+  if (req.user) {
     // TODO:: Redirect to login instead
     res.redirect('/');
   }else {
@@ -24,8 +27,8 @@ const authCheck = (req,res,next)=>{
 };
 
 //Users profile-dashboard
-router.get('/',authCheck,(req,res)=>{
-  res.render('users/profile',{user:req.user});
+router.get('/',(req,res)=>{
+  res.render('users/profile');
 });
 
 //contact
@@ -67,5 +70,6 @@ router.get('/:userId/subscription' ,(req,res)=>{
 router.get('/*',authCheck,(req,res)=>{
   res.render('users/profile',{user:req.user});
 });
+//users registration
 
 module.exports = router;

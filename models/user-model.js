@@ -1,37 +1,46 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt');
+var mongoose = require('mongoose');
+var bcrypt = require('bcryptjs');
 
-const userSchema = new Schema({
-  google:{
-    id: String,
-    token: String,
-    username: String,
-    thumbnail: String,
-    email: String
-  },
-  googleplus:{
-    id: String,
-    token: String,
-    username: String,
-    thumbnail: String,
-    email: String
-  },
-	facebook: {
-		id: String,
-		token: String,
-		email: String,
-		name: String
+
+
+//User Schema
+var UserSchema = mongoose.Schema({
+	tel:{
+		type:String,
+		index:true
+	},
+	password:{
+		type:String
+	},
+	email:{
+		type:String
 	}
 });
 
-userSchema.methods.generateHash = function(password){
-	return bcrypt.hashSync(password, bcrypt.genSaltSync(9));
+//Expor module
+var User = module.exports = mongoose.model('User',UserSchema);
+
+module.exports.createUser = function (newUser,callback) {
+	bcrypt.genSalt(10, function(err, salt) {
+	    bcrypt.hash(newUser.password, salt, function(err, hash) {
+	        newUser.password = hash;
+	        newUser.save(callback);
+    	});
+	});
 }
 
-userSchema.methods.validPassword = function(password){
-	return bcrypt.compareSync(password, this.local.password);
+module.exports.getUserByUsername = function (username,callback) {
+	var query = {username: email};
+	User.findOne(query,callback);
+}
+//mongodb functions
+module.exports.getUserById = function (id,callback) {
+	User.findById(id,callback);
 }
 
-const User = mongoose.model('user', userSchema);
-module.exports = User;
+module.exports.comparePassword = function (candidatePassword,hash,callback) {
+	bcrypt.compare(candidatePassword, hash, function (err,isMatch) {
+		if (err) throw err;
+		callback(null, isMatch);
+	});
+}

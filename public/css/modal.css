@@ -105,3 +105,28 @@
 #userTable button {
     margin:2px 5px;
 }
+#register,#loginBtn{
+  display: none;
+}
+#login{
+  display:block;
+}
+#message_tel{
+  display: none;
+}
+ #message_email{
+   display: none;
+ }
+  #message_password{
+    display: none;
+  }
+#message_password2{
+  display: none;
+}
+input:invalid {
+  border: 2px dashed red;
+}
+
+input:valid {
+  border: 2px solid green;
+}

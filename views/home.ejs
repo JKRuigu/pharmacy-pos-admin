@@ -7,29 +7,10 @@
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 		<link href='https://fonts.googleapis.com/css?family=Pacifico|Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 		<link rel="stylesheet" href="/css/modal.css">
 	</head>
 <body>
-	<script>
-		window.fbAsyncInit = function() {
-		FB.init({
-		  appId      : keys.facebook.clientID,
-		  xfbml      : true,
-		  version    : 'v2.12'
-		});
-
-		FB.AppEvents.logPageView();
-
-		};
-
-		(function(d, s, id){
-		 var js, fjs = d.getElementsByTagName(s)[0];
-		 if (d.getElementById(id)) {return;}
-		 js = d.createElement(s); js.id = id;
-		 js.src = "https://connect.facebook.net/en_US/sdk.js";
-		 fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-	</script>
 	<div class="container">
 		<a href="#modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal" style="font-family: 'Pacifico', cursive;" id="myBtnClick">GET STARTED</a>
 		<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -42,9 +23,8 @@
 	      		<div class="modal-body login-modal">
 	      			<hr>
 	      			<div class="clearfix"></div>
-	      			<div id='social-icons-conatainer'>
-		        		<div class="modal-body-left well">
-									<form action="/auth/login-local" method="post" >
+		        		<div class="modal-body well">
+									<form action="/auth/login-local" method="post" id="login">
 										<div class="form-group">
 											<input type="email"  name="email" class="form-control" id="username" value="ruigukjohn@gmail.com" aria-describedby="emailHelp" placeholder="Enter your Email"  required>
 				              <i class="fa fa-envelope login-field-icon"></i>
@@ -55,58 +35,33 @@
 			            	</div>
 										<button type="submit" class="btn btn-success modal-login-btn">Sign in</button>
 									</form>
-		        		</div>
-      				<div class='modal-body-right'>
-		        			<div class="modal-social-icons">
-		        				<a href="/auth/facebook" class="btn btn-default facebook"> <i class="fa fa-facebook modal-icons"></i> Sign In with Facebook </a>
-		        				<a href="/auth/google"  class="btn btn-default google"> <i class="fa fa-google-plus modal-icons"></i> Sign In with Google </a>
-		        			</div>
-		        		</div>
+									<form id="register" method="post">
+									  <div class="form-group">
+									    <input type="number" class="form-control" value="0715771868" name="tel" id="tel" placeholder="Enter your Phone number" >
+											<i class="fa fa-phone login-field-icon"></i><br>
+									  </div>
+									  <div class="form-group">
+									    <input type="email"  name="email" id="email"  value="ruigukjohn@gmail.com" class="form-control"  aria-describedby="emailHelp" placeholder="Enter your Email">
+											<i class="fa fa-envelope login-field-icon"></i><br>
+									  </div>
+									  <div class="form-group">
+									    <input type="password" class="form-control" value="1234" placeholder="Enter your Password" name="password" id="password" >
+											<i class="fa fa-lock login-field-icon"></i><br>
+									  </div>
+									  <div class="form-group">
+									    <input type="password" class="form-control" value="1234" placeholder="Confirm your Password" name="password2" id="password2" >
+											<i class="fa fa-lock login-field-icon"></i><br>
+									  </div>
+									  <div class="form-group">
+											<input  type="submit" name="" class="btn btn-success modal-login-btn" value="Sign up">
+									  </div>
+									</form>
 		        	</div>
 	        		<div class="clearfix"></div>
-							<div class="card-header" id="headingOne">
-								<button class="btn btn-default" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" id="button"> New User want to Register ?</button>
-								<button class="btn btn-default" data-toggle="collapse" href="#collapseExamp" role="button" aria-expanded="false" aria-controls="collapseExamp"> Admin ?</button>
+							<div  id="headingOne">
+								<button class="btn btn-default" id="loginBtn"> sign in?</button>
+								<button class="btn btn-default" id="registerBtn"> New User want to Register ?</button>
 							</div>
-							<div id="accordion">
-	        		<div class="form-group modal-register-btn">
-								</div>
-					<div class="collapse" id="collapseExample" data-parent="#accordion">
-									<!-- show any messages that come back with authentication -->
-					  <div class="card card-body">
-							<form id="myform">
-								<div class="form-group">
-								<input type="text" class="form-control" id="lname" placeholder="Enter your username" >
-								</div>
-								<div class="form-group">
-									<input type="number" class="form-control" id="tel" placeholder="Enter your Phone number" >
-								</div>
-								<div class="form-group">
-									<input type="email"  id="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your Email">
-								</div>
-								<div class="form-group">
-									<input type="password" class="form-control"placeholder="Enter your Password" id="password" >
-								</div>
-								<input  type="submit" name="" class="btn btn-success modal-login-btn" value="Sign up">
-							</form>
-					  </div>
-	      		</div>
-						<div class="collapse " id="collapseExamp" data-parent="#accordion">
-							<div class="card card-body">
-								<form action="/admin/login-admin" method="post">
-									<div class="form-group">
-										<label>Email</label>
-										<input type="text" class="form-control" name="email" value="ruigukjohn@gmail.com">
-									</div>
-									<div class="form-group">
-										<label>Password</label>
-										<input type="password" class="form-control" name="password" value="123">
-									</div>
-									<input id="enviar" type="submit" name="" class="btn btn-success modal-login-btn" value="Sign up" value="123">
-								</form>
-							</div>
-						</div>
-						</div>
 	      		<div class="clearfix"></div>
 	    	</div>
 			<div class="modal-footer login_modal_footer">
@@ -121,10 +76,83 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script type="text/javascript">
-	$("#button").click(function() {
-	swal('Want to create new account..?', 'Fill all spaces and try to login after you have signed up' ,'success');
+	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+	<script src="/js/main.js">	</script>
+	<!-- <script>
+		$().ready(function() {
+				$('#register').validate({
+					rules:{
+						email:{
+							require:true,
+							email:true
+						},tel:"required",
+						password:{
+							require:true,
+							minlength:5
+						},password2:{
+							require:true,
+							equalTo:"#password"
+						}
+					},
+					Messages:{
+						password:{
+							minlength:"Your password must be at least 5 characters long ",
+							required:"Please provide a password"
+						},
+						password2:{
+							required:"Please provide a password",
+							minlength:"Your password must be at least 5 characters long ",
+							equalTo:"Please enter the same password as above"
+
+						}
+					}
+				})
+		});
+	</script> -->
+	<script>
+	$(document).ready(function () {
+		$('#register').on('submit',function (e) {
+			e.preventDefault();
+			var email = $('#email').val();
+			var tel = $('#tel').val();
+			var password = $('#password').val();
+			var password2 = $('#password2').val();
+
+			if (!email || !password ||!tel ||password2 !==password) {
+				swal({
+					title: "Error!",
+					text: "Try to fil all the spaces !",
+					icon: "info",
+				});
+			}else {
+				$.ajax( {
+					url: "/profile/register",
+					data: JSON.stringify({
+						"tel" :tel,
+						"email" :email,
+						"password" : password,
+						"password2" : password2
+					}),
+					type: "POST",
+					contentType: "application/json",
+					success:function (data,msg) {
+						if (data) {
+							$("#register").get(0).reset()
+							swal({
+								title: "Success!",
+								text: "we get in touch !",
+								icon: "success",
+							});
+						}
+					},
+					error: function (xhr,status,err) {
+						console.log(err);
+					}
+				});
+			}
+		});
 	});
+
 	</script>
 </body>
 </html>

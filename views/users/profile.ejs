@@ -1,34 +1,31 @@
-<%- include('../partials/header.ejs', {title: "profile"});%>
+<%- include('../partials/users/header.ejs', {title: "profile"});%>
 <div class="panel-header panel-header-sm">
     <div class="header text-center">
         <!-- <h3 class="title">Other Services from Magnum</h3> -->
     </div>
 </div>
 <div class="content">
-
         <div class="col-md-6">
-            <div class="card">
-
-            </div>
+            <div class="card"></div>
         </div>
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     <div class="places-buttons">
                         <div class="row">
-                                      <div class="content">
-                                          <div class="row">
-                                              <div class="col-md-8">
-                                                  <div class="card">
-                                                      <div class="card-header">
-                                                          <h5 class="title">Latest Updates</h5>
+                                    <div class="content">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5 class="title">Latest Updates</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                      <div class="panel-body">
+                                                        <div class="container" id="updates_div"></div>
                                                       </div>
-                                                      <div class="card-body">
-                                                        <div class="panel-body">
-                                                          <div class="container" id="updates_div"></div>
-                                                        </div>
-                                                      </div>
-                                                  </div>
+                                                    </div>
+                                                </div>
                                               </div>
                                               <div class="col-md-4">
                                                   <div class="card card-user">
@@ -56,7 +53,7 @@
                                                                     <form id="edit-details">
                                                                       <div class="row">
                                                                       <div class="form-group col-md-8 " >
-                                                                        <input type="email" class="form-control" value="<%=user.google.email %>" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                                                                        <input type="email" class="form-control"  id="email" aria-describedby="emailHelp" placeholder="Enter email">
                                                                         <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                                                                       </div>
                                                                       <!-- <div class="form-group col-md-8 " >
@@ -167,4 +164,4 @@ console.log(err);
 
 </script>
 
-<%- include('../partials/footer.ejs')%>
+<%- include('../partials/users/footer.ejs')%>
