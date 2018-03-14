@@ -195,13 +195,9 @@
       success:function (users) {
         $.each(users,function (i, data) {
           let _id = data._id.$oid;
-          let username = '';
-          if (data.local) username = data.local.username;
-          if (data.facebook) username = data.facebook.name;
-          if (data.google) username = data.google.email
           systemUsers[_id] = {
             _id,
-            username,
+            username: data.email,
             subscriptions: data.subscriptions
           }
         });
