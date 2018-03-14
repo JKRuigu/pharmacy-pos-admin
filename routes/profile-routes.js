@@ -52,18 +52,31 @@ router.get('/subscription',authCheck,(req,res)=>{
 });
 
 //Subscription status
-router.get('/:userId/subscription' ,(req,res)=>{
-  MongoClient.connect(url).then(client =>{
-    let db = client.db('pharmacy-pos');
-    db.collection('users').findOne({_id:ObjectId(req.params.userId)}).then( (user)=>{
-      res.json({subscriptions:user.subscriptions});
-    }).catch(error => {
+router.get('/license/subscription' ,(req,res)=>{
+  res.header("Access-Control-Allow-Origin", '*');
+  if (req.query){
+    const email = req.query.email.trim();
+    MongoClient.connect(url).then(client =>{
+      let db = client.db('pharmacy-pos');
+      db.collection('users').findOne({email:email}).then( (user)=>{
+        if (!user)
+          res.status(404).json({message:"Email doesn't exist...!!"});
+        else{
+          if(user.subscriptions)
+            res.json({subscriptions:user.subscriptions});
+          else
+            res.status(404).json({message:"No subscriptions found...!!"});
+        }
+      }).catch(error => {
+        res.status(404).json({message:error.message});
+      });
+      client.close();
+    }).catch( error => {
       res.status(404).json({message:error.message});
     });
-    client.close();
-  }).catch( error => {
-    res.status(404).json({message:error.message});
-  });
+  } else {
+    res.status(404).json({message:"Invalid email...!!"});
+  }
 });
 
 //Admin
