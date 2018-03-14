@@ -30,9 +30,14 @@ module.exports.createUser = function (newUser,callback) {
 	});
 }
 
-module.exports.getUserByUsername = function (username,callback) {
-	var query = {username: email};
-	User.findOne(query,callback);
+module.exports.getUserByUsername = function (email) {
+	var query = {email: email};
+	User.findOne(query).then((user)=>{
+		return user;
+	}).catch(error=>{
+		console.log(error);
+		return error;
+	});
 }
 //mongodb functions
 module.exports.getUserById = function (id,callback) {

@@ -57,3 +57,7 @@
   max-width: 530px;
   margin: 0 auto;
 }
+
+#userTable button {
+    margin:2px 5px;
+}

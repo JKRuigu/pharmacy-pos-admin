@@ -49,5 +49,26 @@ router.post('/profile/register',function (req,res) {
 	}
 });
 
+router.post('/profile/login', (req, res) =>{
+	if(req.body){
+		User.findOne({email:req.body.email}).then(user=>{
+			if (!user){
+        res.status(404).json({message:"User doesn't exist...!!!"});
+			} else {
+        User.comparePassword(req.body.password, user.password, function (hash, isMatch) {
+					if (isMatch)
+            res.json({status:"OK"});
+					else
+            res.status(404).json({message:"Email/Password is incorrect...!!!"});
+        })
+      }
+		}).catch(error=>{
+      res.status(404).json({message:error.message});
+		});
+	} else {
+		res.status(404).json({message:"Information invalid"})
+	}
+});
+
 
 module.exports = router;
