@@ -10,6 +10,7 @@ const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const keys = require('../config/keys');
+const swal = require('sweetalert2')
 
 function generateHash(password) {
   bcrypt.genSalt(10, function(err, salt) {
@@ -99,8 +100,8 @@ router.post('/forgot', function(req, res, next) {
     function(token, done) {
       User.findOne({ email: req.body.email }, function(err, user) {
         if (!user) {
-          console.log('No user found');
-          return res.redirect('/forgot');
+          alert ( "Oops, something went wrong!" )
+          return res.redirect('/');
         }
 
         user.resetPasswordToken = token;
