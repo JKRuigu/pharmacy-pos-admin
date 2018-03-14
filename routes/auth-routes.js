@@ -3,11 +3,18 @@ const passport = require('passport');
 const User = require('../models/user-model');
 const Admin = require('../models/admin-model');
 const LocalStrategy = require('passport-local').Strategy;
-const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
+const url = 'mongodb://localhost:27017/pharmacy-pos';
 const express = require('express');
 
 // const photoUpload = require('./routes/photo-upload');
 
+router.get('/updates', (req, res)=>{
+
+});
+
+router.post('/updates', (req, res)=>{
+
+});
 
 // auth logout
 router.get('/auth/logout', (req, res) => {
