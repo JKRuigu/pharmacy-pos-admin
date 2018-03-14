@@ -1,4 +1,4 @@
-<%- include('../partials/header.ejs', {title: "Subscription status"});%>
+<%- include('../partials/users/header.ejs', {title: "Subscription status"});%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
 <div class="panel-header panel-header-sm">
   <div class="header text-center">
@@ -13,23 +13,14 @@
           <h5 class="title">
             <i class="now-ui-icons users_single-02"></i>
             <span class="text-right">
-              <% if (user.facebook.name) { %>
-              <%=user.facebook.name %>
-              <% } %>
-              <% if (user.google.email) { %>
-              <%=user.google.email %>
-              <% } %>
-              <% if (user.local.username) { %>
-              <%=user.local.username %>
-              <% } %>
           </span></h5>
           <div class="container" >
             <h4>Your subscriptions</h4>
             <table class="table table-bordered table-hover table-striped">
               <thead>
               <tr>
-                <th>ID #</th>
-                <th>Package</th>
+                <th>email #</th>
+                <!-- <th>Package</th> -->
                 <th>Amount</th>
                 <th>Activation Date</th>
                 <th>Expiry Date</th>
@@ -38,14 +29,10 @@
               </tr>
               </thead>
               <tbody id="subscriptionsTable">
-                <% if(user.subscriptions){%>
-                  <% user.subscriptions.forEach(function(subscription, index){%>
                     <tr>
-                      <td><%=index%></td>
-                      <td><%=subscription.status%></td>
+                      <td><%=user.email%></td>
+                      <td><%=user.tel%></td>
                     </tr>
-                  <%})%>
-                <% } %>
               </tbody>
             </table>
           </div>
@@ -54,4 +41,4 @@
     </div>
   </div>
 </div>
-<%- include('../partials/footer.ejs')%>
+<%- include('../partials/users/footer.ejs')%>

@@ -12,6 +12,9 @@ $(document).ready(function () {
     $('#register').css({
           'display':'block'
       });
+    $('#forgotBtn').css({
+          'display':'none'
+      });
 });
   $( "#loginBtn" ).click(function() {
     $('#register').css({
@@ -24,6 +27,9 @@ $(document).ready(function () {
             'display':'block'
         });
     $('#login').css({
+          'display':'block'
+      });
+    $('#forgotBtn').css({
           'display':'block'
       });
 });

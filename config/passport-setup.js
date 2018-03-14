@@ -7,18 +7,6 @@ const LocalStrategy = require('passport-local').Strategy;
 const swal = require('sweetalert');
 
 
-
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-    User.findById(id).then((user) => {
-        done(null, user);
-    });
-});
-
-
 //GoogleStrategy
         passport.use(new GoogleStrategy({
     	    clientID: keys.google.clientID,

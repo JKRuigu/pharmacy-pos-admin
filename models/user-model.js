@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
-
-
+var passportLocalMongoose = require("passport-local-mongoose");
 
 //User Schema
 var UserSchema = mongoose.Schema({
@@ -13,12 +12,18 @@ var UserSchema = mongoose.Schema({
 		type:String
 	},
 	email:{
+		required: true,
 		type:String,
 		unique: true
-	}
+	},
+	resetPasswordToken:{
+		type: String
+	},
+    resetPasswordExpires: Date,
 });
 
-//Expor module
+UserSchema.plugin(passportLocalMongoose)
+//Export module
 var User = module.exports = mongoose.model('User',UserSchema);
 
 module.exports.createUser = function (newUser,callback) {

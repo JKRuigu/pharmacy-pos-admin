@@ -130,3 +130,6 @@ input:invalid {
 input:valid {
   border: 2px solid green;
 }
+#forgotBtn{
+  margin-right: 0px !important;
+}
