@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require('mongodb').ObjectId;
-const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
+const url = 'mongodb://localhost:27017/pharmacy-pos';
 
 
 

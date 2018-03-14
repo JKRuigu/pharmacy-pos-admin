@@ -17,7 +17,7 @@ const morgan = require('morgan');
 
 const app = express(); //App initialize
 app.set('view engine', 'ejs'); // set view engine
-app.set('port',(process.env.PORT || 3001));
+app.set('port',(process.env.PORT || 3000));
 
 app.use(morgan('dev'));
 app.use(cookieParser());
