@@ -6,7 +6,7 @@ const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos
 //  isLoggedIn function
 function isLoggedIn(req, res, next) {
   req.admin = req.app.locals.admin;
-  if (!req.admin) {
+  if (req.admin) {
     // TODO :: Redirect to login
     res.redirect('/');
   }else {
@@ -40,7 +40,7 @@ function isLoggedIn(req, res, next) {
   // });
 
   router.get('/subscriptions', (req, res) =>{
-    res.render('admin//index');
+    res.render('admin/index');
   });
 
   router.post('/:userId/activate', (req, res) =>{

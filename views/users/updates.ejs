@@ -28,31 +28,55 @@
                                                 </div>
                                               </div>
                                               <div class="col-md-4">
-                                                  <div class="card">
-                                                    <div class="card-header">
-                                                      <h6>Your subscription</h6>
-                                                    </div>
-                                                      <div class="card-body">
-                                                        <div style="overflow-x:auto;">
-                                                        <table class="table table-hover table-striped">
-                                                          <thead>
-                                                          <tr>
-                                                            <th>Email </th>
-                                                            <th>Amount</th>
-                                                          </tr>
-                                                          </thead>
-                                                          <tbody id="subscriptionsTable">
-                                                                <tr>
-                                                                  <td><%=user.email%></td>
-                                                                  <td><%=user.tel%></td>
-                                                                </tr>
-                                                          </tbody>
-                                                        </table>
+                                                  <div class="card card-user">
+                                                      <div class="image">
+                                                          <img src="../assets/img//bg5.jpg" alt="...">
                                                       </div>
-                                                    </div>
-                                                  </div>
+                                                      <div class="card-body">
+                                                          <div class="author">
+                                                            <img src="	<%= typeof file != 'undefined' ? file : '' %>" class="avatar border-gray">
+                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                                              Edit your profile
+                                                              </button>
+                                                              <!-- Modal -->
+                                                              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                  <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Modify your profile</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                      <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                  </div>
+                                                                  <div class="modal-body">
+                                                                    <form id="edit-details">
+                                                                      <div class="row">
+                                                                      <div class="form-group col-md-8 " >
+                                                                        <input type="email" class="form-control"  id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                                                                        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                                                      </div>
+                                                                      <div class="form-group col-md-4">
+                                                                        <input type="submit" name="submit" value="UPDATE" class="btn btn-success">
+                                                                      </div>
+                                                                    </div>
+                                                                    </div>
+                                                                    </form>
+                                                                  </div>
+                                                                  <div class="modal-footer">
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                              </div>
+                                                                  <h6 class="title">
+                                                                  </h6><p>we make sure you get every update we make..!!</p>
+                                                              </p>
+                                                          </div>
+                                                          <p class="description text-center">
+                                                          </p>
+                                                      </div>
                                                       <hr>
                                                       <div class="button-container">
+                                                        <p>link your other social media platform with</p>
                                                          <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
                                                              <i class="fab fa-facebook-f"></i>
                                                          </button>
@@ -69,8 +93,7 @@
                                       </div>
                         </div>
                         <div class="row">
-
-                    </div>
+                     </div>
                 </div>
             </div>
         </div>

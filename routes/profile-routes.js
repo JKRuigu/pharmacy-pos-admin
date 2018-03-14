@@ -7,27 +7,31 @@ const url = 'mongodb://localhost:27017/pharmacy-pos';
 
 //authenticate function
 const authCheck = (req,res,next)=>{
-  if (req.user) {
+  user=req.app.locals.user;
+  req.user=req.app.locals.user;
+  console.log('req.user is',req.user);
+  if (!user) {
     // TODO:: Redirect to login instead
     res.redirect('/');
   }else {
-    MongoClient.connect(url).then(client =>{
-      let db = client.db('pharmacy-pos');
-      db.collection('users').find({_id:ObjectId(req.params.userId)}).then( (user)=>{
-        res.user = user;
-      }).catch(error => {
-        res.status(404).json({message:error.message});
-      });
-      client.close();
-    }).catch( error => {
-      res.status(404).json({message:error.message});
-    });
+    // MongoClient.connect(url).then(client =>{
+    //   let db = client.db('pharmacy-pos');
+    //   db.collection('users').find({_id:ObjectId(req.params.userId)}).then( (user)=>{
+    //     res.user = user;
+    //   }).catch(error => {
+    //     res.status(404).json({message:error.message});
+    //   });
+    //   client.close();
+    // }).catch( error => {
+    //   res.status(404).json({message:error.message});
+    // });
     next();
   }
 };
 
 //Users profile-dashboard
-router.get('/',(req,res)=>{
+router.get('/',authCheck,(req,res)=>{
+  // console.log('Users profile-dashboard',req.user);
   res.render('users/profile');
 });
 
@@ -47,8 +51,8 @@ router.get('/update',authCheck,(req,res)=>{
 });
 
 //Subscription status
-router.get('/subscription',authCheck,(req,res)=>{
-  res.render('subscription/users',{user:req.user});
+router.get('/subscription',(req,res)=>{
+  res.render('users/users');
 });
 
 //Subscription status
