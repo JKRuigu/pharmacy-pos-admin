@@ -87,12 +87,18 @@
 			var password = $('#password').val();
 			var password2 = $('#password2').val();
 
-			if (!email || !password ||!tel ||password2 !==password) {
+			if (!email || !password || !tel || !password2) {
 				swal({
 					title: "Error!",
-					text: "Try to fil all the spaces !",
+					text: "All fields are required",
 					icon: "info",
 				});
+			} else if(password !== password2){
+              swal({
+                title: "Error!",
+                text: "Your passwords don't match...!",
+                icon: "info",
+              });
 			}else {
 				$.ajax( {
 					url: "/profile/register",
@@ -137,7 +143,7 @@
       if (!email || !password) {
         swal({
           title: "Error!",
-          text: "Try to fil all the spaces !",
+          text: "Email and password are required !",
           icon: "info",
         });
       }else {
@@ -151,8 +157,7 @@
           contentType: "application/json",
           success:function (data) {
             if (data) {
-              console.log(data);
-              // window.location = '/profile';
+              window.location = '/profile';
             }
           },
           error: function (xhr) {
