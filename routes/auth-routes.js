@@ -3,7 +3,7 @@ const passport = require('passport');
 const User = require('../models/user-model');
 const Admin = require('../models/admin-model');
 const LocalStrategy = require('passport-local').Strategy;
-const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
+// const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
 const express = require('express');
 const async = require("async");
 const nodemailer = require("nodemailer");
@@ -12,26 +12,20 @@ const bcrypt = require("bcrypt");
 const keys = require('../config/keys');
 const swal = require('sweetalert2')
 
-function generateHash(password) {
-  bcrypt.genSalt(10, function(err, salt) {
-	    bcrypt.hash(User.password, salt, function(err, hash) {
-        console.log('hash',hash);
-	        return hash;
-    	});
-	});
-}
+// function generateHash(password) {
+//   bcrypt.genSalt(10, function(err, salt) {
+// 	    bcrypt.hash(User.password, salt, function(err, hash) {
+//         console.log('hash',hash);
+// 	        return hash;
+//     	});
+// 	});
+// }
 // auth logout
 router.get('/auth/logout', (req, res) => {
     req.app.locals.user=null;
     console.log(req.app.locals.user);
     res.redirect('/');
 });
-
-// //reset test
-// router.get('/changed', function(req, res) {
-//   res.render('changed');
-// });
-
 
 //Register POST
 router.post('/profile/register',function (req,res) {
@@ -111,7 +105,6 @@ router.post('/forgot', function(req, res, next) {
         }
         user.resetPasswordToken = token;
         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-
         user.save(function(err) {
           done(err, token, user);
         });
@@ -141,6 +134,7 @@ router.post('/forgot', function(req, res, next) {
     }
   ], function(err) {
     if (err) return next(err);
+    console.log('success we have sent an email to your account');
     res.redirect('/forgot');
   });
 });
