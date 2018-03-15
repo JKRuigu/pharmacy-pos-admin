@@ -1,40 +1,43 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Pharmacy-pos</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-		<link href='https://fonts.googleapis.com/css?family=Pacifico|Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-		<link rel="stylesheet" href="/css/modal.css">
+<html lang="en">
+    <head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/css/resetstyles.css">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+		<title>Pharmacypluspos-password mangement</title>
 	</head>
-<body>
-	<div class="container">
-    <div class="row">
-    	<div class="col-md-12">
-    		<form action="/forgot" method="POST">
-    			<legend>Forgot Password</legend>
-    			<div class="form-group">
-    				<label for="email">Email</label>
-    				<input type="email" name="email" autofocus class="form-control">
-    			</div>
-    			<div class="form-group">
-    				<input type="submit" class="btn btn-primary" value="Reset Password">
-    			</div>
-    		</form>
-    	</div>
-    </div>
-	</div>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/0.5.0/sweet-alert.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
-	<script src="/js/main.js">	</script>
+	<body>
+		<div class="container">
+			<div class="row main">
+				<div class="panel-heading">
+	               <div class="panel-title text-center">
+	               		<h1 class="title">Pharmacyplus-pos</h1>
+	               		<hr />
+	               	</div>
+	            </div>
+				<div class="main-login main-center">
+					<form class="form-horizontal" method="post" action="/forgot">
+							<div class="form-group">
+								<label for="password" class="cols-sm-2 control-label">Email</label>
+								<div class="cols-sm-10">
+									<div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+										<input type="email" class="form-control"  id="password"  placeholder="Enter your Email"/>
+									</div>
+								</div>
+							</div>
+							<div class="form-group ">
+								<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Reset password</button>
+							</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="assets/js/bootstrap.js"></script>
 	</body>
 </html>
