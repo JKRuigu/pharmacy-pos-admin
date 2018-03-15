@@ -11,8 +11,8 @@ module.exports ={
 	session:{
 		cookieKey:process.env.COOKIE_KEY
 	},facebook:{
-		clientID:'',
-		clientSecret:'',
+		clientID:'chegeherman@gmail.com',
+		clientSecret:'chegewangoi',
 	},
 	mlabusers:{
 		dbURI:'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey='+process.env.DB_URI
