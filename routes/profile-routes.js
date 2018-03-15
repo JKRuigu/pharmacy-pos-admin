@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require('mongodb').ObjectId;
-const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
+const url = 'mongodb://localhost:27017/pharmacy-pos';
 
 
 
@@ -63,6 +63,7 @@ router.get('/license/subscription' ,(req,res)=>{
     MongoClient.connect(url).then(client =>{
       let db = client.db('pharmacy-pos');
       db.collection('users').findOne({email:email}).then( (user)=>{
+        console.log(user);
         if (!user)
           res.status(404).json({message:"Email doesn't exist...!!"});
         else{

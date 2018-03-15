@@ -133,3 +133,21 @@ input:valid {
 #forgotBtn{
   margin-right: 0px !important;
 }
+#resetCtn{
+  margin: auto;
+  height:50vh;
+  background: #B43104;
+}
+.footer{
+  margin-top: 40px;
+}
+.footer a{
+  text-decoration: none;
+}
+.footer a:hover{
+  text-decoration: none;
+  color: red;
+}
+.form-gap {
+    padding-top: 70px;
+}

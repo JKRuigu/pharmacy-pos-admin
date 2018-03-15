@@ -12,36 +12,6 @@
 	</head>
 <body>
 	<div class="container">
-						<!-- Button trigger modal -->
-
-				<!-- Modal -->
-				<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-				  <div class="modal-dialog" role="document">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				          <span aria-hidden="true">&times;</span>
-				        </button>
-				      </div>
-				      <div class="modal-body">
-								<form action="/forgot" method="POST">
-				    			<legend>Forgot Password</legend>
-				    			<div class="form-group">
-				    				<label for="email">Email</label>
-				    				<input type="email" name="email" autofocus class="form-control">
-				    			</div>
-				    			<div class="form-group">
-				    				<input type="submit" class="btn btn-primary" value="Reset Password">
-				    			</div>
-				    		</form>
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				      </div>
-				    </div>
-				  </div>
-				</div>
 		<a href="#modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal" style="font-family: 'Pacifico', cursive;" id="myBtnClick">GET STARTED</a>
 		<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -92,7 +62,7 @@
 								<div class="row">
 									<span><a role="button" class="btn btn-default" id="loginBtn"> sign in?</a></span>
 									<span><a id="registerBtn"> New User want to Register ?</a></span>
-									<span><p type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" id="forgotModal"> forgot password..?</p>
+									<span><a href="/forgot">forgot password..?</a></span>
 								</div>
 							</div>
 					</div>
@@ -147,10 +117,10 @@
 						if (data) {
 							$("#register").get(0).reset()
 							swal({
-                              title: "Success!",
-                              text: "we get in touch !",
-                              icon: "success"
-                            });
+                    title: "Success!",
+                    text: "we get in touch !",
+                    icon: "success"
+                  });
 							window.location = '/profile';
 						}
 					},

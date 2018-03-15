@@ -33,8 +33,11 @@ $(document).ready(function () {
           'display':'block'
       });
 });
-$( "#forgotModal" ).click(function() {
-   $('#login-modal').modal().hide();
-
-});
+// $( "#restBtn" ).click(function() {
+//   swal({
+//     title: "Rest password",
+//     text: "Check whether an email was sent to you.If you do receive an email try the process again",
+//     icon: "info",
+//   });
+// });
 });

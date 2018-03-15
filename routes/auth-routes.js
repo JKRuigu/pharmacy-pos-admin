@@ -3,7 +3,7 @@ const passport = require('passport');
 const User = require('../models/user-model');
 const Admin = require('../models/admin-model');
 const LocalStrategy = require('passport-local').Strategy;
-const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
+const url = 'mongodb://localhost:27017/pharmacy-pos';
 const express = require('express');
 const async = require("async");
 const nodemailer = require("nodemailer");
@@ -20,12 +20,19 @@ function generateHash(password) {
     	});
 	});
 }
+
 // auth logout
 router.get('/auth/logout', (req, res) => {
     req.app.locals.user=null;
     console.log(req.app.locals.user);
     res.redirect('/');
 });
+
+// //reset test
+// router.get('/changed', function(req, res) {
+//   res.render('changed');
+// });
+
 
 //Register POST
 router.post('/profile/register',function (req,res) {
@@ -131,6 +138,11 @@ router.post('/forgot', function(req, res, next) {
       };
       smtpTransport.sendMail(mailOptions, function(err) {
         console.log('mail sent');
+        swal({
+              title: "Success!",
+              text: "we get in touch !",
+              icon: "success"
+            });
         req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
         done(err, 'done');
       });

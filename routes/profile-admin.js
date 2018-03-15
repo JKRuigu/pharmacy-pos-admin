@@ -1,8 +1,8 @@
 const router = require('express').Router();
-
+const User = require('../models/user-model');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
-const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
+const url = 'mongodb://localhost:27017/pharmacy-pos';
 //  isLoggedIn function
 function isLoggedIn(req, res, next) {
   req.admin = req.app.locals.admin;
@@ -41,6 +41,20 @@ function isLoggedIn(req, res, next) {
 
   router.get('/subscriptions', (req, res) =>{
     res.render('admin/index');
+  });
+
+  router.get('/users', (req,res)=>{
+    MongoClient.connect(url).then(client =>{
+      let db = client.db('pharmacy-pos');
+      db.collection('users').find({}).toArray().then( (users)=>{
+        res.json({users:users});
+      }).catch(error => {
+        res.status(404).json({message:error.message});
+      });
+      client.close();
+    }).catch( error => {
+     res.status(404).json({message:error.message});
+    });
   });
 
   router.post('/:userId/activate', (req, res) =>{

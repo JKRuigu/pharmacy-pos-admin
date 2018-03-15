@@ -191,10 +191,10 @@
   function getUsers() {
     $.ajax({
       type:'GET',
-      url:'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON',
+      url:'/admin/users',
       success:function (users) {
-        $.each(users,function (i, data) {
-          let _id = data._id.$oid;
+        $.each(users.users,function (i, data) {
+          let _id = data._id;
           systemUsers[_id] = {
             _id,
             username: data.email,
