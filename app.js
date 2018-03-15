@@ -33,7 +33,7 @@ app.use(express.static(__dirname + '/public'));
 
 
 // connect to mongodb
-mongoose.connect(keys.mongodb.dbURI, () => {
+mongoose.connect(keys.mongodb.dbURI, (err, connection) => {
     console.log('connected to mongodb');
 });
 

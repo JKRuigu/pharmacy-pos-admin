@@ -55,6 +55,8 @@ router.post('/profile/register',function (req,res) {
 		});
 
     User.createUser(newUser,function (err,user) {
+      console.log(user);
+      console.log(err);
       if (err){
         res.status(404).json({message: "Email already taken."});
     	}else {
