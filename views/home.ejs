@@ -13,17 +13,20 @@
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-
-		<link rel="stylesheet" href="/css/modal.css">
+	<link rel="stylesheet" href="/css/modal.css">
 	</head>
 
 <body>
 	<div class="container">
 		<div class="row">
 		<div class="col-md-6 col-md-offset-3">
-			<h3 id="login-header">Register to Download PharmacyPlusPOS or login to access your account </h3>
+			<h3 id="login-header">Please Register to Download PharmacyPlusPOS </h3>
+			<h3 id="login-header2">Login to access your Account </h3>
 		</div>
 		<br>
+		<br>
+		<br>
+
 		</div>
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
@@ -33,10 +36,10 @@
 						<div class="row">
 
 							<div class="col-xs-6">
-								<a href="#" id="register-form-link">Register</a>
+								<a href="#" class="active" id="register-form-link">Register</a>
 							</div>
 							<div class="col-xs-6">
-								<a href="#" class="active" id="login-form-link">Login</a>
+								<a href="#"  id="login-form-link">Login</a>
 							</div>
 
 						</div>
@@ -45,7 +48,7 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-								<form id="login-form" action="http://phpoll.com/login/process" method="post" role="form" style="display: block;">
+								<form id="login-form" action="http://phpoll.com/login/process" method="post" role="form" style="display: none;">
 									<div class="form-group">
 										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
 									</div>
@@ -74,7 +77,7 @@
 										</div>
 									</div>
 								</form>
-								<form id="register-form" action="http://phpoll.com/register/process" method="post" role="form" style="display: none;">
+								<form id="register-form" action="http://phpoll.com/register/process" method="post" role="form" style="display:block;">
 									<div class="form-group">
 										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
 									</div>

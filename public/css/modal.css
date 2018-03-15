@@ -233,9 +233,12 @@ body {
 	background-color: #1CA347;
 	border-color: #1CA347;
 }
-#login-header{
+#login-header,#login-header2 {
   font-size: 28;
   font-weight: 600;
   text-align: center;
   color: #04B404;
+}
+#login-header2{
+  display: none;
 }
