@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/node/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/node/assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title><%=title%></title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -11,11 +11,9 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- CSS Files -->
-  <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="/assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="/assets/demo/demo.css" rel="stylesheet" />
-  <!-- <link href="/css/modal.css" rel="stylesheet" /> -->
+  <link href="/node/assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/node/assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
+  <link href="/node/assets/demo/demo.css" rel="stylesheet" />
   <script  src="https://code.jquery.com/jquery-3.3.1.js" ></script>
 </head>
 <body class="">
@@ -33,35 +31,23 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li id="profileBtn" class="intro">
-                        <a href="/profile">
+                        <a href="/users/profile">
                             <i class="now-ui-icons design_app"></i>
                             <p>Dashboard</p>
                         </a>
                     </li>
                      <li id="updatesBtn">
-                          <a href="/profile/updates">
+                          <a href="/users/profile/updates">
                             <i class="now-ui-icons ui-1_email-85"></i>
                             <p>Latest Updates</p>
                         </a>
                     </li>
                      <li id="contactBtn">
-                          <a href="/profile/contact">
+                          <a href="/users/profile/contact">
                             <i class="now-ui-icons ui-1_email-85"></i>
                             <p>Contact Us</p>
                         </a>
                     </li>
-                    <!-- <li id="servicesBtn">
-                        <a href="/profile/services">
-                            <i class="now-ui-icons ui-1_zoom-bold"></i>
-                            <p>More services</p>
-                        </a>
-                    </li>
-                    <li id="subscriptionBtn">
-                        <a href="/profile/subscription">
-                            <i class="now-ui-icons ui-1_zoom-bold"></i>
-                            <p>Subscription</p>
-                        </a>
-                    </li> -->
                 </ul>
             </div>
         </div>
@@ -97,31 +83,13 @@
                                 <a class="nav-link" href="#">
                                     <i class="now-ui-icons media-2_sound-wave"></i>
                                     <p>
-                                        <span class="d-lg-none d-md-block">  </p> Logged in as <%=user.username%>  </p></span>
+                                        <span class="d-lg-none d-md-block">  Logged in as <%=user.username%></span>
                                     </p>
                                 </a>
                             </li>
-                            <!--
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="now-ui-icons location_world"></i>
-                                    <p>
-                                        <span class="d-lg-none d-md-block">Some Actions</span>
-                                    </p>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </li> -->
                             <li class="nav-item">
-
-
-                                 <a class="nav-link" href="/auth/logout" id="logoutlink"><p>
-
-                                 </p> Click to Log Out </p>
-
+                                 <a class="nav-link" href="/users/auth/logout" id="logoutlink">
+                                 <p> Click to Log Out </p>
                                 </a>
                             </li>
                         </ul>

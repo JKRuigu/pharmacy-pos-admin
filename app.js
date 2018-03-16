@@ -17,7 +17,7 @@ const morgan = require('morgan');
 
 const app = express(); //App initialize
 app.set('view engine', 'ejs'); // set view engine
-app.set('port',(process.env.PORT || 3001));
+app.set('port',(process.env.PORT || 3000));
 
 app.use(morgan('dev'));
 app.use(cookieParser());
@@ -29,7 +29,7 @@ app.use(cookieSession({ maxAge: 12 * 60 * 60 * 1000, keys: [keys.session.cookieK
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash()); // use connect-flash for flash messages stored in session
-app.use(express.static(__dirname + '/public'));
+app.use('/node',express.static(__dirname + '/public'));
 
 
 // connect to mongodb
@@ -38,14 +38,12 @@ mongoose.connect(keys.mongodb.dbURI, () => {
 });
 
 // set up routes
-app.use(authRoutes);
+app.use('/users', authRoutes);
 app.use(adminRoutes);
-app.use('/profile', profileRoutes);
+app.use('/users/profile', profileRoutes);
 app.use('/admin', profileAdmin);
 
-
-// create home route
-app.get('/', (req, res) => {
+app.get('/users/login', (req, res) => {
     res.render('home', { user: req.user });
 });
 

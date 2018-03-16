@@ -28,7 +28,7 @@ $(document).ready(function () {
             $("#add-message").get(0).reset()
             swal({
               title: "Success!",
-              text: "we get in touch !",
+              text: "We'll get in touch!",
               icon: "success",
             });
           }
