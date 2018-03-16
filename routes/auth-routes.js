@@ -29,12 +29,13 @@ router.get('/auth/logout', (req, res) => {
 
 //Register POST
 router.post('/profile/register',function (req,res) {
+	var username = req.body.username;
 	var tel = req.body.tel;
 	var email = req.body.email;
 	var password = req.body.password;
 	var password2 = req.body.password2;
 
-	if (!tel || !email || !password || !password2) {
+	if (!tel || !email || !password || !password2 ||!username ){
     swal({
       title: "Error!",
       text: "Try to fil all the spaces !",
@@ -43,6 +44,7 @@ router.post('/profile/register',function (req,res) {
 	} else {
 		var newUser = new User({
 			tel :tel,
+			username :username,
 			email :email,
 			password :password
 		});
@@ -65,7 +67,7 @@ router.post('/profile/login', (req, res) =>{
 	if(req.body){
 		User.findOne({email:req.body.email}).then(user=>{
 			if (!user){
-        res.status(404).json({message:"User doesn't exist...!!!"});
+        res.status(404).json({message:"User doesn't exist!"});
 			} else {
         User.comparePassword(req.body.password, user.password, function (hash, isMatch) {
 					if (isMatch){
@@ -99,6 +101,7 @@ router.post('/forgot', function(req, res, next) {
     },
     function(token, done) {
       User.findOne({ email: req.body.email }, function(err, user) {
+        console.log('email',req.body.email);
         if (!user) {
           console.log('not user found');
           return res.redirect('/');
@@ -156,7 +159,7 @@ router.post('/reset/:token', function(req, res) {
       User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
           console.log('error', 'Password reset token is invalid or has expired.');
-          return res.redirect('back');
+          return res.redirect('/');
         }
         if(req.body.password === req.body.confirm) {
           var hash = generateHash(req.body.password);

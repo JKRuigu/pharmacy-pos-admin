@@ -1,157 +1,18 @@
-<%- include('../partials/users/header.ejs', {title: "profile"});%>
+<%- include('../partials/users/header.ejs', {title: "updates"});%>
 <div class="panel-header panel-header-sm">
     <div class="header text-center">
         <!-- <h3 class="title">Other Services from Magnum</h3> -->
     </div>
 </div>
 <div class="content">
-        <div class="col-md-6">
-            <div class="card"></div>
-        </div>
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="places-buttons">
-                        <div class="row">
-                                    <div class="content">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h5 class="title">Latest Updates</h5>
-                                                    </div>
-                                                    <div class="card-body">
-                                                      <div class="panel-body">
-                                                        <div class="container" id="updates_div"></div>
-                                                      </div>
-                                                    </div>
-                                                </div>
-                                              </div>
-                                              <div class="col-md-4">
-                                                  <div class="card card-user">
-                                                      <div class="image">
-                                                          <img src="../assets/img//bg5.jpg" alt="...">
-                                                      </div>
-                                                      <div class="card-body">
-                                                          <div class="author">
-                                                            <img src="	<%= typeof file != 'undefined' ? file : '' %>" class="avatar border-gray">
-                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                                                              Edit your profile
-                                                              </button>
-                                                              <!-- Modal -->
-                                                              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                              <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                <div class="modal-content">
-                                                                  <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Modify your profile</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                      <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                  </div>
-                                                                  <div class="modal-body">
-                                                                    <form id="edit-details">
-                                                                      <div class="row">
-                                                                      <div class="form-group col-md-8 " >
-                                                                        <input type="email" class="form-control"  id="email" aria-describedby="emailHelp" placeholder="Enter email">
-                                                                        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                                                      </div>
-                                                                      <div class="form-group col-md-4">
-                                                                        <input type="submit" name="submit" value="UPDATE" class="btn btn-success">
-                                                                      </div>
-                                                                    </div>
-                                                                    </div>
-                                                                    </form>
-                                                                  </div>
-                                                                  <div class="modal-footer">
-                                                                  </div>
-                                                                </div>
-                                                              </div>
-                                                              </div>
-                                                                  <h6 class="title">
-                                                                  </h6><p>we make sure you get every update we make..!!</p>
-                                                              </p>
-                                                          </div>
-                                                          <p class="description text-center">
-                                                          </p>
-                                                      </div>
-                                                      <hr>
-                                                      <div class="button-container">
-                                                        <p>link your other social media platform with</p>
-                                                         <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                                             <i class="fab fa-facebook-f"></i>
-                                                         </button>
-                                                         <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                                             <i class="fab fa-twitter"></i>
-                                                         </button>
-                                                         <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                                             <i class="fab fa-google-plus-g"></i>
-                                                         </button>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                        </div>
-                        <div class="row">
-                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</div>
-</script>
+
+          <div class="container" id="updates_div"></div>
+  </div>      
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
 <script  src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="  crossorigin="anonymous"></script>
 <script src ="/js/updates.js"></script>
 
-<script>
-$(document).ready(function () {
-$.getJSON("https://api.mlab.com/api/1/databases/pharmacy-updates/collections/updates?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON",
-function (data) {
-  // console.log(data);
-  var updates_data ='';
-  $.each(data, function (key,value) {
-      updates_data += '<div class="card">';
-      updates_data += '<h6 class="card-header ">' +value.title+'</h6>';
-      updates_data += '<div class="card-body">';
-      updates_data += '<p>' +value.paragraph2+'</p>';
-      updates_data += '<p>' +value.others+'</p>';
-      updates_data += '</div>';
-      updates_data += '<small class="card-footer">' +value.date+ ' Pharmacy-pos:powered by :'+ ' <a href="http://magnumdigitalke.com/" class="card-link">'+'Magnum digital Media Ke'+'</a>'+'  '+'</small>';
-      updates_data += '</div>';
-  });
-  $('#updates_div').append(updates_data);
-});
 
-});
-</script>
-<script type="text/javascript">
-$(document).ready(function () {
-$('#edit-details').on('submit',function (e) {
-e.preventDefault();
-var email = $('#email').val();
-$.ajax( {
-url:'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON&q="user._id"',
-data: JSON.stringify({
- "email" :email,
-}),
-type: "POST",
-contentType: "application/json",
-success:function (data,msg) {
-  window.location.href="contact",
-  alert( msg)
-
-},
-error: function (xhr,status,err) {
-console.log(err);
-}
-});
-});
-});
-
-</script>
 
 <%- include('../partials/users/footer.ejs')%>

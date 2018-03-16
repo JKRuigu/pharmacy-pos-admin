@@ -6,10 +6,10 @@ $(document).ready(function () {
     var tel = $('#tel').val();
     var message = $('#message').val();
 
-    if (!name || !email ||tel ||message) {
+    if (!name || !email || !tel || !message) {
       swal({
 				title: "Error!",
-				text: "Try to fil all the spaces !",
+				text: "Try to fill all the spaces !",
 				icon: "info",
 			});
     }else {

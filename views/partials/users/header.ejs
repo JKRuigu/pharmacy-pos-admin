@@ -15,7 +15,7 @@
   <link href="/assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/assets/demo/demo.css" rel="stylesheet" />
-  <link href="/css/modal.css" rel="stylesheet" />
+  <!-- <link href="/css/modal.css" rel="stylesheet" /> -->
   <script  src="https://code.jquery.com/jquery-3.3.1.js" ></script>
 </head>
 <body class="">
@@ -27,7 +27,7 @@
             <div class="logo">
 
                 <a href="#" class="simple-text logo-normal">
-                    Pharmacy-pos
+                    PharmacyPOS Dashboard
                 </a>
             </div>
             <div class="sidebar-wrapper">
@@ -41,7 +41,7 @@
                      <li id="updatesBtn">
                           <a href="/profile/updates">
                             <i class="now-ui-icons ui-1_email-85"></i>
-                            <p>Lastest Updates</p>
+                            <p>Latest Updates</p>
                         </a>
                     </li>
                      <li id="contactBtn">
@@ -50,7 +50,7 @@
                             <p>Contact Us</p>
                         </a>
                     </li>
-                    <li id="servicesBtn">
+                    <!-- <li id="servicesBtn">
                         <a href="/profile/services">
                             <i class="now-ui-icons ui-1_zoom-bold"></i>
                             <p>More services</p>
@@ -61,7 +61,7 @@
                             <i class="now-ui-icons ui-1_zoom-bold"></i>
                             <p>Subscription</p>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -94,13 +94,14 @@
                         </form>
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="#pablo">
+                                <a class="nav-link" href="#">
                                     <i class="now-ui-icons media-2_sound-wave"></i>
                                     <p>
-                                        <span class="d-lg-none d-md-block">Stats</span>
+                                        <span class="d-lg-none d-md-block">  </p> Logged in as <%=user.username%>  </p></span>
                                     </p>
                                 </a>
                             </li>
+                            <!--
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="now-ui-icons location_world"></i>
@@ -113,15 +114,18 @@
                                     <a class="dropdown-item" href="#">Another action</a>
                                     <a class="dropdown-item" href="#">Something else here</a>
                                 </div>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
+
+
                                  <a class="nav-link" href="/auth/logout" id="logoutlink"><p>
-                                  </p> Log Out
-                                      <i class="now-ui-icons users_single-02"></i>
+
+                                 </p> Click to Log Out </p>
+
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
-            <!-- End Navbar -->
+          <!-- End Navbar -->

@@ -13,7 +13,6 @@ $(document).ready(function () {
         "title" :title,
          "date" :date,
         // "paragraph" : paragraph,
-         "paragraph2" : paragraph2,
          "others" : others
      }),
 		  type: "POST",
@@ -35,12 +34,11 @@ $(document).ready(function () {
         var updates_data ='';
         $.each(data, function (key,value) {
             updates_data += '<div class="card">';
-            updates_data += '<h6 class="card-header ">' +value.title+'</h6>';
+            updates_data += '<h3 class="card-header ">' +value.title+'</h3>';
             updates_data += '<div class="card-body">';
-            updates_data += '<p>' +value.paragraph2+'</p>';
             updates_data += '<p>' +value.others+'</p>';
             updates_data += '</div>';
-            updates_data += '<small class="card-footer">' +value.date+ ' Pharmacy-pos:powered by :'+ ' <a href="http://magnumdigitalke.com/" class="card-link">'+'Magnum digital Media Ke'+'</a>'+'  '+'</small>';
+            updates_data += '<small class="card-footer">'+ 'Updated on '+ value.date+'</small>';
             updates_data += '</div>';
         });
         $('#updates_div').append(updates_data);

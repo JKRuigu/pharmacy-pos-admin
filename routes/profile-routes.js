@@ -46,8 +46,8 @@ router.get('/services',authCheck,(req,res)=>{
 });
 
 //Updates
-router.get('/update',authCheck,(req,res)=>{
-  res.render('update',{user:req.user});
+router.get('/updates',authCheck,(req,res)=>{
+  res.render('users/updates',{user:req.user});
 });
 
 //Subscription status

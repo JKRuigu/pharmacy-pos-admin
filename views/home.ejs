@@ -48,13 +48,13 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-								<form id="login-form" action="http://phpoll.com/login/process" method="post" role="form" style="display: none;">
+								<form id="login-form" method="post" role="form" style="display: none;">
 									<div class="form-group">
-										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+										<input type="email" name="email" id="username"  class="form-control" placeholder="Enter your E-mail" value="jkruigu@gmail.com">
 									</div>
 
 									<div class="form-group">
-										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+										<input type="password" name="password" id="login-pass" class="form-control" placeholder="Password" value="123456789">
 									</div>
 									<div class="form-group text-center">
 										<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
@@ -77,29 +77,28 @@
 										</div>
 									</div>
 								</form>
-								<form id="register-form" action="http://phpoll.com/register/process" method="post" role="form" style="display:block;">
+								<form id="register-form" method="post" role="form" style="display:block;">
 									<div class="form-group">
-										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+										<input type="number" name="tel" id="tel"  class="form-control" placeholder="Mobile Number" value="0721548754">
 									</div>
 									<div class="form-group">
-										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Mobile Number" value="">
+										<input type="text" name="username2" id="username2" tabindex="1" class="form-control" placeholder="Enter your username" value="JKRuigu">
 									</div>
 									<div class="form-group">
-										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+										<input type="email" name="email" id="email"   class="form-control" placeholder="Email Address" value="jkruigu@gmail.com">
 									</div>
 									<div class="form-group">
-										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+										<input type="password" name="password" id="password" class="form-control" placeholder="Password" value="123456789">
 									</div>
 									<div class="form-group">
-										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+										<input type="password" name="password2" id="password2"   class="form-control" placeholder="Confirm Password" value="123456789">
 									</div>
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+												<button type="submit" role="button">Register Now</button>
 											</div>
-										</div>
-									</div>
+ 									</div>
 								</form>
 							</div>
 						</div>
@@ -119,14 +118,15 @@
 	<script src="/js/main.js">	</script>
 	<script>
 	$(document).ready(function () {
-		$('#register').on('submit',function (e) {
+		$('#register-form').on('submit',function (e) {
 			e.preventDefault();
+			var username = $('#username2').val();
 			var email = $('#email').val();
 			var tel = $('#tel').val();
 			var password = $('#password').val();
 			var password2 = $('#password2').val();
 
-			if (!email || !password || !tel || !password2) {
+			if (!email || !password || !tel || !password2 || !username) {
 				swal({
 					title: "Error!",
 					text: "All fields are required",
@@ -142,6 +142,7 @@
 				$.ajax( {
 					url: "/profile/register",
 					data: JSON.stringify({
+						"username" :username,
 						"tel" :tel,
 						"email" :email,
 						"password" : password,
@@ -151,7 +152,9 @@
 					contentType: "application/json",
 					success:function (data,msg) {
 						if (data) {
-							$("#register").get(0).reset()
+							console.log('data',data);
+							console.log('msg',msg);
+							$("#register-form").get(0).reset()
 							swal({
                   title: "Success!",
                   text: "we get in touch !",
@@ -163,11 +166,11 @@
 					error: function (xhr) {
 						if(xhr.status === 404){
 						  var error = xhr.responseJSON;
-                          swal({
-                            title: "Error!",
-                            text: error.message,
-                            icon: "error"
-                          });
+                  swal({
+                    title: "Error!",
+                    text: error.message,
+                    icon: "error"
+                  });
 						}
 					}
 				});
@@ -175,7 +178,7 @@
 		});
 	});
 
-    $('#login').submit(function (e) {
+    $('#login-form').submit(function (e) {
       e.preventDefault();
       var email = $('#username').val();
       var password = $('#login-pass').val();
@@ -185,7 +188,7 @@
           text: "Email and password are required !",
           icon: "info",
         });
-      }else {
+      }
         $.ajax( {
           url: "/profile/login",
           data: JSON.stringify({
@@ -209,8 +212,7 @@
               });
             }
           }
-        });
-      }
+        })
     });
 	</script>
 </body>

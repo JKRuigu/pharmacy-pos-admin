@@ -1,83 +1,23 @@
 <%- include('../partials/users/header.ejs', {title: "profile"});%>
-<div class="panel-header panel-header-sm">
+<div class="panel-header panel-header-md">
     <div class="header text-center">
-        <!-- <h3 class="title">Other Services from Magnum</h3> -->
+        <h3 class="title">Hi <%=user.username%>, <br>Welcome to your PharmacyPOS Dashboard</h3>
     </div>
 </div>
 <div class="content">
-        <div class="col-md-6">
-            <div class="card"></div>
-        </div>
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="places-buttons">
-                        <div class="row">
-                                    <div class="content">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h5 class="title">Latest Updates</h5>
-                                                    </div>
-                                                    <div class="card-body">
-                                                      <div class="panel-body">
-                                                        <div class="container" id="updates_div"></div>
-                                                      </div>
-                                                    </div>
-                                                </div>
-                                              </div>
-                                              <div class="col-md-4">
-                                                  <div class="card">
-                                                    <div class="card-header">
-                                                      <h6>Your subscription</h6>
-                                                    </div>
-                                                      <div class="card-body">
-                                                        <div style="overflow-x:auto;">
-                                                        <table class="table table-hover table-striped">
-                                                          <thead>
-                                                          <tr>
-                                                            <th>Email </th>
-                                                            <th>Amount</th>
-                                                          </tr>
-                                                          </thead>
-                                                          <tbody id="subscriptionsTable">
-                                                                <tr>
-                                                                  <td><%=user.email%></td>
-                                                                  <td><%=user.tel%></td>
-                                                                </tr>
-                                                          </tbody>
-                                                        </table>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                      <hr>
-                                                      <div class="button-container">
-                                                         <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                                             <i class="fab fa-facebook-f"></i>
-                                                         </button>
-                                                         <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                                             <i class="fab fa-twitter"></i>
-                                                         </button>
-                                                         <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
-                                                             <i class="fab fa-google-plus-g"></i>
-                                                         </button>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                        </div>
-                        <div class="row">
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</div>
+  <div class="col-md-12">
+      <div class="card">
+
+  <div class="card-body text-center">
+
+<a href="/pharmacysoftwarefree.exe"><button onclick=""class="btn btn-success btn-round btn-lg">Download the Software Now <i class="now-ui-icons arrows-1_cloud-download-93"></i></button></a>
+  </div>
+      </div>
+  </div>
+
+
+
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
