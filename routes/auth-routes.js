@@ -3,7 +3,7 @@ const passport = require('passport');
 const User = require('../models/user-model');
 const Admin = require('../models/admin-model');
 const LocalStrategy = require('passport-local').Strategy;
-const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
+// const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
 const express = require('express');
 const async = require("async");
 const nodemailer = require("nodemailer");
@@ -27,12 +27,13 @@ router.get('/auth/logout', (req, res) => {
 
 //Register POST
 router.post('/profile/register',function (req,res) {
+	var username = req.body.username;
 	var tel = req.body.tel;
 	var email = req.body.email;
 	var password = req.body.password;
 	var password2 = req.body.password2;
 
-	if (!tel || !email || !password || !password2) {
+	if (!tel || !email || !password || !password2 ||!username ){
     swal({
       title: "Error!",
       text: "Try to fil all the spaces !",
@@ -41,6 +42,7 @@ router.post('/profile/register',function (req,res) {
 	} else {
 		var newUser = new User({
 			tel :tel,
+			username :username,
 			email :email,
 			password :password
 		});
@@ -63,7 +65,7 @@ router.post('/profile/login', (req, res) =>{
 	if(req.body){
 		User.findOne({email:req.body.email}).then(user=>{
 			if (!user){
-        res.status(404).json({message:"User doesn't exist...!!!"});
+        res.status(404).json({message:"User doesn't exist!"});
 			} else {
         User.comparePassword(req.body.password, user.password, function (hash, isMatch) {
 					if (isMatch){
@@ -97,13 +99,12 @@ router.post('/forgot', function(req, res, next) {
     },
     function(token, done) {
       User.findOne({ email: req.body.email }, function(err, user) {
+        console.log('email',req.body.email);
         if (!user) {
           return res.redirect('/users/login');
         }
-
         user.resetPasswordToken = token;
         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-
         user.save(function(err) {
           done(err, token, user);
         });
@@ -119,8 +120,8 @@ router.post('/forgot', function(req, res, next) {
       });
       var mailOptions = {
         to: user.email,
-        from: 'ruigukjohn@gmail.com',
-        subject: 'Node.js Password Reset',
+        from: 'chegeherman@gmail.com',
+        subject: 'Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
           'http://' + req.headers.host + '/reset/' + token + '\n\n' +
@@ -128,12 +129,12 @@ router.post('/forgot', function(req, res, next) {
       };
       smtpTransport.sendMail(mailOptions, function(err) {
         console.log('mail sent');
-        req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
         done(err, 'done');
       });
     }
   ], function(err) {
     if (err) return next(err);
+    console.log('success we have sent an email to your account');
     res.redirect('/forgot');
   });
 });
@@ -155,7 +156,7 @@ router.post('/reset/:token', function(req, res) {
       User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
           console.log('error', 'Password reset token is invalid or has expired.');
-          return res.redirect('back');
+          return res.redirect('/');
         }
         if(req.body.password === req.body.confirm) {
           var hash = generateHash(req.body.password);
@@ -186,7 +187,7 @@ router.post('/reset/:token', function(req, res) {
       });
       var mailOptions = {
         to: user.email,
-        from: 'ruigukjohn@gmail.com',
+        from: 'chegeherman@gmail.com',
         subject: 'Your password has been changed',
         text: 'Hello,\n\n' +
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'

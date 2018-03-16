@@ -21,26 +21,7 @@
 </head>
 
 <body class="">
-  <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : keys.facebook.clientID,
-      xfbml      : true,
-      version    : 'v2.12'
-    });
 
-    FB.AppEvents.logPageView();
-
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
     <div class="wrapper ">
         <div class="sidebar" data-color="orange">
             <!--
@@ -48,17 +29,17 @@
     -->
             <div class="logo">
                                 <a href="#" class="simple-text logo-normal">
-                    Pharmacy-pos
+                    PharmacyPOS Dashboard
                 </a>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="active">
+                    <!-- <li class="active">
                         <a href="/admin">
                             <i class="now-ui-icons design_app"></i>
                             <p>Dashboard</p>
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="/admin/ad-users">
                             <i class="now-ui-icons education_atom"></i>
@@ -74,25 +55,19 @@
                     <li>
                         <a href="/admin/ad-updates">
                             <i class="now-ui-icons ui-1_bell-53"></i>
-                            <p>Add Customer Updates</p>
+                            <p>Add Updates</p>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="/admin/ad-register">
                             <i class="now-ui-icons users_single-02"></i>
                             <p>Add Admins</p>
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="/admin/subscriptions">
                             <i class="now-ui-icons users_single-02"></i>
                             <p>Subscriptions</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/users/auth/HelloAnalytics">
-                            <i class="now-ui-icons design_bullet-list-67"></i>
-                            <p>Google Analytics</p>
                         </a>
                     </li>
                   </ul>
