@@ -10,6 +10,7 @@ const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const keys = require('../config/keys');
+const swal = require('sweetalert2')
 
 function generateHash(password) {
   bcrypt.genSalt(10, function(err, salt) {
@@ -23,7 +24,7 @@ function generateHash(password) {
 router.get('/auth/logout', (req, res) => {
     req.app.locals.user=null;
     console.log(req.app.locals.user);
-    res.redirect('/');
+    res.redirect('/users/login');
 });
 
 //Register POST
@@ -52,7 +53,7 @@ router.post('/profile/register',function (req,res) {
     	}else {
         req.app.locals.user = user;
         res.writeHead(302, {
-          'Location': '/profile'
+          'Location': '/users/profile'
         });
         res.end();
       }
@@ -99,8 +100,8 @@ router.post('/forgot', function(req, res, next) {
     function(token, done) {
       User.findOne({ email: req.body.email }, function(err, user) {
         if (!user) {
-          console.log('No user found');
-          return res.redirect('/forgot');
+          alert ( "Oops, something went wrong!" )
+          return res.redirect('/users/login');
         }
 
         user.resetPasswordToken = token;
@@ -174,7 +175,7 @@ router.post('/reset/:token', function(req, res) {
           })
         } else {
             console.log("error", "Passwords do not match.");
-            return res.redirect('/');
+            return res.redirect('/users/login');
         }
       });
     },
@@ -200,7 +201,7 @@ router.post('/reset/:token', function(req, res) {
     }
   ], function(err) {
     console.log('error',err);
-    res.redirect('/');
+    res.redirect('/users/login');
   });
 });
 

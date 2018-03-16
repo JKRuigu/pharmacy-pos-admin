@@ -33,4 +33,8 @@ $(document).ready(function () {
           'display':'block'
       });
 });
+$( "#forgotModal" ).click(function() {
+   $('#login-modal').modal().hide();
+
+});
 });

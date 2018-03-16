@@ -12,7 +12,7 @@ const authCheck = (req,res,next)=>{
   console.log('req.user is',req.user);
   if (!user) {
     // TODO:: Redirect to login instead
-    res.redirect('/');
+    res.redirect('/users/login');
   }else {
     // MongoClient.connect(url).then(client =>{
     //   let db = client.db('pharmacy-pos');
