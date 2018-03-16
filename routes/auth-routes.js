@@ -15,7 +15,6 @@ const swal = require('sweetalert2')
 function generateHash(password) {
   bcrypt.genSalt(10, function(err, salt) {
 	    bcrypt.hash(User.password, salt, function(err, hash) {
-        console.log('hash',hash);
 	        return hash;
     	});
 	});
@@ -23,8 +22,7 @@ function generateHash(password) {
 // auth logout
 router.get('/auth/logout', (req, res) => {
     req.app.locals.user=null;
-    console.log(req.app.locals.user);
-    res.redirect('/users/login');
+    res.redirect('/');
 });
 
 //Register POST
@@ -100,7 +98,6 @@ router.post('/forgot', function(req, res, next) {
     function(token, done) {
       User.findOne({ email: req.body.email }, function(err, user) {
         if (!user) {
-          alert ( "Oops, something went wrong!" )
           return res.redirect('/users/login');
         }
 
