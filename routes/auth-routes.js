@@ -3,7 +3,11 @@ const passport = require('passport');
 const User = require('../models/user-model');
 const Admin = require('../models/admin-model');
 const LocalStrategy = require('passport-local').Strategy;
+<<<<<<< HEAD
 const url = 'mongodb://localhost:27017/pharmacy-pos';
+=======
+// const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
+>>>>>>> 845c309d9e2b51008bcc792c2b02f26e9f270208
 const express = require('express');
 const async = require("async");
 const nodemailer = require("nodemailer");
@@ -15,7 +19,6 @@ const swal = require('sweetalert2')
 function generateHash(password) {
   bcrypt.genSalt(10, function(err, salt) {
 	    bcrypt.hash(User.password, salt, function(err, hash) {
-        console.log('hash',hash);
 	        return hash;
     	});
 	});
@@ -24,18 +27,18 @@ function generateHash(password) {
 // auth logout
 router.get('/auth/logout', (req, res) => {
     req.app.locals.user=null;
-    console.log(req.app.locals.user);
     res.redirect('/');
 });
 
 //Register POST
 router.post('/profile/register',function (req,res) {
+	var username = req.body.username;
 	var tel = req.body.tel;
 	var email = req.body.email;
 	var password = req.body.password;
 	var password2 = req.body.password2;
 
-	if (!tel || !email || !password || !password2) {
+	if (!tel || !email || !password || !password2 ||!username ){
     swal({
       title: "Error!",
       text: "Try to fil all the spaces !",
@@ -44,6 +47,7 @@ router.post('/profile/register',function (req,res) {
 	} else {
 		var newUser = new User({
 			tel :tel,
+			username :username,
 			email :email,
 			password :password
 		});
@@ -54,7 +58,7 @@ router.post('/profile/register',function (req,res) {
     	}else {
         req.app.locals.user = user;
         res.writeHead(302, {
-          'Location': '/profile'
+          'Location': '/users/profile'
         });
         res.end();
       }
@@ -66,7 +70,7 @@ router.post('/profile/login', (req, res) =>{
 	if(req.body){
 		User.findOne({email:req.body.email}).then(user=>{
 			if (!user){
-        res.status(404).json({message:"User doesn't exist...!!!"});
+        res.status(404).json({message:"User doesn't exist!"});
 			} else {
         User.comparePassword(req.body.password, user.password, function (hash, isMatch) {
 					if (isMatch){
@@ -100,14 +104,12 @@ router.post('/forgot', function(req, res, next) {
     },
     function(token, done) {
       User.findOne({ email: req.body.email }, function(err, user) {
+        console.log('email',req.body.email);
         if (!user) {
-          alert ( "Oops, something went wrong!" )
-          return res.redirect('/');
+          return res.redirect('/users/login');
         }
-
         user.resetPasswordToken = token;
         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-
         user.save(function(err) {
           done(err, token, user);
         });
@@ -123,8 +125,8 @@ router.post('/forgot', function(req, res, next) {
       });
       var mailOptions = {
         to: user.email,
-        from: 'ruigukjohn@gmail.com',
-        subject: 'Node.js Password Reset',
+        from: 'chegeherman@gmail.com',
+        subject: 'Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
           'http://' + req.headers.host + '/reset/' + token + '\n\n' +
@@ -132,12 +134,12 @@ router.post('/forgot', function(req, res, next) {
       };
       smtpTransport.sendMail(mailOptions, function(err) {
         console.log('mail sent');
-        req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
         done(err, 'done');
       });
     }
   ], function(err) {
     if (err) return next(err);
+    console.log('success we have sent an email to your account');
     res.redirect('/forgot');
   });
 });
@@ -159,7 +161,7 @@ router.post('/reset/:token', function(req, res) {
       User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
           console.log('error', 'Password reset token is invalid or has expired.');
-          return res.redirect('back');
+          return res.redirect('/');
         }
         if(req.body.password === req.body.confirm) {
           var hash = generateHash(req.body.password);
@@ -176,7 +178,7 @@ router.post('/reset/:token', function(req, res) {
           })
         } else {
             console.log("error", "Passwords do not match.");
-            return res.redirect('/');
+            return res.redirect('/users/login');
         }
       });
     },
@@ -190,7 +192,7 @@ router.post('/reset/:token', function(req, res) {
       });
       var mailOptions = {
         to: user.email,
-        from: 'ruigukjohn@gmail.com',
+        from: 'chegeherman@gmail.com',
         subject: 'Your password has been changed',
         text: 'Hello,\n\n' +
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
@@ -202,7 +204,7 @@ router.post('/reset/:token', function(req, res) {
     }
   ], function(err) {
     console.log('error',err);
-    res.redirect('/');
+    res.redirect('/users/login');
   });
 });
 

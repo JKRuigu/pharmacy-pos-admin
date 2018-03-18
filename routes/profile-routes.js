@@ -1,37 +1,26 @@
 const router = require('express').Router();
 const MongoClient = require("mongodb").MongoClient;
+<<<<<<< HEAD
 const ObjectId = require('mongodb').ObjectId;
 const url = 'mongodb://localhost:27017/pharmacy-pos';
-
-
+=======
+const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
+>>>>>>> 845c309d9e2b51008bcc792c2b02f26e9f270208
 
 //authenticate function
 const authCheck = (req,res,next)=>{
   user=req.app.locals.user;
   req.user=req.app.locals.user;
-  console.log('req.user is',req.user);
   if (!user) {
     // TODO:: Redirect to login instead
-    res.redirect('/');
+    res.redirect('/users/login');
   }else {
-    // MongoClient.connect(url).then(client =>{
-    //   let db = client.db('pharmacy-pos');
-    //   db.collection('users').find({_id:ObjectId(req.params.userId)}).then( (user)=>{
-    //     res.user = user;
-    //   }).catch(error => {
-    //     res.status(404).json({message:error.message});
-    //   });
-    //   client.close();
-    // }).catch( error => {
-    //   res.status(404).json({message:error.message});
-    // });
     next();
   }
 };
 
 //Users profile-dashboard
 router.get('/',authCheck,(req,res)=>{
-  // console.log('Users profile-dashboard',req.user);
   res.render('users/profile');
 });
 
@@ -46,8 +35,8 @@ router.get('/services',authCheck,(req,res)=>{
 });
 
 //Updates
-router.get('/update',authCheck,(req,res)=>{
-  res.render('update',{user:req.user});
+router.get('/updates',authCheck,(req,res)=>{
+  res.render('users/updates',{user:req.user});
 });
 
 //Subscription status

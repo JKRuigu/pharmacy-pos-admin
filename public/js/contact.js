@@ -6,10 +6,10 @@ $(document).ready(function () {
     var tel = $('#tel').val();
     var message = $('#message').val();
 
-    if (!name || !email ||tel ||message) {
+    if (!name || !email || !tel || !message) {
       swal({
 				title: "Error!",
-				text: "Try to fil all the spaces !",
+				text: "Try to fill all the spaces !",
 				icon: "info",
 			});
     }else {
@@ -28,7 +28,7 @@ $(document).ready(function () {
             $("#add-message").get(0).reset()
             swal({
               title: "Success!",
-              text: "we get in touch !",
+              text: "We'll get in touch!",
               icon: "success",
             });
           }

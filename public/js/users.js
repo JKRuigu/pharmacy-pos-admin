@@ -5,7 +5,7 @@ $(function () {
     success:function (users) {
       $.each(users,function (i, data) {
         // console.log('users table',req.app.locals.user );
-        if (data) $("#users").append('<tr>'+ '<td>'+data.email+ '</td>' + '<td>'+data.tel+ '</td>'+ '<td>'+data.subscriptions[0].activationDate+ '</td>'+ '<td>'+data.subscriptions[0].expiryDate+ '</td>'+ '<td>'+ data.subscriptions[0].status + '</td>' +'</tr>');
+        if (data) $("#users").append('<tr>'+ '<td>'+data.username+ '</td>' + '<td>'+data.tel+ '</td>'+ '<td>'+data.email+ '</td>' +'</tr>');
       });
     }
   });

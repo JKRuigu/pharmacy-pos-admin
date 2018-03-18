@@ -1,6 +1,6 @@
 <%- include('../partials/admin/header.ejs', {title: "Admin-Users"});%>
       <!-- End Navbar -->
-      <div class="panel-header panel-header-sm">
+      <div class="panel-header panel-header-md">
         <div class="header text-center">
           <h3 class="title">Information of Users Downloading Software</h3>
         </div>
@@ -11,30 +11,15 @@
             <div class="card">
               <div class="card-header">
                 <h5 class="title">Users</h5>
+
+
                 <div class="container" >
-                  <h4>Google Users</h4>
-                  <table id="users2" class="table table-bordered table-hover table-striped">
-                    <tr>
-                      <th>Username</th>
-                      <th>Email</th>
-                    </tr>
-                  </table>
-                </div>
-                <div class="container" >
-                  <h4>Facebook Users</h4>
-                  <table id="users3" class="table table-bordered table-hover table-striped">
-                    <tr>
-                      <th>name</th>
-                      <th>Email</th>
-                    </tr>
-                  </table>
-                </div>
-                <div class="container" >
-                  <h4>Local Users</h4>
+                  <h4>Users Information</h4>
                   <table id="users" class="table table-bordered table-hover table-striped">
                     <tr>
-                      <th>GoogleId </th>
-                      <th>Username</th>
+                      <th>Username </th>
+                      <th>Mobile Number</th>
+                      <th>Email </th>
                     </tr>
                   </table>
                 </div>
@@ -44,5 +29,5 @@
         </div>
       </div>
     </div>
-    <script src ="/js/users.js"></script>
+    <script src ="/node/js/users.js"></script>
   <%- include('../partials/admin/footer.ejs')%>
