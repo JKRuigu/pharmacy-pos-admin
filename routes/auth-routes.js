@@ -3,7 +3,11 @@ const passport = require('passport');
 const User = require('../models/user-model');
 const Admin = require('../models/admin-model');
 const LocalStrategy = require('passport-local').Strategy;
+<<<<<<< HEAD
+const url = 'mongodb://localhost:27017/pharmacy-pos';
+=======
 // const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
+>>>>>>> 845c309d9e2b51008bcc792c2b02f26e9f270208
 const express = require('express');
 const async = require("async");
 const nodemailer = require("nodemailer");
@@ -19,6 +23,7 @@ function generateHash(password) {
     	});
 	});
 }
+
 // auth logout
 router.get('/auth/logout', (req, res) => {
     req.app.locals.user=null;
