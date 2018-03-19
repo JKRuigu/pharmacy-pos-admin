@@ -1,141 +1,13 @@
-/* .login_modal_footer{
-  margin-top:5px;
-}
-.login_modal_header .modal-title {
-  text-align: center;
-  font-family:'Philosopher',sans-serif;
-}
-.form-group{
-  position: relative;
-}
-.form-group .login-field-icon {
-    font-size: 20px;
-    position: absolute;
-    right: 15px;
-    top: 3px;
-    transition: all 0.25s ease 0s;
-    padding-top: 2%;
-}
-.login-modal{
-    width:100%;
-    padding-bottom:20px;
-}
-.login_modal_header, .login_modal_footer {
-  background: #088A29 !important;
-  color:#fff;
-}
-.modal-register-btn{
-  margin: 4% 33% 2% 33% ;
-  width:100%;
-}
-.login-modal input{
-  height:40px;
-   box-shadow: none;
-   border:1px solid #ddd;
-}
-.modal-body-left{
-  float:left;
-  width:50%;
-  padding-right:4%;
-  border-right:4px solid #ddd;
-}
-.modal-body-right{
-  float:right;
-  width:47%;
-}
-.login-link{
-  padding:0 20%;
-}
-.modal-social-icons{
-  margin:auto;
-}
-.facebook, .google {
-  width:100%;
-  height:40px;
-  padding-top:2%;
-  margin-right: 8px;
-  margin-top: 5%;
-}
-.modal-icons{
-  margin-left: -10px;
-   margin-right: 5px;
- }
-.google, .google:hover{
-  background-color:#dd4b39;
-  border:2px solid #dd4b39;
-  color:#fff;
-}
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Poiret+One');
 
-.facebook, .facebook:hover{
-  background-color: #3b5999;
-   border:2px solid #3b5999;
-   color:#fff;
- }
-
-#social-icons-conatainer{
-  position: relative;
-}
-#center-line{
-  position: absolute;
-    right: 270.7px;
-    top: 80px;
-    background:#ddd;
-     border: 4px solid #DDDDDD;
-     border-radius: 20px;
-   }
-.modal-login-btn{
-  width:100%;
-  height:40px;
-   margin-bottom:10px;
- }
-#modal-launcher{
-  margin: 30% 0 0 30%;
- }
-.btn-success:hover, .btn-success:focus, .btn-success.focus, .btn-success:active, .btn-success.active, .open>.dropdown-toggle.btn-success {
-    color: #fff;
-    background-color: #0089bb;
-    border-color: #0089bb;
-}
-.btn-success {
-    color: #fff;
-    background-color: #0089bb;
-    border-color: #0089bb;
-}
-
-#userTable button {
-    margin:2px 5px;
-}
-#register,#loginBtn{
-  display: none;
-}
-#login{
-  display:block;
-}
-#message_tel{
-  display: none;
-}
- #message_email{
-   display: none;
- }
-  #message_password{
-    display: none;
-  }
-#message_password2{
-  display: none;
-}
-input:invalid {
-  border: 2px dashed red;
-}
-
-input:valid {
-  border: 2px solid green;
-}
-#forgotBtn{
-  margin-right: 0px !important;
-} */
-
-body {
+body, html {
     padding-top: 90px;
+    margin-top: 90px;
+  	height: 100%;
+  	background-repeat: no-repeat;    /*background-image: linear-gradient(rgb(12, 97, 33),rgb(104, 145, 162));*/
+  	background:black;
+  	position: relative;
 }
 .panel-login {
 	border-color: #ccc;
@@ -241,4 +113,13 @@ body {
 }
 #login-header2{
   display: none;
+}
+#particles-js{
+  	width: 100%;
+  	height: 100%;
+  	background-size: cover;
+  	background-position: 50% 50%;
+  	position: fixed;
+  	top: 0px;
+  	z-index:1;
 }
