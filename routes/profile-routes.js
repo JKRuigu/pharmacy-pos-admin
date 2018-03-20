@@ -1,12 +1,6 @@
 const router = require('express').Router();
 const MongoClient = require("mongodb").MongoClient;
-<<<<<<< HEAD
 const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
-=======
-
-const ObjectId = require('mongodb').ObjectId;
-const url = 'mongodb://localhost:27017/pharmacy-pos';
->>>>>>> d936b6d709aeea85557a6d940318e80a9ce30394
 
 //authenticate function
 const authCheck = (req,res,next)=>{
