@@ -6,7 +6,7 @@ const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos
 const authCheck = (req,res,next)=>{
   user=req.app.locals.user;
   req.user=req.app.locals.user;
-  if (!user) {
+  if (user) {
     // TODO:: Redirect to login instead
     res.redirect('/users/login');
   }else {
