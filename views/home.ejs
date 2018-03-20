@@ -146,7 +146,7 @@
             } else if (password !== password2) {
                 swal({
                     title: "Error!",
-                    text: "Your passwords don't match...!",
+                    text: "Your passwords do not match! Please try again",
                     icon: "info",
                 });
             } else {
@@ -166,7 +166,7 @@
                             $("#register-form").get(0).reset()
                             swal({
                                 title: "Success!",
-                                text: "we'll get in touch !",
+                                text: "You will be redirected to your portal",
                                 icon: "success"
                             });
                             window.location = '/users/profile';
