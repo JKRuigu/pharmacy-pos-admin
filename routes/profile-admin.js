@@ -8,7 +8,7 @@ function isLoggedIn(req, res, next) {
   req.admin = req.app.locals.admin;
   if (req.admin) {
     // TODO :: Redirect to login
-    res.redirect('/');
+    res.redirect('/users/login');
   }else {
     next();
   }
@@ -18,7 +18,6 @@ function isLoggedIn(req, res, next) {
   router.get('/',isLoggedIn,(req,res)=>{
     res.render('admin/admin',{admin:req.admin});
   });
-
 
   //Admin messages
   router.get('/ad-messages',isLoggedIn,(req,res)=>{
@@ -34,11 +33,7 @@ function isLoggedIn(req, res, next) {
   router.get('/ad-users',isLoggedIn,(req,res)=>{
     res.render('admin/ad-users',{admin:req.admin});
   });
-  // //Admin register control-panel
-  // router.get('/ad-register',isLoggedIn,(req,res)=>{
-  //   res.render('admin/ad-register',{admin:req.admin});
-  // });
-
+  
   router.get('/subscriptions', (req, res) =>{
     res.render('admin/index');
   });

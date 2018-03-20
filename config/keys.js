@@ -6,7 +6,7 @@ module.exports ={
 		clientSecret:process.env.G_CLIENT_SECRET,
 	},
 	mongodb:{
-		dbURI:'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos'
+		dbURI:'mongodb://localhost:27017/pharmacy-pos'
 	},
 	session:{
 		cookieKey:process.env.COOKIE_KEY

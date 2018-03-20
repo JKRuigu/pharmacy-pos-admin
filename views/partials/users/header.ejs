@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/node/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="/node/assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title><%= title %></title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
@@ -12,87 +12,86 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <!-- CSS Files -->
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="/assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet"/>
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="/assets/demo/demo.css" rel="stylesheet"/>
-    <!-- <link href="/css/modal.css" rel="stylesheet" /> -->
+    <link href="/node/assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/node/assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet"/>
+    <link href="/node/assets/demo/demo.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body class="">
 <div class="wrapper ">
     <div class="sidebar" data-color="orange">
         <div class="logo">
-            <a href="#" class="simple-text logo-normal">PharmacyPOS Dashboard</a>
-        </div>
-        <div class="sidebar-wrapper">
-            <ul class="nav">
-                <li id="profileBtn" class="intro">
-                    <a href="/profile">
-                        <i class="now-ui-icons design_app"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li id="updatesBtn">
-                    <a href="/profile/updates">
-                        <i class="now-ui-icons ui-1_email-85"></i>
-                        <p>Latest Updates</p>
-                    </a>
-                </li>
-                <li id="contactBtn">
-                    <a href="/profile/contact">
-                        <i class="now-ui-icons ui-1_email-85"></i>
-                        <p>Contact Us</p>
-                    </a>
-                </li>
-            </ul>
+            <a href="#" class="simple-text logo-normal">
+                PharmacyPOS Dashboard
+            </a>
         </div>
     </div>
-    <div class="main-panel">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-wrapper">
-                    <div class="navbar-toggle">
-                        <button type="button" class="navbar-toggler">
-                            <span class="navbar-toggler-bar bar1"></span>
-                            <span class="navbar-toggler-bar bar2"></span>
-                            <span class="navbar-toggler-bar bar3"></span>
-                        </button>
-                    </div>
-                </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-                        aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-bar navbar-kebab"></span>
-                    <span class="navbar-toggler-bar navbar-kebab"></span>
-                    <span class="navbar-toggler-bar navbar-kebab"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                    <form>
-                        <div class="input-group no-border">
-                            <input type="text" value="" class="form-control" placeholder="Search...">
-                            <span class="input-group-addon">
-                                    <i class="now-ui-icons ui-1_zoom-bold"></i>
-                                </span>
-                        </div>
-                    </form>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="now-ui-icons media-2_sound-wave"></i>
-                                <p>
-                                    <span class="d-lg-none d-md-block"></p> Logged in
-                                as <%= user.username %>
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/auth/logout" id="logoutlink">
-                                <p>Click to Log Out </p>
-                            </a>
-                        </li>
-                    </ul>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li id="profileBtn" class="intro">
+                <a href="/profile">
+                    <i class="now-ui-icons design_app"></i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <li id="updatesBtn">
+                <a href="/profile/updates">
+                    <i class="now-ui-icons ui-1_email-85"></i>
+                    <p>Latest Updates</p>
+                </a>
+            </li>
+            <li id="contactBtn">
+                <a href="/profile/contact">
+                    <i class="now-ui-icons ui-1_email-85"></i>
+                    <p>Contact Us</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="main-panel">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute bg-primary fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-wrapper">
+                <div class="navbar-toggle">
+                    <button type="button" class="navbar-toggler">
+                        <span class="navbar-toggler-bar bar1"></span>
+                        <span class="navbar-toggler-bar bar2"></span>
+                        <span class="navbar-toggler-bar bar3"></span>
+                    </button>
                 </div>
             </div>
-        </nav>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+                    aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-bar navbar-kebab"></span>
+                <span class="navbar-toggler-bar navbar-kebab"></span>
+                <span class="navbar-toggler-bar navbar-kebab"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                <form>
+                    <div class="input-group no-border">
+                        <input type="text" value="" class="form-control" placeholder="Search...">
+                        <span class="input-group-addon">
+                                    <i class="now-ui-icons ui-1_zoom-bold"></i>
+                                </span>
+                    </div>
+                </form>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="now-ui-icons media-2_sound-wave"></i>
+                            <p>
+                                <span class="d-lg-none d-md-block">  Logged in as <%= user.username %></span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/auth/logout" id="logoutlink">
+                            <p> Click to Log Out </p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <!-- End Navbar -->

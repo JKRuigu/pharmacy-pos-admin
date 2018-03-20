@@ -1,219 +1,236 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Pharmacy-pos</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-		<link href='https://fonts.googleapis.com/css?family=Pacifico|Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-
-
-		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-	<link rel="stylesheet" href="/css/modal.css">
-	</head>
-
+<head>
+    <title>Pharmacy-pos</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Pacifico|Open+Sans:400,300,700' rel='stylesheet'
+          type='text/css'>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="/node/css/modal.css">
+    <!-- Start of HubSpot Embed Code -->
+    <!-- <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/4402366.js"></script> -->
+    <!-- End of HubSpot Embed Code -->
+</head>
 <body>
-	<div class="container" id="particles-js">
-		<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-			<h3 id="login-header">Please Register to Download PharmacyPlusPOS </h3>
-			<h3 id="login-header2">Login to access your Account </h3>
-		</div>
-		<br>
-		<br>
-		<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h3 id="login-header">Please Register to Download PharmacyPlusPOS </h3>
+            <h3 id="login-header2">Login to access your Account </h3>
+        </div>
+        <br><br><br>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-login">
 
-		</div>
-    	<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<div class="panel panel-login">
+                <div class="panel-heading">
+                    <div class="row">
 
-					<div class="panel-heading">
-						<div class="row">
+                        <div class="col-xs-6">
+                            <a href="#" class="active" id="register-form-link">Register</a>
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="#" id="login-form-link">Login</a>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form id="login-form" method="post" role="form" style="display: none;">
+                                <div class="form-group">
+                                    <input type="email" name="email" id="username" class="form-control"
+                                           placeholder="Enter your E-mail" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="login-pass" class="form-control"
+                                           placeholder="Password" value="">
+                                </div>
+                                <div class="form-group text-center">
+                                    <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                                    <label for="remember"> Remember Me</label>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="submit" name="login-submit" class="form-control btn btn-login"
+                                                   value="Log In">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="text-center">
+                                                <a href="/forgot" tabindex="5" class="forgot-password">Forgot
+                                                    Password?</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <form id="register-form" method="post" role="form" style="display:block;">
+                                <div class="form-group">
+                                    <input type="number" name="tel" id="tel" class="form-control"
+                                           placeholder="Mobile Number" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="username2" id="username2" tabindex="1" class="form-control"
+                                           placeholder="Enter your username" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" id="email" class="form-control"
+                                           placeholder="Email Address" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password" class="form-control"
+                                           placeholder="Password" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password2" id="password2" class="form-control"
+                                           placeholder="Confirm Password" value="">
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <button type="submit" role="button" class="form-control btn btn-register">
+                                                Register Now
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/0.5.0/sweet-alert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+<script src="/node/js/main.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#register-form').on('submit', function (e) {
+            e.preventDefault();
+            var username = $('#username2').val();
+            var email = $('#email').val();
+            var tel = $('#tel').val();
+            var password = $('#password').val();
+            var password2 = $('#password2').val();
 
-							<div class="col-xs-6">
-								<a href="#" class="active" id="register-form-link">Register</a>
-							</div>
-							<div class="col-xs-6">
-								<a href="#"  id="login-form-link">Login</a>
-							</div>
-
-						</div>
-						<hr>
-					</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-lg-12">
-								<form id="login-form" method="post" role="form" style="display: none;">
-									<div class="form-group">
-										<input type="email" name="email" id="username"  class="form-control" placeholder="Enter your E-mail" value="jkruigu@gmail.com">
-									</div>
-
-									<div class="form-group">
-										<input type="password" name="password" id="login-pass" class="form-control" placeholder="Password" value="123456789">
-									</div>
-									<div class="form-group text-center">
-										<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
-										<label for="remember"> Remember Me</label>
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="text-center">
-													<a href="/forgot" tabindex="5" class="forgot-password">Forgot Password?</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</form>
-								<form id="register-form" method="post" role="form" style="display:block;">
-									<div class="form-group">
-										<input type="number" name="tel" id="tel"  class="form-control" placeholder="Mobile Number" value="0721548754">
-									</div>
-									<div class="form-group">
-										<input type="text" name="username2" id="username2" tabindex="1" class="form-control" placeholder="Enter your username" value="JKRuigu">
-									</div>
-									<div class="form-group">
-										<input type="email" name="email" id="email"   class="form-control" placeholder="Email Address" value="jkruigu@gmail.com">
-									</div>
-									<div class="form-group">
-										<input type="password" name="password" id="password" class="form-control" placeholder="Password" value="123456789">
-									</div>
-									<div class="form-group">
-										<input type="password" name="password2" id="password2"   class="form-control" placeholder="Confirm Password" value="123456789">
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3">
-												<button type="submit" role="button" class="form-control btn btn-login">Register Now</button>
-											</div>
- 									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/0.5.0/sweet-alert.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
-	<script src="/js/main.js">	</script>
-	<script>
-	$(document).ready(function () {
-		$('#register-form').on('submit',function (e) {
-			e.preventDefault();
-			var username = $('#username2').val();
-			var email = $('#email').val();
-			var tel = $('#tel').val();
-			var password = $('#password').val();
-			var password2 = $('#password2').val();
-
-			if (!email || !password || !tel || !password2 || !username) {
-				swal({
-					title: "Error!",
-					text: "All fields are required",
-					icon: "info",
-				});
-			} else if(password !== password2){
-              swal({
-                title: "Error!",
-                text: "Your passwords don't match...!",
-                icon: "info",
-              });
-			}else {
-				$.ajax( {
-					url: "/profile/register",
-					data: JSON.stringify({
-						"username" :username,
-						"tel" :tel,
-						"email" :email,
-						"password" : password,
-						"password2" : password2
-					}),
-					type: "POST",
-					contentType: "application/json",
-					success:function (data,msg) {
-						if (data) {
-							console.log('data',data);
-							console.log('msg',msg);
-							$("#register-form").get(0).reset()
-							swal({
-                  title: "Success!",
-                  text: "we get in touch !",
-                  icon: "success"
-              });
-							window.location = '/profile';
-						}
-					},
-					error: function (xhr) {
-						if(xhr.status === 404){
-						  var error = xhr.responseJSON;
-                  swal({
+            if (!email || !password || !tel || !password2 || !username) {
+                swal({
                     title: "Error!",
-                    text: error.message,
-                    icon: "error"
-                  });
-						}
-					}
-				});
-			}
-		});
-	});
+                    text: "All fields are required",
+                    icon: "info",
+                });
+            } else if (password !== password2) {
+                swal({
+                    title: "Error!",
+                    text: "Your passwords don't match...!",
+                    icon: "info",
+                });
+            } else {
+                $.ajax({
+                    url: "/users/profile/register",
+                    data: JSON.stringify({
+                        "username": username,
+                        "tel": tel,
+                        "email": email,
+                        "password": password,
+                        "password2": password2
+                    }),
+                    type: "POST",
+                    contentType: "application/json",
+                    success: function (data, msg) {
+                        if (data) {
+                            $("#register-form").get(0).reset()
+                            swal({
+                                title: "Success!",
+                                text: "we'll get in touch !",
+                                icon: "success"
+                            });
+                            window.location = '/users/profile';
+                        }
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 404) {
+                            var error = xhr.responseJSON;
+                            swal({
+                                title: "Error!",
+                                text: error.message,
+                                icon: "error"
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    });
 
     $('#login-form').submit(function (e) {
-      e.preventDefault();
-      var email = $('#username').val();
-      var password = $('#login-pass').val();
-      if (!email || !password) {
-        swal({
-          title: "Error!",
-          text: "Email and password are required !",
-          icon: "info",
-        });
-      }
-        $.ajax( {
-          url: "/profile/login",
-          data: JSON.stringify({
-            "email" :email,
-            "password" : password
-          }),
-          type: "POST",
-          contentType: "application/json",
-          success:function (data) {
-            if (data) {
-              window.location = '/profile';
-            }
-          },
-          error: function (xhr) {
-            var message = xhr.responseJSON.message;
-            if(xhr.status === 404){
-              swal({
+        e.preventDefault();
+        var email = $('#username').val();
+        var password = $('#login-pass').val();
+        if (!email || !password) {
+            swal({
                 title: "Error!",
-                text: message,
-                icon: "error"
-              });
+                text: "Email and password are required !",
+                icon: "info",
+            });
+        }
+        $.ajax({
+            url: "/users/profile/login",
+            data: JSON.stringify({
+                "email": email,
+                "password": password
+            }),
+            type: "POST",
+            contentType: "application/json",
+            success: function (data) {
+                if (data) {
+                    window.location = '/users/profile';
+                }
+            },
+            error: function (xhr) {
+                var message = xhr.responseJSON.message;
+                if (xhr.status === 404) {
+                    swal({
+                        title: "Error!",
+                        text: message,
+                        icon: "error"
+                    });
+                }
             }
-          }
         })
     });
-	</script>
+    // $('#login-form').submit(function (e) {
+    //    e.preventDefault();
+    //    swal({
+    //        title: "Error!",
+    //        text: "Email and password are required !",
+    //        icon: "info",
+    //    });
+    // });
+</script>
 </body>
 </html>

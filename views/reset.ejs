@@ -1,52 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="/css/resetstyles.css">
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-		<title>Pharmacypluspos-password mangement</title>
-	</head>
-	<body>
-		<div class="container">
-			<div class="row main">
-				<div class="panel-heading">
-	               <div class="panel-title text-center">
-	               		<h1 class="title">Pharmacyplus-pos</h1>
-	               		<hr />
-	               	</div>
-	            </div>
-				<div class="main-login main-center">
-					<form class="form-horizontal" action="/reset/<%= token %>" method="POST">
-							<div class="form-group">
-								<label for="password" class="cols-sm-2 control-label">Password</label>
-								<div class="cols-sm-10">
-									<div class="input-group">
-										<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-										<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
-									</div>
-								</div>
-							</div>
-								<div class="form-group">
-									<label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
-									<div class="cols-sm-10">
-										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-											<input type="password" class="form-control" name="confirm" id="comfirm"  placeholder="Confirm your Password"/>
-										</div>
-									</div>
-							</div>
-							<div class="form-group ">
-								<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
-							</div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<script type="text/javascript" src="assets/js/bootstrap.js"></script>
-	</body>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/node/css/resetstyles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <title>Pharmacy Plus POS Password mangement</title>
+</head>
+<body>
+<div class="container">
+    <div class="row main">
+        <div class="panel-heading">
+            <div class="panel-title text-center">
+                <h1 class="title">Pharmacyplus-pos</h1>
+                <hr/>
+            </div>
+        </div>
+        <div class="main-login main-center">
+            <form class="form-horizontal" action="/reset/<%= token %>" method="POST">
+                <div class="form-group">
+                    <label for="password" class="cols-sm-2 control-label">Password</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" name="password" id="password"
+                                   placeholder="Enter your Password"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="password" class="form-control" name="confirm" id="comfirm"
+                                   placeholder="Confirm your Password"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/node/assets/js/bootstrap.js"></script>
+</body>
 </html>

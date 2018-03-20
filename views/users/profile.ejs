@@ -1,74 +1,69 @@
-<%- include('../partials/users/header.ejs', {title: "profile"});%>
+<%- include('../partials/users/header.ejs', {title: "profile"}); %>
 <div class="panel-header panel-header-md">
     <div class="header text-center">
-        <h3 class="title">Hi <%=user.username%>, <br>Welcome to your PharmacyPOS Dashboard</h3>
+        <h3 class="title">Hi <%= user.username %>, <br>Welcome to your PharmacyPOS Dashboard</h3>
     </div>
 </div>
 <div class="content">
+    <div class="col-md-12">
+        <div class="card">
 
-  <div class="col-md-12">
-      <div class="card">
+            <div class="card-body text-center">
 
-  <div class="card-body text-center">
+                <a href="/pharmacysoftwarefree.exe">
+                    <button onclick="" class="btn btn-success btn-round btn-lg">Download the Software Now <i
+                                class="now-ui-icons arrows-1_cloud-download-93"></i></button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src = "https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="/node/js/updates.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.getJSON("https://api.mlab.com/api/1/databases/pharmacy-updates/collections/updates?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON",
+                function (data) {
+                    // console.log(data);
+                    var updates_data = '';
+                    $.each(data, function (key, value) {
+                        updates_data += '<div class="card">';
+                        updates_data += '<h6 class="card-header ">' + value.title + '</h6>';
+                        updates_data += '<div class="card-body">';
+                        updates_data += '<p>' + value.paragraph2 + '</p>';
+                        updates_data += '<p>' + value.others + '</p>';
+                        updates_data += '</div>';
+                        updates_data += '<small class="card-footer">' + value.date + ' Pharmacy-pos:powered by :' + ' <a href="http://magnumdigitalke.com/" class="card-link">' + 'Magnum digital Media Ke' + '</a>' + '  ' + '</small>';
+                        updates_data += '</div>';
+                    });
+                    $('#updates_div').append(updates_data);
+                });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#edit-details').on('submit', function (e) {
+                e.preventDefault();
+                var email = $('#email').val();
+                $.ajax({
+                    url: 'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON&q="user._id"',
+                    data: JSON.stringify({
+                        "email": email,
+                    }),
+                    type: "POST",
+                    contentType: "application/json",
+                    success: function (data, msg) {
+                        window.location.href = "contact",
+                            alert(msg)
+                    },
+                    error: function (xhr, status, err) {
+                        console.log(err);
+                    }
+                });
+            });
+        });
 
-<a href="/pharmacysoftwarefree.exe"><button onclick=""class="btn btn-success btn-round btn-lg">Download the Software Now <i class="now-ui-icons arrows-1_cloud-download-93"></i></button></a>
-  </div>
-      </div>
-  </div>
-
-
-
-</script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
-<script  src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="  crossorigin="anonymous"></script>
-<script src ="/js/updates.js"></script>
-
-<script>
-$(document).ready(function () {
-$.getJSON("https://api.mlab.com/api/1/databases/pharmacy-updates/collections/updates?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON",
-function (data) {
-  // console.log(data);
-  var updates_data ='';
-  $.each(data, function (key,value) {
-      updates_data += '<div class="card">';
-      updates_data += '<h6 class="card-header ">' +value.title+'</h6>';
-      updates_data += '<div class="card-body">';
-      updates_data += '<p>' +value.paragraph2+'</p>';
-      updates_data += '<p>' +value.others+'</p>';
-      updates_data += '</div>';
-      updates_data += '<small class="card-footer">' +value.date+ ' Pharmacy-pos:powered by :'+ ' <a href="http://magnumdigitalke.com/" class="card-link">'+'Magnum digital Media Ke'+'</a>'+'  '+'</small>';
-      updates_data += '</div>';
-  });
-  $('#updates_div').append(updates_data);
-});
-
-});
-</script>
-<script type="text/javascript">
-$(document).ready(function () {
-$('#edit-details').on('submit',function (e) {
-e.preventDefault();
-var email = $('#email').val();
-$.ajax( {
-url:'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey=dI9gXrgAznHkTgvdNOqCp_WKAwZD2KON&q="user._id"',
-data: JSON.stringify({
- "email" :email,
-}),
-type: "POST",
-contentType: "application/json",
-success:function (data,msg) {
-  window.location.href="contact",
-  alert( msg)
-
-},
-error: function (xhr,status,err) {
-console.log(err);
-}
-});
-});
-});
-
-</script>
-
-<%- include('../partials/users/footer.ejs')%>
+    </script>
+    <%- include('../partials/users/footer.ejs') %>

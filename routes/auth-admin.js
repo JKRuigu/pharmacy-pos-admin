@@ -17,7 +17,7 @@ router.get('/admin/ad-subscription', function(req, res){
 //Admin logout
 router.get('/admin/logout', function(req, res){
   req.logout();
-  res.redirect('/');
+  res.redirect('/users/login');
 });
 
 //Admin Post LocalStrategy-signup
