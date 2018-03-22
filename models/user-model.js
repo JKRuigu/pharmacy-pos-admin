@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const passportLocalMongoose = require("passport-local-mongoose");
+// //ES6 Promise
+// mongoose.Promise = global.Promise;
 
 //User Schema
 var UserSchema = mongoose.Schema({
@@ -20,6 +22,10 @@ var UserSchema = mongoose.Schema({
 		type: String
 	},
     resetPasswordExpires: Date,
+		secretToken:String,
+		active: {
+			 type: Boolean, default: false
+		}
 });
 
 UserSchema.plugin(passportLocalMongoose)
@@ -31,6 +37,7 @@ module.exports.createUser = function (newUser,callback) {
 	    bcrypt.hash(newUser.password, salt, function(err, hash) {
 	        newUser.password = hash;
 	        newUser.save(callback);
+					console.log('creating newUser...');
     	});
 	});
 }

@@ -6,13 +6,13 @@ module.exports ={
 		clientSecret:process.env.G_CLIENT_SECRET,
 	},
 	mongodb:{
-		dbURI:'mongodb://localhost:27017/pharmacy-pos'
+		dbURI:process.env.DB_MLAB
 	},
 	session:{
 		cookieKey:process.env.COOKIE_KEY
 	},facebook:{
-		clientID:'chegeherman@gmail.com',
-		clientSecret:'chegewangoi',
+		clientID:process.env.F_Client_ID,
+		clientSecret:process.env.F_CLIENT_SECRET,
 	},
 	mlabusers:{
 		dbURI:'https://api.mlab.com/api/1/databases/pharmacy-pos/collections/users?apiKey='+process.env.DB_URI

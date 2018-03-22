@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const passport = require('passport');
 const User = require('../models/user-model');
-const Admin = require('../models/admin-model');
+// const Admin = require('../models/admin-model');
 const LocalStrategy = require('passport-local').Strategy;
+const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
 const express = require('express');
 const async = require("async");
 const nodemailer = require("nodemailer");
@@ -18,7 +19,6 @@ function generateHash(password) {
     	});
 	});
 }
-
 // auth logout
 router.get('/auth/logout', (req, res) => {
     req.app.locals.user=null;
@@ -187,7 +187,7 @@ router.post('/reset/:token', function(req, res) {
       });
       var mailOptions = {
         to: user.email,
-        from: 'pharmacypluspos@gmail.com',
+        from: 'chegeherman@gmail.com',
         subject: 'Your password has been changed',
         text: 'Hello,\n\n' +
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
@@ -202,7 +202,5 @@ router.post('/reset/:token', function(req, res) {
     res.redirect('/users/login');
   });
 });
-
-
 
 module.exports = router;
