@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="email" name="email" id="email" class="form-control"
-                                           placeholder="Email Address" value="test@gmail.com">
+                                           placeholder="Email Address" value="ruigukjohn@gmail.com">
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" class="form-control"
@@ -165,13 +165,13 @@
                       console.log('hey am in home');
                       console.log(msg);
                         if (data) {
-                            $("#register-form").get(0).reset()
+                            $("#register-form").get(0).reset();
                             swal({
-                                title: "Success!",
-                                text: "You will be redirected to your portal",
+                                title: "Email verification!",
+                                text: 'We have sent a verification link to your acccount click on it to activate your account.',
                                 icon: "success"
                             });
-                            window.location = '/users/profile';
+                              window.location = '/users/login';
                         }
                     },
                     error: function (xhr) {
@@ -225,14 +225,7 @@
             }
         })
     });
-    // $('#login-form').submit(function (e) {
-    //    e.preventDefault();
-    //    swal({
-    //        title: "Error!",
-    //        text: "Email and password are required !",
-    //        icon: "info",
-    //    });
-    // });
+
 </script>
 </body>
 </html>

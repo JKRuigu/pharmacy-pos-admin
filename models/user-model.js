@@ -21,11 +21,21 @@ var UserSchema = mongoose.Schema({
 	resetPasswordToken:{
 		type: String
 	},
+	emailverficationToken:{
+		type: String
+	},
     resetPasswordExpires: Date,
 		secretToken:String,
 		active: {
 			 type: Boolean, default: false
-		}
+		},
+		emailVerficationToken:{
+			type: String
+		},emailverficationExpires: Date,
+			secretToken:String,
+			active: {
+				 type: Boolean, default: false
+			}
 });
 
 UserSchema.plugin(passportLocalMongoose)
@@ -37,7 +47,7 @@ module.exports.createUser = function (newUser,callback) {
 	    bcrypt.hash(newUser.password, salt, function(err, hash) {
 	        newUser.password = hash;
 	        newUser.save(callback);
-					console.log('creating newUser...');
+					console.log('creating newUser...',newUser);
     	});
 	});
 }

@@ -3,7 +3,7 @@ const passport = require('passport');
 const User = require('../models/user-model');
 // const Admin = require('../models/admin-model');
 const LocalStrategy = require('passport-local').Strategy;
-const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
+// const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
 const express = require('express');
 const async = require("async");
 const nodemailer = require("nodemailer");
@@ -11,6 +11,7 @@ const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const keys = require('../config/keys');
 const swal = require('sweetalert2')
+const randomstring = require('randomstring');
 
 function generateHash(password) {
   bcrypt.genSalt(10, function(err, salt) {
@@ -32,6 +33,7 @@ router.post('/profile/register',function (req,res) {
 	var email = req.body.email;
 	var password = req.body.password;
 	var password2 = req.body.password2;
+  var secretToken = randomstring.generate();
 
 	if (!tel || !email || !password || !password2 ||!username ){
     swal({
@@ -44,21 +46,88 @@ router.post('/profile/register',function (req,res) {
 			tel :tel,
 			username :username,
 			email :email,
-			password :password
+			password :password,
+      secretToken:secretToken
 		});
 
     User.createUser(newUser,function (err,user) {
       if (err){
         res.status(404).json({message: "Email already taken."});
     	}else {
-        req.app.locals.user = user;
-        res.writeHead(302, {
-          'Location': '/users/profile'
+        // req.app.locals.user = user;
+        // res.writeHead(302, {
+        //   'Location': '/users/profile'
+        async.waterfall([
+          function(done) {
+            crypto.randomBytes(20, function(err, buf) {
+              var token = buf.toString('hex');
+              done(err, token);
+            });
+          },
+          function(token, done) {
+              if (!newUser) {
+                return res.redirect('/users/login');
+              }else {
+                console.log('hey am token',token);
+                newUser.emailverficationToken = token;
+                newUser.emailverficationExpires = Date.now() + 3600000; // 1 hour
+                var user = newUser;
+                user.save(function(err) {
+                  done(err, token, user);
+                });
+              }
+          },
+          function(token, user, done) {
+            var smtpTransport = nodemailer.createTransport({
+              service: 'Gmail',
+              auth: {
+                user: keys.facebook.clientID,
+                pass: keys.facebook.clientSecret
+              }
+            });
+            var mailOptions = {
+              to: user.email,
+              from: 'chegeherman@gmail.com',
+              subject: 'Password Reset',
+              text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                'http://' + req.headers.host + '/users/email/' + token + '\n\n' +
+                'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+            };
+            smtpTransport.sendMail(mailOptions, function(err) {
+              console.log('mail sent');
+              done(err, 'done');
+            });
+          }
+        ], function(err) {
+          if (err) return next(err);
+          console.log('success we have sent an email to your account');
+          res.redirect('/users/login');
         });
+
+        console.log('end');
         res.end();
       }
 	 	});
 	}
+});
+
+//profile verification
+router.get('/email/:token', function(req, res) {
+  User.findOne({ emailverficationToken: req.params.token, emailverficationExpires: { $gt: Date.now() } }, function(err, user) {
+      if (!user) {
+        console.log('email not verified');
+        return res.redirect('/users/login');
+      }else {
+          user.emailverficationToken = undefined;
+          user.emailverficationExpires= undefined;
+          user.active = true;
+          user.save(function(err) {
+            console.log(err);
+          });
+        }
+        return res.redirect('/users/login');
+  });
 });
 
 router.post('/profile/login', (req, res) =>{
@@ -69,9 +138,13 @@ router.post('/profile/login', (req, res) =>{
 			} else {
         User.comparePassword(req.body.password, user.password, function (hash, isMatch) {
 					if (isMatch){
-            res.json({status:"OK"});
-            req.app.locals.user = user;
-            console.log('user2 is:',req.app.locals.user);
+            if (user.active ===true) {
+              res.json({status:"OK"});
+              req.app.locals.user = user;
+              console.log('user2 is:',req.app.locals.user);
+            }else {
+              res.status(404).json({message:"Please verify your email to activate your account."});
+            }
 					}else
             res.status(404).json({message:"Email/Password is incorrect...!!!"});
         })
