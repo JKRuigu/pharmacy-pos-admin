@@ -120,7 +120,7 @@ router.post('/profile/register',function (req,res,next) {
 router.get('/email/:token', function(req, res) {
   User.findOne({ emailverficationToken: req.params.token, emailverficationExpires: { $gt: Date.now() } }, function(err, user) {
       if (!user) {
-        console.log('email not verified');
+        // console.log('email not verified');
         return res.redirect('/users/profile/expired');
       }else {
           user.emailverficationToken = undefined;
