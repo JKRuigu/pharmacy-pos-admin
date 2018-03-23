@@ -20,6 +20,10 @@ function generateHash(password) {
     	});
 	});
 }
+//error
+router.get('/profile/expired',(req,res)=>{
+  res.render('expired')
+});
 // auth logout
 router.get('/auth/logout', (req, res) => {
     req.app.locals.user=null;
@@ -117,7 +121,7 @@ router.get('/email/:token', function(req, res) {
   User.findOne({ emailverficationToken: req.params.token, emailverficationExpires: { $gt: Date.now() } }, function(err, user) {
       if (!user) {
         console.log('email not verified');
-        return res.redirect('/users/login');
+        return res.redirect('/users/profile/expired');
       }else {
           user.emailverficationToken = undefined;
           user.emailverficationExpires= undefined;
