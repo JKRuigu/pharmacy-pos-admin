@@ -114,6 +114,7 @@ router.post('/profile/register',function (req,res,next) {
     };
 	 	});
 	}
+  return next(err,user);
 });
 
 //profile verification

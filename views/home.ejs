@@ -162,9 +162,6 @@
                     type: "POST",
                     contentType: "application/json",
                     success: function (data, msg) {
-                      data = req.app.locals.user;
-                      console.log('hey am in home');
-                      console.log(msg);
                         if (data) {
                           console.log('am data',data);
                             $("#register-form").get(0).reset();
