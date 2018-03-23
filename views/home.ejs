@@ -17,32 +17,10 @@
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="/node/css/modal.css">
     <!-- Start of HubSpot Embed Code -->
-    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/4402366.js"></script>
+    <!-- <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/4402366.js"></script> -->
     <!-- End of HubSpot Embed Code -->
-    <!-- Facebook Pixel Code -->
-<script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1017205548411402');
-        fbq('track', 'PageView');
-      </script>
-      <noscript><img height="1" width="1" style="display:none"
-        src="https://www.facebook.com/tr?id=1017205548411402&ev=PageView&noscript=1"
-      /></noscript>
-      <!-- End Facebook Pixel Code -->
-
 </head>
 <body>
-        <script>
-                fbq('track', 'Lead');
-              </script>
-
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -105,23 +83,23 @@
                             <form id="register-form" method="post" role="form" style="display:block;">
                                 <div class="form-group">
                                     <input type="tel" name="tel" id="tel" class="form-control"
-                                           placeholder="Mobile Number" value="0796224387">
+                                           placeholder="Mobile Number" >
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="username2" id="username2" tabindex="1" class="form-control"
-                                           placeholder="Enter your username" value="test">
+                                           placeholder="Enter your username" >
                                 </div>
                                 <div class="form-group">
                                     <input type="email" name="email" id="email" class="form-control"
-                                           placeholder="Email Address" value="ruigukjohn@gmail.com">
+                                           placeholder="Email Address" >
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" class="form-control"
-                                           placeholder="Password" value="test">
+                                           placeholder="Password" >
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password2" id="password2" class="form-control"
-                                           placeholder="Confirm Password" value="test">
+                                           placeholder="Confirm Password" >
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
@@ -184,16 +162,18 @@
                     type: "POST",
                     contentType: "application/json",
                     success: function (data, msg) {
+                      data = req.app.locals.user;
                       console.log('hey am in home');
                       console.log(msg);
                         if (data) {
+                          console.log('am data',data);
                             $("#register-form").get(0).reset();
                             swal({
                                 title: "Email verification!",
                                 text: 'We have sent a verification link to your acccount click on it to activate your account.',
                                 icon: "success"
                             });
-                              window.location = '/users/login';
+                            window.location = '/users/login';
                         }
                     },
                     error: function (xhr) {

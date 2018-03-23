@@ -27,7 +27,7 @@ router.get('/auth/logout', (req, res) => {
 });
 
 //Register POST
-router.post('/profile/register',function (req,res) {
+router.post('/profile/register',function (req,res,next) {
 	var username = req.body.username;
 	var tel = req.body.tel;
 	var email = req.body.email;
@@ -54,9 +54,6 @@ router.post('/profile/register',function (req,res) {
       if (err){
         res.status(404).json({message: "Email already taken."});
     	}else {
-        // req.app.locals.user = user;
-        // res.writeHead(302, {
-        //   'Location': '/users/profile'
         async.waterfall([
           function(done) {
             crypto.randomBytes(20, function(err, buf) {
@@ -68,9 +65,9 @@ router.post('/profile/register',function (req,res) {
               if (!newUser) {
                 return res.redirect('/users/login');
               }else {
-                console.log('hey am token',token);
+                // console.log('hey am token',token);
                 newUser.emailverficationToken = token;
-                newUser.emailverficationExpires = Date.now() + 3600000; // 1 hour
+                newUser.emailverficationExpires = Date.now() + 86400000; // 24 hour
                 var user = newUser;
                 user.save(function(err) {
                   done(err, token, user);
@@ -88,11 +85,12 @@ router.post('/profile/register',function (req,res) {
             var mailOptions = {
               to: user.email,
               from: 'chegeherman@gmail.com',
-              subject: 'Password Reset',
-              text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-                'http://' + req.headers.host + '/users/email/' + token + '\n\n' +
-                'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+              subject: 'Email Verification your account.',
+              html: '<b>You’re almost there.</b>Thank you so much for signing up with us.\n\n' +
+                    '<b>After your click the link below your account will be automatically activated and you we be able to access it by login in.\n\n</b>'+
+                    'Incase your account is not activated after this process please contact us for more information\n\n </b><br>' +
+                    'Please click on the following link, or paste this into your browser to complete the process:\n\n </b><br>' +
+                    '<a href="'+'http://' + req.headers.host + '/users/email/' + token +'">'+'http://' + req.headers.host + '/users/email/' + token+'</a>'
             };
             smtpTransport.sendMail(mailOptions, function(err) {
               console.log('mail sent');
@@ -100,14 +98,16 @@ router.post('/profile/register',function (req,res) {
             });
           }
         ], function(err) {
-          if (err) return next(err);
+          if (err){
+             return next(err);
           console.log('success we have sent an email to your account');
-          res.redirect('/users/login');
-        });
-
-        console.log('end');
-        res.end();
-      }
+          // res.redirect('/users/login');
+        }else {
+          res.json({status:"OK"});
+          req.app.locals.user = user;
+        }
+      })
+    };
 	 	});
 	}
 });
