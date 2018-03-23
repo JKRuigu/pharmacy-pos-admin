@@ -97,24 +97,15 @@ router.post('/profile/register',function (req,res,next) {
                     '<a href="'+'http://' + req.headers.host + '/users/email/' + token +'">'+'http://' + req.headers.host + '/users/email/' + token+'</a>'
             };
             smtpTransport.sendMail(mailOptions, function(err) {
-              console.log('mail sent');
-              done(err, 'done');
+              res.json({status:"OK"});
             });
           }
         ], function(err) {
-          if (err){
-             return next(err);
-          console.log('success we have sent an email to your account');
-          // res.redirect('/users/login');
-        }else {
-          res.json({status:"OK"});
-          req.app.locals.user = user;
-        }
+          res.json({status:error});
       })
     };
 	 	});
 	}
-  return next(err,user);
 });
 
 //profile verification
