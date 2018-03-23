@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="username2" id="username2" tabindex="1" class="form-control"
-                                           placeholder="Enter your username" >
+                                           placeholder="Enter your username" minlength=5>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" name="email" id="email" class="form-control"
@@ -95,11 +95,11 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password" id="password" class="form-control"
-                                           placeholder="Password" >
+                                           placeholder="Password" minlength=6>
                                 </div>
                                 <div class="form-group">
                                     <input type="password" name="password2" id="password2" class="form-control"
-                                           placeholder="Confirm Password" >
+                                           placeholder="Confirm Password" minlength=6>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
@@ -137,13 +137,13 @@
             var password = $('#password').val();
             var password2 = $('#password2').val();
 
-            if (!email || !password || !tel || !password2 || !username) {
+            if (!email || !password || !tel || !password2 || !username>5) {
                 swal({
                     title: "Error!",
                     text: "All fields are required",
                     icon: "info",
                 });
-            } else if (password !== password2) {
+            }else if (password !== password2 ) {
                 swal({
                     title: "Error!",
                     text: "Your passwords do not match! Please try again",
