@@ -1,9 +1,7 @@
 const router = require('express').Router();
 const passport = require('passport');
 const User = require('../models/user-model');
-// const Admin = require('../models/admin-model');
 const LocalStrategy = require('passport-local').Strategy;
-// const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
 const express = require('express');
 const async = require("async");
 const nodemailer = require("nodemailer");
@@ -58,73 +56,74 @@ router.post('/profile/register',function (req,res,next) {
       if (err){
         res.status(404).json({message: "Email already taken."});
     	}else {
-        async.waterfall([
-          function(done) {
-            crypto.randomBytes(20, function(err, buf) {
-              var token = buf.toString('hex');
-              done(err, token);
-            });
-          },
-          function(token, done) {
-              if (!newUser) {
-                return res.redirect('/users/login');
-              }else {
-                // console.log('hey am token',token);
-                newUser.emailverficationToken = token;
-                newUser.emailverficationExpires = Date.now() + 86400000; // 24 hour
-                var user = newUser;
-                user.save(function(err) {
-                  done(err, token, user);
-                });
-              }
-          },
-          function(token, user, done) {
-            var smtpTransport = nodemailer.createTransport({
-              service: 'Gmail',
-              auth: {
-                user: keys.facebook.clientID,
-                pass: keys.facebook.clientSecret
-              }
-            });
-            var mailOptions = {
-              to: user.email,
-              from: 'chegeherman@gmail.com',
-              subject: 'Email Verification your account.',
-              html: '<b>You’re almost there.</b>Thank you so much for signing up with us.\n\n' +
-                    '<b>After your click the link below your account will be automatically activated and you we be able to access it by login in.\n\n</b>'+
-                    'Incase your account is not activated after this process please contact us for more information\n\n </b><br>' +
-                    'Please click on the following link, or paste this into your browser to complete the process:\n\n </b><br>' +
-                    '<a href="'+'http://' + req.headers.host + '/users/email/' + token +'">'+'http://' + req.headers.host + '/users/email/' + token+'</a>'
-            };
-            smtpTransport.sendMail(mailOptions, function(err) {
-              res.json({status:"OK"});
-            });
-          }
-        ], function(err) {
-          res.json({status:error});
-      })
+//Email verification
+      //   async.waterfall([
+      //     function(done) {
+      //       crypto.randomBytes(20, function(err, buf) {
+      //         var token = buf.toString('hex');
+      //         done(err, token);
+      //       });
+      //     },
+      //     function(token, done) {
+      //         if (!newUser) {
+      //           return res.redirect('/users/login');
+      //         }else {
+      //           // console.log('hey am token',token);
+      //           newUser.emailverficationToken = token;
+      //           newUser.emailverficationExpires = Date.now() + 86400000; // 24 hour
+      //           var user = newUser;
+      //           user.save(function(err) {
+      //             done(err, token, user);
+      //           });
+      //         }
+      //     },
+      //     function(token, user, done) {
+      //       var smtpTransport = nodemailer.createTransport({
+      //         service: 'Gmail',
+      //         auth: {
+      //           user: keys.facebook.clientID,
+      //           pass: keys.facebook.clientSecret
+      //         }
+      //       });
+      //       var mailOptions = {
+      //         to: user.email,
+      //         from: 'chegeherman@gmail.com',
+      //         subject: 'Email Verification your account.',
+      //         html: '<b>You’re almost there.</b>Thank you so much for signing up with us.\n\n' +
+      //               '<b>After your click the link below your account will be automatically activated and you we be able to access your account by loging in.\n\n</b>'+
+      //               'Incase your account is not activated after this process please contact us for more information.\n\n </b><br>' +
+      //               'Please click on the following link, or paste this into your browser to complete the process:\n\n </b><br>' +
+      //               '<a href="'+'http://' + req.headers.host + '/users/email/' + token +'">'+'http://' + req.headers.host + '/users/email/' + token+'</a>'
+      //       };
+      //       smtpTransport.sendMail(mailOptions, function(err) {
+      //         res.json({status:"OK"});
+      //       });
+      //     }
+      //   ], function(err) {
+      //     res.json({status:error});
+      // })
+      res.json({status:"OK"});
     };
 	 	});
 	}
 });
 
 //profile verification
-router.get('/email/:token', function(req, res) {
-  User.findOne({ emailverficationToken: req.params.token, emailverficationExpires: { $gt: Date.now() } }, function(err, user) {
-      if (!user) {
-        // console.log('email not verified');
-        return res.redirect('/users/profile/expired');
-      }else {
-          user.emailverficationToken = undefined;
-          user.emailverficationExpires= undefined;
-          user.active = true;
-          user.save(function(err) {
-            console.log(err);
-          });
-        }
-        return res.redirect('/users/login');
-  });
-});
+// router.get('/email/:token', function(req, res,next) {
+//   User.findOne({ emailverficationToken: req.params.token, emailverficationExpires: { $gt: Date.now() } }, function(err, user) {
+//       if (!user) {
+//           return res.redirect('/users/login');
+//       }else {
+//           user.emailverficationToken = undefined;
+//           user.emailverficationExpires= undefined;
+//           user.active = true;
+//           user.save(function(err) {
+//             console.log(err);
+//           });
+//         }
+//         return res.redirect('/users/login');
+//   });
+// });
 
 router.post('/profile/login', (req, res) =>{
 	if(req.body){
@@ -193,7 +192,7 @@ router.post('/forgot', function(req, res, next) {
         subject: 'Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+          'http://' + req.headers.host + '/users/reset/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
       smtpTransport.sendMail(mailOptions, function(err) {
@@ -204,7 +203,7 @@ router.post('/forgot', function(req, res, next) {
   ], function(err) {
     if (err) return next(err);
     console.log('success we have sent an email to your account');
-    res.redirect('/forgot');
+    res.redirect('users/forgot');
   });
 });
 
@@ -213,7 +212,7 @@ router.get('/reset/:token', function(req, res) {
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
     if (!user) {
       req.flash('error', 'Password reset token is invalid or has expired.');
-      return res.redirect('/forgot');
+      return res.redirect('users/forgot');
     }
     res.render('reset', {token: req.params.token});
   });
@@ -225,7 +224,7 @@ router.post('/reset/:token', function(req, res) {
       User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
           console.log('error', 'Password reset token is invalid or has expired.');
-          return res.redirect('/');
+          return res.redirect('/users/login');
         }
         if(req.body.password === req.body.confirm) {
           var hash = generateHash(req.body.password);

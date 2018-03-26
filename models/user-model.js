@@ -34,7 +34,7 @@ var UserSchema = mongoose.Schema({
 		},emailverficationExpires: Date,
 			secretToken:String,
 			active: {
-				 type: Boolean, default: false
+				 type: Boolean, default: true
 			}
 });
 

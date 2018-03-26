@@ -10,7 +10,6 @@ $(function() {
 	});
   $('#login-form-link').click(function(e) {
   $('#login-header').css({'display':'none'});
-
 	$('#login-header2').css({'display':'block'});
   $("#login-form").delay(200).slideDown("slow");
   $("#register-form").fadeOut(200);
