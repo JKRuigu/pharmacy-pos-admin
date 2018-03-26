@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="main-login main-center">
-            <form class="form-horizontal" action="/reset/<%= token %>" method="POST">
+            <form class="form-horizontal"  method="POST" id="reset-form">
                 <div class="form-group">
                     <label for="password" class="cols-sm-2 control-label">Password</label>
                     <div class="cols-sm-10">
@@ -50,6 +50,56 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="/node/assets/js/bootstrap.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/node/assets/js/bootstrap.js"></script>
+<script>
+$('#reset-form').submit(function (e) {
+    e.preventDefault();
+    var password = $('#password').val();
+    var password2 = $('#comfirm').val();
+    if (!password || !password2) {
+      swal({
+          title: "Invalid Input",
+          text: 'Please fill the fields' ,
+          icon: "info"
+      });
+    }else {
+      $.ajax({
+        url: this.href,
+        data: JSON.stringify({
+          "password": password,
+          "password2": password2
+        }),
+        type: "POST",
+        contentType: "application/json",
+        success: function (data) {
+          if (data) {
+            $("#reset-form").get(0).reset();
+            swal({
+              title: "Password reset successful",
+              text: 'Your password was changed you can now login with it' ,
+              icon: "success"
+            }).then(function () {
+              window.location = '/users/login';
+            });
+          }
+        },
+        error: function (xhr) {
+          var message = xhr.responseJSON.message;
+          if (xhr.status === 404) {
+            swal({
+              title: "Error!",
+              text: message,
+              icon: "error"
+            });
+          }
+        }
+      })
+    }
+});
+</script>
 </body>
 </html>

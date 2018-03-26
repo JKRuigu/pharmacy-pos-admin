@@ -25,7 +25,7 @@ router.get('/profile/expired',(req,res)=>{
 // auth logout
 router.get('/auth/logout', (req, res) => {
     req.app.locals.user=null;
-    res.redirect('/');
+    res.redirect('/users/login');
 });
 
 //Register POST
@@ -158,53 +158,56 @@ router.get('/forgot', function(req, res) {
 });
 
 router.post('/forgot', function(req, res, next) {
-  async.waterfall([
-    function(done) {
-      crypto.randomBytes(20, function(err, buf) {
-        var token = buf.toString('hex');
-        done(err, token);
-      });
-    },
-    function(token, done) {
-      User.findOne({ email: req.body.email }, function(err, user) {
-        console.log('email',req.body.email);
-        if (!user) {
-          return res.redirect('/users/login');
-        }
-        user.resetPasswordToken = token;
-        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-        user.save(function(err) {
-          done(err, token, user);
+  var email = req.body.email;
+  if (!email) {
+    res.status(404).json({message: "please enter an E-mail."});
+  }else {
+    console.log('am body',email);
+    async.waterfall([
+      function(done) {
+        crypto.randomBytes(20, function(err, buf) {
+          var token = buf.toString('hex');
+          done(err, token);
         });
-      });
-    },
-    function(token, user, done) {
-      var smtpTransport = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-          user: keys.facebook.clientID,
-          pass: keys.facebook.clientSecret
-        }
-      });
-      var mailOptions = {
-        to: user.email,
-        from: 'chegeherman@gmail.com',
-        subject: 'Password Reset',
-        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+      },
+      function(token, done) {
+        User.findOne({ email: req.body.email }, function(err, user) {
+          console.log('email',req.body.email);
+          if (!user) {
+            res.status(404).json({message: "Your Email doesnot exist."});
+          }
+          user.resetPasswordToken = token;
+          user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+          user.save(function(err) {
+            done(err, token, user);
+          });
+        });
+      },
+      function(token, user, done) {
+        var smtpTransport = nodemailer.createTransport({
+          service: 'Gmail',
+          auth: {
+            user: keys.facebook.clientID,
+            pass: keys.facebook.clientSecret
+          }
+        });
+        var mailOptions = {
+          to: user.email,
+          from: 'chegeherman@gmail.com',
+          subject: 'Password Reset',
+          text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
           'http://' + req.headers.host + '/users/reset/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-      };
-      smtpTransport.sendMail(mailOptions, function(err) {
-        console.log('mail sent');
-        done(err, 'done');
-      });
-    }
-  ], function(err) {
-    if (err) return next(err);
-    console.log('success we have sent an email to your account');
-    res.redirect('users/forgot');
-  });
+        };
+        smtpTransport.sendMail(mailOptions, function(err) {
+          res.json({status:"OK"});
+        });
+      }
+    ], function(err) {
+      res.json({status:error});
+    });
+  }
 });
 
 
@@ -218,57 +221,55 @@ router.get('/reset/:token', function(req, res) {
   });
 });
 
-router.post('/reset/:token', function(req, res) {
-  async.waterfall([
-    function(done) {
-      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-        if (!user) {
-          console.log('error', 'Password reset token is invalid or has expired.');
-          return res.redirect('/users/login');
-        }
-        if(req.body.password === req.body.confirm) {
-          var hash = generateHash(req.body.password);
-          console.log(hash);
-          User.createUser(user, function(err, user) {
-            user.resetPasswordToken = undefined;
-            user.resetPasswordExpires = undefined;
-
-            user.save(function(err) {
-              req.logIn(user, function(err) {
-                done(err, user);
+router.post('/reset/:token', function(req, res,next) {
+    async.waterfall([
+      function(done) {
+        User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+          if (!user) {
+            res.status(404).json({message: "Your token has already expired."});
+          }
+          if(req.body.password === req.body.password2) {
+            User.createUser(user, function(err, user) {
+                bcrypt.genSalt(10, function(err, salt) {
+              	    bcrypt.hash(req.body.password, salt, function(err, hash) {
+              	        user.password = hash;
+                        user.resetPasswordExpires = undefined;
+                        user.resetPasswordToken = undefined;
+              	        user.save().then(function () {
+                          res.json({status:"OK"});
+                          next();
+                        });
+                  	});
               });
-            });
-          })
-        } else {
-            console.log("error", "Passwords do not match.");
-            return res.redirect('/users/login');
-        }
-      });
-    },
-    function(user, done) {
-      var smtpTransport = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-          user: keys.facebook.clientID,
-          pass: keys.facebook.clientSecret
-        }
-      });
-      var mailOptions = {
-        to: user.email,
-        from: 'chegeherman@gmail.com',
-        subject: 'Your password has been changed',
-        text: 'Hello,\n\n' +
+            })
+          } else {
+            res.status(404).json({message: "Your passwords do not match."});
+          }
+        });
+      },
+      function(user, done) {
+        console.log(user);
+        var smtpTransport = nodemailer.createTransport({
+          service: 'Gmail',
+          auth: {
+            user: keys.facebook.clientID,
+            pass: keys.facebook.clientSecret
+          }
+        });
+        var mailOptions = {
+          to: user.email,
+          from: 'chegeherman@gmail.com',
+          subject: 'Your password has been changed',
+          text: 'Hello,\n\n' +
           'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
-      };
-      smtpTransport.sendMail(mailOptions, function(err) {
-        console.log('success', 'Success! Your password has been changed.');
-        done(err);
-      });
-    }
-  ], function(err) {
-    console.log('error',err);
-    res.redirect('/users/login');
-  });
+        };
+        smtpTransport.sendMail(mailOptions, function(err) {
+          res.json({status:"OK"});
+        });
+      }
+    ], function(err) {
+      res.json({status:error});
+    });
 });
 
 module.exports = router;
