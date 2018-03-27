@@ -16,7 +16,7 @@ router.get('/admin/ad-subscription', function(req, res){
 
 //Admin logout
 router.get('/admin/logout', function(req, res){
-  req.logout();
+  res.app.locals.user = undefined;
   res.redirect('/users/login');
 });
 

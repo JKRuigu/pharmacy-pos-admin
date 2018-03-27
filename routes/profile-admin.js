@@ -4,9 +4,8 @@ const ObjectId = require('mongodb').ObjectId;
 
 //  isLoggedIn function
 function isLoggedIn(req, res, next) {
-  req.admin = req.app.locals.admin;
-  if (req.admin) {
-    // TODO :: Redirect to login
+  req.admin = req.app.locals.user;
+  if (req.admin === undefined) {
     res.redirect('/users/login');
   }else {
     next();
@@ -15,29 +14,29 @@ function isLoggedIn(req, res, next) {
 
 // Admin home route
   router.get('/',isLoggedIn,(req,res)=>{
-    res.render('admin/admin',{admin:req.admin});
+    res.render('admin/admin', {admin:req.admin});
   });
 
   //Admin messages
-  router.get('/ad-messages',isLoggedIn,(req,res)=>{
-    res.render('admin/ad-messages',{admin:req.admin});
+  router.get('/ad-messages', isLoggedIn, (req,res)=>{
+    res.render('admin/ad-messages', {admin:req.admin});
   });
 
   //Admin Updates
-  router.get('/ad-updates',isLoggedIn,(req,res)=>{
-    res.render('admin/ad-updates',{admin:req.admin});
+  router.get('/ad-updates', isLoggedIn, (req,res)=>{
+    res.render('admin/ad-updates', {admin:req.admin});
   });
 
   //Admin Users control-panel
-  router.get('/ad-users',isLoggedIn,(req,res)=>{
-    res.render('admin/ad-users',{admin:req.admin});
+  router.get('/ad-users', isLoggedIn, (req,res)=>{
+    res.render('admin/ad-users', {admin:req.admin});
   });
   
-  router.get('/subscriptions', (req, res) =>{
-    res.render('admin/index');
+  router.get('/subscriptions', isLoggedIn, (req, res) =>{
+    res.render('admin/index', {admin:req.admin});
   });
 
-  router.post('/:userId/activate', (req, res) =>{
+  router.post('/:userId/activate', isLoggedIn, (req, res) =>{
     if(req.body) {
       MongoClient.connect(url).then(client =>{
         let db = client.db('pharmacy-pos');
@@ -58,7 +57,7 @@ function isLoggedIn(req, res, next) {
   });
 
 
-router.post('/:userId/deactivate', (req, res) =>{
+router.post('/:userId/deactivate', isLoggedIn, (req, res) =>{
   if(req.body) {
     MongoClient.connect(url).then(client =>{
       let db = client.db('pharmacy-pos');
@@ -78,7 +77,7 @@ router.post('/:userId/deactivate', (req, res) =>{
   }
 });
 
-router.delete('/:userId/delete', (req, res) =>{
+router.delete('/:userId/delete', isLoggedIn, (req, res) =>{
   MongoClient.connect(url).then(client =>{
     let db = client.db('pharmacy-pos');
     db.collection('users').deleteOne({_id:ObjectId(req.params.userId)}).then( ()=>{
@@ -93,8 +92,8 @@ router.delete('/:userId/delete', (req, res) =>{
 });
 
 
-  router.get('/*',isLoggedIn,(req,res)=>{
-    res.render('admin',{admin:req.admin});
+  router.get('/*', isLoggedIn, (req,res)=>{
+    res.render('admin', {admin:req.admin});
   });
 
 module.exports= router;
