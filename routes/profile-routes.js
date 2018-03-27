@@ -7,7 +7,6 @@ const authCheck = (req,res,next)=>{
   user=req.app.locals.user;
   req.user=req.app.locals.user;
   if (!user) {
-    // TODO:: Redirect to login instead
     res.redirect('/users/login');
   }else {
     next();

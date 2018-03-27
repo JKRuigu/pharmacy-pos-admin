@@ -209,6 +209,9 @@
             contentType: "application/json",
             success: function (data) {
                 if (data) {
+                  if(data.isAdmin)
+                    window.location = '/admin/profile';
+                  else
                     window.location = '/users/profile';
                 }
             },

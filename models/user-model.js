@@ -24,22 +24,29 @@ var UserSchema = mongoose.Schema({
 	emailverficationToken:{
 		type: String
 	},
-    resetPasswordExpires: Date,
-		secretToken:String,
-		active: {
-			 type: Boolean, default: false
-		},
-		emailVerficationToken:{
-			type: String
-		},
-		emailverficationExpires: Date,
-			secretToken:String,
-			active: {
-				 type: Boolean, default: true
-			}
+	resetPasswordExpires: {
+		type: Date
+	},
+	active: {
+	 	type: Boolean,
+		default: false
+	},
+	emailVerficationToken:{
+		type: String
+	},
+	emailverficationExpires: {
+		type: Date
+	},
+	secretToken: {
+    type: String
+  },
+	isAdmin: {
+		type: Boolean,
+		default: false
+	}
 }, { timestamps:true});
 
-UserSchema.plugin(passportLocalMongoose)
+UserSchema.plugin(passportLocalMongoose);
 //Export module
 var User = module.exports = mongoose.model('User',UserSchema);
 
@@ -50,7 +57,7 @@ module.exports.createUser = function (newUser,callback) {
 	        newUser.save(callback);
     	});
 	});
-}
+};
 
 module.exports.getUserByUsername = function (email) {
 	var query = {email: email};
@@ -60,15 +67,15 @@ module.exports.getUserByUsername = function (email) {
 		console.log(error);
 		return error;
 	});
-}
+};
 //mongodb functions
 module.exports.getUserById = function (id,callback) {
 	User.findById(id,callback);
-}
+};
 
 module.exports.comparePassword = function (candidatePassword,hash,callback) {
 	bcrypt.compare(candidatePassword, hash, function (err,isMatch) {
 		if (err) throw err;
 		callback(null, isMatch);
 	});
-}
+};

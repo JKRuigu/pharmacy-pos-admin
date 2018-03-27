@@ -134,7 +134,7 @@ router.post('/profile/login', (req, res) =>{
         User.comparePassword(req.body.password, user.password, function (hash, isMatch) {
 					if (isMatch){
             if (user.active ===true) {
-              res.json({status:"OK"});
+              res.json({status:"OK", isAdmin: user.isAdmin});
               req.app.locals.user = user;
               console.log('user2 is:',req.app.locals.user);
             }else {
