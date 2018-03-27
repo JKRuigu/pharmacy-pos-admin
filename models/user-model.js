@@ -31,12 +31,13 @@ var UserSchema = mongoose.Schema({
 		},
 		emailVerficationToken:{
 			type: String
-		},emailverficationExpires: Date,
+		},
+		emailverficationExpires: Date,
 			secretToken:String,
 			active: {
 				 type: Boolean, default: true
 			}
-});
+}, { timestamps:true});
 
 UserSchema.plugin(passportLocalMongoose)
 //Export module

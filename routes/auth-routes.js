@@ -174,7 +174,7 @@ router.post('/forgot', function(req, res, next) {
         User.findOne({ email: req.body.email }, function(err, user) {
           console.log('email',req.body.email);
           if (!user) {
-            res.status(404).json({message: "Your Email doesnot exist."});
+            res.status(404).json({message: "Your Email doesn't exist."});
           }
           user.resetPasswordToken = token;
           user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
@@ -195,7 +195,7 @@ router.post('/forgot', function(req, res, next) {
           to: user.email,
           from: 'chegeherman@gmail.com',
           subject: 'Password Reset',
-          text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+          text: 'You are receiving this because you (or someone else) has requested to reset the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
           'http://' + req.headers.host + '/users/reset/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
@@ -214,7 +214,6 @@ router.post('/forgot', function(req, res, next) {
 router.get('/reset/:token', function(req, res) {
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
     if (!user) {
-      req.flash('error', 'Password reset token is invalid or has expired.');
       return res.redirect('users/forgot');
     }
     res.render('reset', {token: req.params.token});
