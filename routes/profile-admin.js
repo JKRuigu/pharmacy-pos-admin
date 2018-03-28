@@ -37,15 +37,35 @@ router.get('/messages', isLoggedIn, (req,res)=>{
 });
 
 router.get('/updates', isLoggedIn, (req,res)=>{
-  Update.find({}).then(updates =>{
+  Update.find({}).sort({'createdAt':-1}).then(updates =>{
     res.render('admin/ad-updates', {admin:req.admin, updates});
   }).catch(error =>{
     res.send(error.message);
   });
 });
 
-router.get('/ad-users', isLoggedIn, (req,res)=>{
-  res.render('admin/ad-users', {admin:req.admin});
+router.get('/users', isLoggedIn, (req,res)=>{
+  let total = 0;
+  let perPage = 10;
+  let skip = 0;
+  let page = 1;
+  if (req.query.perPage && req.query.page){
+    perPage = req.query.perPage;
+    page = req.query.page;
+  }
+  skip = (page-1)*perPage;
+
+  User.find().then(users =>{
+    total = users.length;
+  }).catch( error =>{
+    res.send(error.message);
+  });
+
+  User.find({}).sort({'createdAt':1}).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
+    res.render('admin/users', {admin:req.admin, users, total:total});
+  }).catch(error =>{
+    res.send(error.message);
+  });
 });
 
 router.get('/subscriptions', isLoggedIn, (req, res) =>{
@@ -150,7 +170,6 @@ router.post('/register', isLoggedIn, isSuperAdmin, (req, res) =>{
 });
 
 router.post('/updates', isLoggedIn, (req, res)=>{
-  console.log(req.body);
   if(req.body){
     let {date, body, title} = req.body;
     if(!date || !body || !title) {

@@ -2,6 +2,7 @@ const router = require('express').Router();
 const MongoClient = require("mongodb").MongoClient;
 const url = require('../config/keys').mongodb.dbURI;
 const Message = require('../models/Messages');
+const Update = require('../models/Updates');
 
 //authenticate function
 const authCheck = (req,res,next)=>{
@@ -27,7 +28,11 @@ router.get('/services',authCheck,(req,res)=>{
 });
 
 router.get('/updates',authCheck,(req,res)=>{
-  res.render('users/updates',{user:req.user});
+  Update.find({}).sort({'createdAt':-1}).then(updates =>{
+    res.render('users/updates',{user:req.user, updates});
+  }).catch(error =>{
+    res.send(error.message);
+  });
 });
 
 router.get('/subscription',(req,res)=>{

@@ -1,0 +1,69 @@
+<%- include('../partials/admin/header.ejs', {title: "Admin-Users", admin:admin}); %>
+<!-- End Navbar -->
+<div class="panel-header panel-header-md">
+    <div class="header text-center">
+        <h3 class="title">Information of Users Downloading Software</h3>
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="title">Users</h5>
+                    <div class="container">
+                        <h4>Users Information</h4>
+                        <table id="users" class="table table-bordered table-hover table-striped">
+                            <tr>
+                                <th>ID #</th>
+                                <th>Username</th>
+                                <th>Mobile Number</th>
+                                <th>Email</th>
+                                <th>Account status</th>
+                            </tr>
+                        </table>
+                        <div>
+                            <nav aria-label="Page navigation example" id="pagination"></nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var users = <%- JSON.stringify(users)%>;
+    var total = <%- total%>;
+    var perPage = 10;
+    var pages = 0;
+    pages = Math.ceil(total/perPage);
+    var ul = '<ul class="pagination justify-content-end">' +
+      '<li class="page-item disabled">' +
+      '<a class="page-link" href="#" tabindex="-1">Previous</a>' +
+      '</li>';
+
+    for(var i=1;i<=pages;i++){
+        ul += '<li class="page-item"><a class="page-link" href="/admin/users?page='+i+'&perPage='+perPage+'">'+(i)+'</a></li>'
+    }
+
+    ul += '<li class="page-item">' +
+      '<a class="page-link" href="#">Next</a>' +
+      '</li>' +
+      '</ul>';
+    $('#pagination').append(ul);
+
+
+    if (users.length !== 0){
+      users.forEach(function (user, index) {
+        if (!user.isAdmin || user.isAdmin === undefined) {
+          $("#users").append('<tr><td>'+(index+1)+ '</td><td>'+user.username+ '</td><td>'+user.tel+ '</td><td>'+user.email+ '</td><td>'+user.active+ '</td></tr>');
+        }
+      })
+    } else {
+      swal({
+
+      })
+    }
+</script>
+<!--<script src="/node/js/users.js"></script>-->
+<%- include('../partials/admin/footer.ejs') %>
