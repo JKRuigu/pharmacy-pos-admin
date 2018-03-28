@@ -39,14 +39,18 @@ router.get('/ad-users', isLoggedIn, (req,res)=>{
 });
 
 router.get('/subscriptions', isLoggedIn, (req, res) =>{
-  res.render('admin/index', {admin:req.admin});
+  User.find({}).then(users =>{
+    res.render('admin/index', {admin:req.admin, users});
+  }).catch(error =>{
+    res.send(error.message);
+  });
 });
 
 router.get('/admins', isLoggedIn, (req, res) =>{
   User.find({isAdmin: true}).then(users =>{
     res.render('admin/super-admin', {admin:req.admin, admins:users});
   }).catch(error =>{
-    console.log(error);
+    res.send(error.message);
   });
 });
 
