@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const MongoClient = require("mongodb").MongoClient;
-const url = 'mongodb://jkruigu:pharmacy-pos@ds237858.mlab.com:37858/pharmacy-pos';
+const url = require('../config/keys').mongodb.dbURI;
+const Message = require('../models/Messages');
 
 //authenticate function
 const authCheck = (req,res,next)=>{
@@ -13,31 +14,25 @@ const authCheck = (req,res,next)=>{
   }
 };
 
-//Users profile-dashboard
 router.get('/',authCheck,(req,res)=>{
   res.render('users/profile');
 });
 
-//contact
 router.get('/contact',authCheck,(req,res)=>{
   res.render('users/contact',{user:req.user});
 });
 
-//more
 router.get('/services',authCheck,(req,res)=>{
   res.render('users/services',{user:req.user});
 });
 
-//Updates
 router.get('/updates',authCheck,(req,res)=>{
   res.render('users/updates',{user:req.user});
 });
 
-
 router.get('/subscription',(req,res)=>{
   res.render('users/users');
 });
-
 
 router.get('/license/subscription' ,(req,res)=>{
   res.header("Access-Control-Allow-Origin", '*');
@@ -66,10 +61,29 @@ router.get('/license/subscription' ,(req,res)=>{
   }
 });
 
-//Admin
+
 router.get('/*',authCheck,(req,res)=>{
   res.render('users/profile',{user:req.user});
 });
-//users registration
+
+router.post('/messages', authCheck, (req, res) =>{
+  if (req.body){
+    let {name, email, body, tel} = req.body;
+    if (!name || !email || !body)
+      res.status(404).json({status: "Provide a message body"});
+    else {
+      let message = new Message({
+        name, email, tel, body
+      });
+      message.save().then(message =>{
+        res.json({status: 'ok'});
+      }).catch(error =>{
+        res.status(404).json({status: error.message});
+      });
+    }
+  } else {
+    res.status(404).json({status: "No body for the message."})
+  }
+});
 
 module.exports = router;
