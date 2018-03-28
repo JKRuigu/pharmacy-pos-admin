@@ -3,6 +3,7 @@ const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 const User = require('../models/user-model');
 const Message = require('../models/Messages');
+const Update = require('../models/Updates');
 const url = process.env.DB_MLAB;
 
 // Middleware ~ check if user is logged in and is admin.
@@ -35,8 +36,12 @@ router.get('/messages', isLoggedIn, (req,res)=>{
   });
 });
 
-router.get('/ad-updates', isLoggedIn, (req,res)=>{
-  res.render('admin/ad-updates', {admin:req.admin});
+router.get('/updates', isLoggedIn, (req,res)=>{
+  Update.find({}).then(updates =>{
+    res.render('admin/ad-updates', {admin:req.admin, updates});
+  }).catch(error =>{
+    res.send(error.message);
+  });
 });
 
 router.get('/ad-users', isLoggedIn, (req,res)=>{
@@ -141,6 +146,25 @@ router.post('/register', isLoggedIn, isSuperAdmin, (req, res) =>{
     }
   } else {
     res.status(404).json({message:"Send a valid body"});
+  }
+});
+
+router.post('/updates', isLoggedIn, (req, res)=>{
+  console.log(req.body);
+  if(req.body){
+    let {date, body, title} = req.body;
+    if(!date || !body || !title) {
+      res.status(404).json({status: 'All fields are required'});
+    } else {
+      let update = new Update({date, body, title});
+      update.save().then(update =>{
+        res.json({status: 'ok'});
+      }).catch(error =>{
+        res.status(404).json({status: error.message});
+      })
+    }
+  } else {
+    res.status(404).json({status: "Provide a body"});
   }
 });
 
