@@ -33,12 +33,12 @@ router.get('/updates',authCheck,(req,res)=>{
   res.render('users/updates',{user:req.user});
 });
 
-//Subscription status
+
 router.get('/subscription',(req,res)=>{
   res.render('users/users');
 });
 
-//Subscription status
+
 router.get('/license/subscription' ,(req,res)=>{
   res.header("Access-Control-Allow-Origin", '*');
   if (req.query){

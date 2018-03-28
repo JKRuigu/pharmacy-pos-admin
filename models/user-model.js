@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const passportLocalMongoose = require("passport-local-mongoose");
-// //ES6 Promise
-// mongoose.Promise = global.Promise;
 
 //User Schema
 var UserSchema = mongoose.Schema({
@@ -43,7 +41,11 @@ var UserSchema = mongoose.Schema({
 	isAdmin: {
 		type: Boolean,
 		default: false
-	}
+	},
+  isSuperAdmin: {
+    type: Boolean,
+    default: false
+  }
 }, { timestamps:true});
 
 UserSchema.plugin(passportLocalMongoose);

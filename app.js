@@ -2,7 +2,6 @@ const express = require('express');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const authRoutes = require('./routes/auth-routes');
-const adminRoutes = require('./routes/auth-admin');
 const profileRoutes = require('./routes/profile-routes');
 const profileAdmin = require('./routes/profile-admin');
 const passportSetup = require('./config/passport-setup');
@@ -39,7 +38,6 @@ mongoose.connect(keys.mongodb.dbURI, ()=>{
 
 // set up routes
 app.use('/users', authRoutes);
-app.use(adminRoutes);
 app.use('/users/profile', profileRoutes);
 app.use('/admin', profileAdmin);
 

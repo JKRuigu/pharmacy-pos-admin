@@ -67,12 +67,14 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="/admin/subscriptions">
-                        <i class="now-ui-icons users_single-02"></i>
-                        <p>Admins</p>
-                    </a>
-                </li>
+                <%if(admin.isSuperAdmin) {%>
+                    <li>
+                        <a href="/admin/admins">
+                            <i class="now-ui-icons users_single-02"></i>
+                            <p>Admins</p>
+                        </a>
+                    </li>
+                <% } %>
             </ul>
         </div>
     </div>

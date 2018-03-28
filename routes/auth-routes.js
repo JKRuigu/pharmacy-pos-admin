@@ -52,7 +52,7 @@ router.post('/profile/register',function (req,res,next) {
       secretToken:secretToken
 		});
 
-    User.createUser(newUser,function (err,user) {
+    User.createUser(newUser,function (err, user) {
       if (err){
         res.status(404).json({message: "Email already taken."});
     	}else {
