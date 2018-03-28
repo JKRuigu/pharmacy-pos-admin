@@ -2,6 +2,7 @@ const router = require('express').Router();
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 const User = require('../models/user-model');
+const Message = require('../models/Messages');
 const url = process.env.DB_MLAB;
 
 // Middleware ~ check if user is logged in and is admin.
@@ -26,8 +27,12 @@ router.get('/',isLoggedIn,(req,res)=>{
   res.render('admin/admin', {admin:req.admin});
 });
 
-router.get('/ad-messages', isLoggedIn, (req,res)=>{
-  res.render('admin/ad-messages', {admin:req.admin});
+router.get('/messages', isLoggedIn, (req,res)=>{
+  Message.find({}).then(messages =>{
+    res.render('admin/ad-messages', {admin:req.admin, messages});
+  }).catch(error =>{
+    res.send(error.message);
+  });
 });
 
 router.get('/ad-updates', isLoggedIn, (req,res)=>{
