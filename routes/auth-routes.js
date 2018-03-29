@@ -103,8 +103,8 @@ router.post('/profile/register',function (req,res,next) {
       //   ], function(err) {
       //     res.json({status:error});
       // })
-      req.app.locals.user = newUser;
       res.json({status:"OK"});
+      req.app.locals.user = newUser;
     };
 	 	});
 	}
