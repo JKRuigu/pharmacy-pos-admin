@@ -60,9 +60,9 @@ router.get('/users', isLoggedIn, (req,res)=>{
   }
   skip = (page-1)*perPage;
 
-  User.find({isAdmin:{$exists: false}}).then(users =>{
+  User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).then(users =>{
     total = users.length;
-    User.find({isAdmin:{$exists: false}}).sort(sort).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
+    User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).sort(sort).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
       res.render('admin/users', {admin:req.admin, users, total:total});
     }).catch(error =>{
       res.send(error.message);
@@ -83,9 +83,9 @@ router.get('/subscriptions', isLoggedIn, (req, res) =>{
   }
   skip = (page-1)*perPage;
 
-  User.find({isAdmin:{$exists: false}}).sort({'createdAt':-1}).then(users =>{
+  User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).sort({'createdAt':-1}).then(users =>{
     total = users.length;
-    User.find({isAdmin:{$exists: false}}).sort({'createdAt':1}).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
+    User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).sort({'createdAt':-1}).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
       res.render('admin/subscriptions', {admin:req.admin, users, total:total});
     }).catch(error =>{
       res.send(error.message);

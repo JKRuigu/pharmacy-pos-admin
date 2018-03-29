@@ -27,7 +27,7 @@ var UserSchema = mongoose.Schema({
 	},
 	active: {
 	 	type: Boolean,
-		default: false
+		default: true
 	},
 	emailVerficationToken:{
 		type: String
