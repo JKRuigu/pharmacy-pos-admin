@@ -53,17 +53,15 @@ router.post('/profile/register',function (req,res,next) {
       secretToken:secretToken
 		});
 
-    User.createUser(newUser,function (err,user) {
-        if (err){
-          res.status(404).json({message: "Email already taken."});
-      	}else {
-          req.app.locals.user = user;
-          res.writeHead(302, {
-            'Location': '/users/profile'
-          });
-          res.end();
-        }
-  	 	});
+    User.createUser(newUser,function (err, user) {
+      if (err){
+        res.status(404).json({message: "Email already taken."});
+    	}else {
+      res.json({status:"OK"});
+      req.app.locals.user = newUser;
+    };
+	 	});
+
 	}
 });
 

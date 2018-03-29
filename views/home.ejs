@@ -194,8 +194,14 @@
                     contentType: "application/json",
                     success: function (data, msg) {
                         if (data) {
-                            // $("#register-form").get(0).reset();
-                            window.location = '/users/profile';
+                            $("#register-form").get(0).reset();
+                            swal({
+                                title: "Registration successful!",
+                                text: 'You can now login with your email and password provided on the login tab to Download the Software.' ,
+                                icon: "success"
+                            }).then(function () {
+                              window.location = '/users/profile';
+                            });
                         }
                     },
                     error: function (xhr) {
