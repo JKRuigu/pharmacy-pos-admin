@@ -190,11 +190,11 @@ router.post('/forgot', function(req, res, next) {
         });
         var mailOptions = {
           to: user.email,
-          from: 'chegeherman@gmail.com',
+          from: 'pharmacypluspos@gmail.com',
           subject: 'Password Reset',
           text: 'You are receiving this because you (or someone else) has requested to reset the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://http://pharmacypluspos.com/users/reset/' + token + '\n\n' +
+          'http://pharmacypluspos.com/users/reset/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
         };
         smtpTransport.sendMail(mailOptions, function(err) {
