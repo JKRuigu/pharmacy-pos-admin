@@ -65,9 +65,30 @@ $(document).ready(function () {
     updates_data += '<p>No Updates available, use the + to add them.</p>';
     updates_data += '</div>';
     updates_data += '</div>';
+    $('#updates_div').append(updates_data);
   }
-  $('#updates_div').append(updates_data);
 
 });
+
+function deleteUpdate(id) {
+  swal({
+    title: "Are you sure?",
+    text: "Once deleted, you will not be able to recover the information!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  }).then((willDelete) => {
+    if(willDelete)
+      return axios.delete(`/admin/${id}/updates`);
+  }).then(deleted => {
+    if (deleted){
+      swal("Poof! Update deleted!", {
+        icon: "success",
+      });
+    }
+  }).catch(error =>{
+    swal("Update not deleted!"+error);
+  });
+}
 
 //TODO:: Add delete and update capability

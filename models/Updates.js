@@ -11,6 +11,10 @@ const updatesSchema = new mongoose.Schema({
   },
   date: {
     type: String
+  },
+  isDisplayed: {
+    type: Boolean,
+    default: false
   }
 }, { timestamps: true });
 

@@ -38,7 +38,7 @@ router.get('/messages', isLoggedIn, (req,res)=>{
 
 router.get('/updates', isLoggedIn, (req,res)=>{
   Update.find({}).sort({'createdAt':-1}).then(updates =>{
-    res.render('admin/ad-updates', {admin:req.admin, updates});
+    res.render('admin/updates', {admin:req.admin, updates});
   }).catch(error =>{
     res.send(error.message);
   });
@@ -190,6 +190,20 @@ router.delete('/:userId/delete', isLoggedIn, isSuperAdmin, (req, res) =>{
   MongoClient.connect(url).then(client =>{
     let db = client.db('pharmacy-pos');
     db.collection('users').deleteOne({_id:ObjectId(req.params.userId)}).then( ()=>{
+      res.json({status:'ok'});
+    }).catch(error => {
+      res.status(404).json({message:error.message});
+    });
+    client.close();
+  }).catch( error => {
+    res.status(404).json({message:error.message});
+  });
+});
+
+router.delete('/:userId/:collection', isLoggedIn, (req, res) =>{
+  MongoClient.connect(url).then(client =>{
+    let db = client.db('pharmacy-pos');
+    db.collection(req.params.collection).deleteOne({_id:ObjectId(req.params.userId)}).then( ()=>{
       res.json({status:'ok'});
     }).catch(error => {
       res.status(404).json({message:error.message});
