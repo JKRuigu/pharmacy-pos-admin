@@ -195,13 +195,7 @@
                     success: function (data, msg) {
                         if (data) {
                             $("#register-form").get(0).reset();
-                            swal({
-                                title: "Registration successful!",
-                                text: 'You will be redirected to your dashboard to Download the Software' ,
-                                icon: "success"
-                            }).then(function () {
-                              window.location = '/users/profile';
-                            });
+                            window.location = '/users/profile';
                         }else {
                           swal({
                               title: "Registration successful!",
