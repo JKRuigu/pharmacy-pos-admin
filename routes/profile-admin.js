@@ -76,7 +76,7 @@ router.get('/subscriptions', isLoggedIn, (req, res) =>{
 });
 
 router.get('/admins', isLoggedIn, (req, res) =>{
-  User.find({isAdmin: true}).then(users =>{
+  User.find({isAdmin: true}).sort({'createdAt':-1}).then(users =>{
     res.render('admin/super-admin', {admin:req.admin, admins:users});
   }).catch(error =>{
     res.send(error.message);
@@ -186,7 +186,7 @@ router.post('/updates', isLoggedIn, (req, res)=>{
   }
 });
 
-router.delete('/:userId/delete', isLoggedIn, (req, res) =>{
+router.delete('/:userId/delete', isLoggedIn, isSuperAdmin, (req, res) =>{
   MongoClient.connect(url).then(client =>{
     let db = client.db('pharmacy-pos');
     db.collection('users').deleteOne({_id:ObjectId(req.params.userId)}).then( ()=>{
