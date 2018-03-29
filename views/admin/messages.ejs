@@ -21,6 +21,7 @@
                             <th>Tel</th>
                             <th>Email</th>
                             <th>Message</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody id="tbody"></tbody>
@@ -41,11 +42,13 @@
           var status = message.isRead? "Read": "Unread";
           message_data += '<tr id="data">';
           message_data += '<td>' + (index+1) + '</td>';
-          message_data += '<td class="">' + status + '</td>';
+          message_data += '<td>' + status + '</td>';
           message_data += '<td>' + message.name + '</td>';
           message_data += '<td>' + message.tel + '</td>';
           message_data += '<td>' + message.email + '</td>';
-          message_data += '<td>' + message.body + '</td>';
+          message_data += '<td>' + (message.body.length>30? message.body.substring(0, 30)+'...': message.body) + '</td>';
+          message_data += '<td>';
+          message_data += '<button class="btn btn-danger btn-sm" onclick="deleteMessage(\''+message._id+'\')">Delete</button></td>';
           message_data += '<tr>';
         });
         $('#messages_table').append(message_data);
@@ -57,5 +60,26 @@
         });
       }
     });
+
+    function deleteMessage(id) {
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover the information!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if(willDelete)
+          return axios.delete(`/admin/${id}/messages`);
+      }).then(deleted => {
+        if (deleted){
+          swal("Poof! Message deleted!", {
+            icon: "success",
+          });
+        }
+      }).catch(error =>{
+        swal("Message not deleted!"+error);
+      });
+    }
 </script>
 <%- include('../partials/admin/footer.ejs') %>
