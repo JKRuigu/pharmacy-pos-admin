@@ -159,6 +159,8 @@ router.get('/forgot', function(req, res) {
 
 router.post('/forgot', function(req, res, next) {
   var email = req.body.email;
+  console.log(email);
+  console.log(req.body.email);
   if (!email) {
     res.status(404).json({message: "please enter an E-mail."});
   }else {
