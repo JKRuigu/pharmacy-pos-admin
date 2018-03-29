@@ -57,8 +57,8 @@ router.post('/profile/register',function (req,res,next) {
       if (err){
         res.status(404).json({message: "Email already taken."});
     	}else {
+      req.app.locals.user = user;
       res.json({status:"OK"});
-      req.app.locals.user = newUser;
     };
 	 	});
 
