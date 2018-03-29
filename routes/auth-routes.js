@@ -63,7 +63,7 @@ router.post('/profile/register',function (req,res,next) {
           });
           res.end();
         }
-  	 	});    
+  	 	});
 	}
 });
 
