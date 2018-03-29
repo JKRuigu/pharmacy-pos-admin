@@ -76,6 +76,7 @@ $('#reset-form').submit(function (e) {
           icon: "info"
       });
     }else {
+      $("#reset-form").text("Processing....");
       $.ajax({
         url: this.href,
         data: JSON.stringify({

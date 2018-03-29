@@ -194,7 +194,7 @@ router.post('/forgot', function(req, res, next) {
           subject: 'Password Reset',
           text: 'You are receiving this because you (or someone else) has requested to reset the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://' + req.headers.host + '/users/reset/' + token + '\n\n' +
+          'http://http://pharmacypluspos.com/users/reset/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
         };
         smtpTransport.sendMail(mailOptions, function(err) {
@@ -210,7 +210,7 @@ router.post('/forgot', function(req, res, next) {
 router.get('/reset/:token', function(req, res) {
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
     if (!user) {
-      return res.redirect('users/forgot');
+      res.redirect('users/expired');
     }
     res.render('reset', {token: req.params.token});
   });
