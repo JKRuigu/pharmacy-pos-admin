@@ -103,8 +103,7 @@ router.post('/profile/register',function (req,res,next) {
       //   ], function(err) {
       //     res.json({status:error});
       // })
-      req.app.locals.user = user;
-      console.log(user);
+      req.app.locals.user = newUser;
       res.json({status:"OK"});
     };
 	 	});
@@ -139,7 +138,6 @@ router.post('/profile/login', (req, res) =>{
             if (user.active ===true) {
               res.json({status:"OK", isAdmin: user.isAdmin});
               req.app.locals.user = user;
-              console.log('user2 is:',req.app.locals.user);
             }else {
               res.status(404).json({message:"Please verify your email to activate your account."});
             }

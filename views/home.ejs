@@ -202,6 +202,12 @@
                             }).then(function () {
                               window.location = '/users/profile';
                             });
+                        }else {
+                          wal({
+                              title: "Registration successful!",
+                              text: 'We were an able to redirect your you can login to access your Account' ,
+                              icon: "success"
+                          })
                         }
                     },
                     error: function (xhr) {
