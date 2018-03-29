@@ -8,7 +8,7 @@ const url = process.env.DB_MLAB;
 
 // Middleware ~ check if user is logged in and is admin.
 function isLoggedIn(req, res, next) {
-  req.admin = req.app.locals.user;
+  req.admin = res.app.locals.user;
   if (req.admin === undefined || !req.admin.isAdmin) {
     res.redirect('/users/login');
   }else {
@@ -55,21 +55,20 @@ router.get('/users', isLoggedIn, (req,res)=>{
   }
   skip = (page-1)*perPage;
 
-  User.find().then(users =>{
+  User.find({isAdmin:{$exists: false}}).then(users =>{
     total = users.length;
+    User.find({isAdmin:{$exists: false}}).sort({'createdAt':1}).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
+      res.render('admin/users', {admin:req.admin, users, total:total});
+    }).catch(error =>{
+      res.send(error.message);
+    });
   }).catch( error =>{
-    res.send(error.message);
-  });
-
-  User.find({}).sort({'createdAt':1}).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
-    res.render('admin/users', {admin:req.admin, users, total:total});
-  }).catch(error =>{
     res.send(error.message);
   });
 });
 
 router.get('/subscriptions', isLoggedIn, (req, res) =>{
-  User.find({}).then(users =>{
+  User.find({isAdmin:{$exists: false}}).sort({'createdAt':-1}).then(users =>{
     res.render('admin/index', {admin:req.admin, users});
   }).catch(error =>{
     res.send(error.message);
