@@ -49,15 +49,20 @@ router.get('/users', isLoggedIn, (req,res)=>{
   let perPage = 10;
   let skip = 0;
   let page = 1;
-  if (req.query.perPage && req.query.page){
+  var order = -1;
+  let sort = {};
+  if (req.query.perPage && req.query.page && req.query.sortBy){
     perPage = req.query.perPage;
     page = req.query.page;
+    sort[req.query.sortBy] = 1;
+  } else {
+    sort['createdAt'] = -1;
   }
   skip = (page-1)*perPage;
 
   User.find({isAdmin:{$exists: false}}).then(users =>{
     total = users.length;
-    User.find({isAdmin:{$exists: false}}).sort({'createdAt':1}).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
+    User.find({isAdmin:{$exists: false}}).sort(sort).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
       res.render('admin/users', {admin:req.admin, users, total:total});
     }).catch(error =>{
       res.send(error.message);

@@ -13,14 +13,24 @@
                     <h5 class="title">Users</h5>
                     <div class="container">
                         <h4>Users Information</h4>
-                        <div class="form-group col-md-2">
-                            <label for="perPage"># of records</label>
-                            <select name="perPage" class="form-control" id="perPage" onchange="setPerPage()">
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                <label for="perPage"># of records</label>
+                                <select name="perPage" class="form-control" id="perPage" onchange="setParams()">
+                                    <option value="10" class="form-control">10</option>
+                                    <option value="20" class="form-control">20</option>
+                                    <option value="50" class="form-control">50</option>
+                                    <option value="100" class="form-control">100</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="sortBy">Sort by</label>
+                                <select name="sortBy" class="form-control" id="sortBy" onchange="setParams()">
+                                    <option value="createdAt">Date</option>
+                                    <option value="email">Email</option>
+                                    <option value="username">Username</option>
+                                </select>
+                            </div>
                         </div>
                         <table id="users" class="table table-bordered table-hover table-striped">
                             <tr>
@@ -46,10 +56,15 @@
     var perPage;
     var pages = 0;
     var page;
+    var sortBy = 'createdAt';
     var urlParams = parseUrl();
 
     if(urlParams.perPage){
       $('#perPage').val(urlParams.perPage);
+    }
+
+    if(urlParams.sortBy){
+      $('#sortBy').val(urlParams.sortBy);
     }
 
     generatePagination();
@@ -69,9 +84,9 @@
       })
     }
 
-    function setPerPage() {
-      var option = $('#perPage').val();
-      perPage = parseInt(option);
+    function setParams() {
+      perPage = parseInt($('#perPage').val());
+      sortBy = $('#sortBy').val()
       generatePagination();
     }
 
@@ -95,44 +110,45 @@
       // Set current page
       if(urlParams.page){
         page = parseInt(urlParams.page);
-        perPage = parseInt($('#perPage').val());
       } else {
         page = 1;
-        perPage = parseInt($('#perPage').val());
       }
+
+      perPage = parseInt($('#perPage').val());
+      sortBy = $('#sortBy').val();
 
       // Get number of pages
       pages = Math.ceil(total/perPage);
       var ul = '<ul class="pagination justify-content-end">';
 
       //Append previous button
-      if(page == 1){
+      if(page == 1 || perPage >= total){
         ul += '<li class="page-item disabled">' +
           '<a class="page-link" href="#" tabindex="-1">Previous</a>' +
           '</li>';
       } else {
         ul += '<li class="page-item">' +
-          '<a class="page-link" href="/admin/users?page='+(page-1)+'&perPage='+perPage+'" tabindex="-1">Previous</a>' +
+          '<a class="page-link" href="/admin/users?page='+(page-1)+'&perPage='+perPage+'&sortBy='+sortBy+'" tabindex="-1">Previous</a>' +
           '</li>';
       }
 
       // Show all pages
       for(var i=1;i<=pages;i++){
         if (i === page)
-          ul += '<li class="page-item active"><a class="page-link" href="/admin/users?page='+i+'&perPage='+perPage+'">'+(i)+'</a></li>'
+          ul += '<li class="page-item active"><a class="page-link" href="/admin/users?page='+i+'&perPage='+perPage+'&sortBy='+sortBy+'">'+(i)+'</a></li>'
         else
-          ul += '<li class="page-item"><a class="page-link" href="/admin/users?page='+i+'&perPage='+perPage+'">'+(i)+'</a></li>'
+          ul += '<li class="page-item"><a class="page-link" href="/admin/users?page='+i+'&perPage='+perPage+'&sortBy='+sortBy+'">'+(i)+'</a></li>'
       }
 
       // Append next button
-      if (page == pages){
+      if (page == pages || perPage >= total){
         ul += '<li class="page-item disabled">' +
           '<a class="page-link" href="#">Next</a>' +
           '</li>' +
           '</ul>';
       } else {
         ul += '<li class="page-item">' +
-          '<a class="page-link" href="/admin/users?page='+(page+1)+'&perPage='+perPage+'">Next</a>' +
+          '<a class="page-link" href="/admin/users?page='+(page+1)+'&perPage='+perPage+'&sortBy='+sortBy+'">Next</a>' +
           '</li>' +
           '</ul>';
       }
