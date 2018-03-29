@@ -153,10 +153,6 @@ router.post('/profile/login', (req, res) =>{
 	}
 });
 
-// forgot password
-router.get('/forgot', function(req, res) {
-  res.render('forgot');
-});
 
 router.post('/forgot', function(req, res, next) {
   var email = req.body.email;
