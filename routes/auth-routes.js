@@ -10,6 +10,7 @@ const bcrypt = require("bcrypt");
 const keys = require('../config/keys');
 const swal = require('sweetalert2')
 const randomstring = require('randomstring');
+const $ = require("jquery");
 
 function generateHash(password) {
   bcrypt.genSalt(10, function(err, salt) {
@@ -159,10 +160,6 @@ router.get('/forgot', function(req, res) {
 
 router.post('/forgot', function(req, res, next) {
   var email = req.body.email;
-  if (!email) {
-    res.status(404).json({message: "please enter an E-mail."});
-  }else {
-    console.log('am body',email);
     async.waterfall([
       function(done) {
         crypto.randomBytes(20, function(err, buf) {
@@ -207,7 +204,6 @@ router.post('/forgot', function(req, res, next) {
     ], function(err) {
       res.json({status:error});
     });
-  }
 });
 
 

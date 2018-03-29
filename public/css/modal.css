@@ -111,3 +111,12 @@ body {
 #login-header2{
   display: none;
 }
+.swal-text {
+    text-align: center;
+    padding: 17px;
+    display: block;
+    margin: 22px;
+    color: #61534e;
+}
+.loading{
+}

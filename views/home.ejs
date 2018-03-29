@@ -16,9 +16,19 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="/node/css/modal.css">
+    <link rel="stylesheet" href="/node/css/modalreset.css">
     <!-- Start of HubSpot Embed Code -->
     <!-- <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/4402366.js"></script> -->
     <!-- End of HubSpot Embed Code -->
+    <style media="screen">
+    .swal-text {
+        text-align: center;
+        padding: 17px;
+        display: block;
+        margin: 22px;
+        color: #61534e;
+        }
+    </style>
 </head>
 <body id="mainBody">
 <div class="container">
@@ -73,9 +83,10 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="text-center">
-                                                <a href="/users/forgot" tabindex="5" class="forgot-password">Forgot
-                                                    Password?</a>
-                                            </div>
+                                              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                                  Forgot Password ?
+                                              </button>
+                                              </div>
                                         </div>
                                     </div>
                                 </div>
@@ -115,6 +126,37 @@
                     </div>
                 </div>
             </div>
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header" style="background-color:#01DF01">
+                        <h3 class="modal-title" id="exampleModalLabel">Pharmacyplus-pos password reset</h3>
+                      </div>
+                      <div class="modal-body" style="background-color:#F2F2F2">
+                        <form class="form-horizontal text-center" method="post" id="forgot-form" role="form">
+                            <div class="form-group">
+                                <label for="email" class="cols-sm-2 control-label" >Email</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                                        <input type="email" class="form-control" name="email" id="email-forgot" style="width:70%" placeholder="Enter your E-mail">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <button type="submit" class="btn btn-primary btn-lg loading" id="passReset">Reset password</button>
+                            </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer" style="background-color:#01DF01">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
         </div>
     </div>
 </div>
@@ -187,45 +229,89 @@
             }
         });
     });
-
     $('#login-form').submit(function (e) {
-        e.preventDefault();
-        var email = $('#username').val();
-        var password = $('#login-pass').val();
-        if (!email || !password) {
-            swal({
-                title: "Error!",
-                text: "Email and password are required !",
-                icon: "info",
-            });
-        }
+      e.preventDefault();
+      var email = $('#username').val();
+      var password = $('#login-pass').val();
+      if (!email || !password) {
+        swal({
+          title: "Error!",
+          text: "Email and password are required !",
+          icon: "info",
+        });
+      }else {
         $.ajax({
             url: "/users/profile/login",
             data: JSON.stringify({
-                "email": email,
-                "password": password
-            }),
+            "email": email,
+            "password": password
+          }),
             type: "POST",
             contentType: "application/json",
             success: function (data) {
-                if (data) {
-                  if(data.isAdmin)
-                    window.location = '/admin/';
-                  else
-                    window.location = '/users/profile';
-                }
-            },
-            error: function (xhr) {
-                var message = xhr.responseJSON.message;
-                if (xhr.status === 404) {
-                    swal({
-                        title: "Error!",
-                        text: message,
-                        icon: "error"
-                    });
-                }
+            if (data) {
+              if(data.isAdmin)
+                window.location = '/admin/';
+              else
+                window.location = '/users/profile';
             }
-        })
+          },
+          error: function (xhr) {
+            var message = xhr.responseJSON.message;
+            if (xhr.status === 404) {
+              swal({
+                title: "Error!",
+                text: message,
+                icon: "error"
+              });
+            }
+          }
+        });
+      }
+    });
+    $(document).ready(function () {
+        $('#forgot-form').on('submit', function (e) {
+            e.preventDefault();
+            var email = $('#email-forgot').val();
+            if (!email) {
+              swal({
+                title: "Error!",
+                text: 'Please Enter your E-mail' ,
+                icon: "info"
+              });
+            }else {
+              $("#passReset").text("Processing....");
+              $.ajax({
+                url: "/users/forgot",
+                data: JSON.stringify({
+                  "email": email
+                }),
+                type: "post",
+                contentType: "application/json",
+                success: function (data, msg) {
+                  if (data) {
+                    $("#forgot-form").get(0).reset();
+                    $("#passReset").text("Process completed successful!");
+                    swal({
+                      title: "Success",
+                      text: 'A message was sent to the e-mail you provided. Please login to that e-mail for more information on how to reset your password.' ,
+                      icon: "success"
+                    });
+                  }
+                },
+                error: function (xhr) {
+                  if (xhr.status === 404) {
+                    var error = xhr.responseJSON;
+                    swal({
+                      title: "Error!",
+                      text: error.message,
+                      icon: "info"
+                    });
+                  }
+                }
+              });
+            }
+        });
     });
 
 </script>

@@ -1,0 +1,49 @@
+<%- include('../partials/admin/header.ejs', {title: "Admin-Users"}); %>
+<!-- End Navbar -->
+<div class="panel-header panel-header-md">
+    <div class="header text-center">
+        <h3 class="title">Information of Users Downloading Software</h3>
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" >
+                <div class="card-header">
+                    <h5 class="title">Users</h5>
+                    <div class="container" id="loop">
+                        <h4>Users Information</h4>
+                        <div class="form-group">
+                          <select name="state" id="maxRows" class="form-contrl" style="width:150px;">
+                            <option value="5000">Show All</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="75">75</option>
+                            <option value="100">100</option>
+                          </select>
+                        </div>
+                        <table id="users" class="table table-bordered table-hover table-striped">
+                          <thead>
+                            <tr>
+                              <th>ID #</th>
+                              <th>Username</th>
+                              <th>Mobile Number</th>
+                              <th>Email</th>
+                            </tr>
+                          </thead>
+                            <tbody id="myBdy"></tbody>
+                        </table>
+                        <div class="pagination-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/node/js/users.js"></script>
+<script src="/node/js/pagination.js"></script>
+<%- include('../partials/admin/footer.ejs') %>
