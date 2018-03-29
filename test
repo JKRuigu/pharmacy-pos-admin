@@ -1,48 +1,46 @@
-// var table = '#users'
-// console.log('am tbl',table);
-// $('#maxRows').on('change',function () {
-//   $('.pagination').html('')
-//   var trnum = 0
-//   var maxRows = parseInt($(this).val())
-//   var totalRows = $(table +' tbody tr').length
-//   console.log('am maxRows',maxRows );
-//   console.log('am totalRows',totalRows);
-//   console.log(trnum);
-//   $(table+' tr:gt(0)').each(function () {
-//     trnum++
-//     if (trnum > maxRows) {
-//       $(this).hide()
-//     }
-//     if (trnum <= maxRows) {
-//       $(this).show()
-//     }
-//   })
-//   if (totalRows > maxRows) {
-//     var pagenum = Math.ceil(totalRows/maxRows)
-//     for (var i = 1; i <= pagenum;) {
-//       $('.pagination').append('<li data-page="'+i+'"><span>'+ i++ +'<span class="sr-only">(current)</span></span><li>').show()
-//     }
-//   }
-//   $('.pagination li:first-child').addClass('active')
-//   $('.pagination li').on('click',function () {
-//     var pageNum = $(this).attr('data-page')
-//     var trIndex = 0;
-//     $('.pagination li').removeClass('active')
-//     $(table+' tr:gt(0)').each(function () {
-//       trIndex++
-//       if (trIndex > (maxRows*pageNum) || trIndex <= ((maxRows*pageNum)-maxRows)) {
-//         $(this).hide()
-//       }else {
-//         $(this).show()
-//       }
-//     })
-//   })
-// })
-// $(function () {
-//   $('table tr:eq(0)').prepend('<th>ID</th>')
-//   var id = 0;
-//   $('table tr:gt(0)').each(function () {
-//     id ++
-//     $(this).prepend('<td>'+ id +'</td>')
-//   })
-// })
+//Email verification
+      //   async.waterfall([
+      //     function(done) {
+      //       crypto.randomBytes(20, function(err, buf) {
+      //         var token = buf.toString('hex');
+      //         done(err, token);
+      //       });
+      //     },
+      //     function(token, done) {
+      //         if (!newUser) {
+      //           return res.redirect('/users/login');
+      //         }else {
+      //           // console.log('hey am token',token);
+      //           newUser.emailverficationToken = token;
+      //           newUser.emailverficationExpires = Date.now() + 86400000; // 24 hour
+      //           var user = newUser;
+      //           user.save(function(err) {
+      //             done(err, token, user);
+      //           });
+      //         }
+      //     },
+      //     function(token, user, done) {
+      //       var smtpTransport = nodemailer.createTransport({
+      //         service: 'Gmail',
+      //         auth: {
+      //           user: keys.facebook.clientID,
+      //           pass: keys.facebook.clientSecret
+      //         }
+      //       });
+      //       var mailOptions = {
+      //         to: user.email,
+      //         from: 'chegeherman@gmail.com',
+      //         subject: 'Email Verification your account.',
+      //         html: '<b>You’re almost there.</b>Thank you so much for signing up with us.\n\n' +
+      //               '<b>After your click the link below your account will be automatically activated and you we be able to access your account by loging in.\n\n</b>'+
+      //               'Incase your account is not activated after this process please contact us for more information.\n\n </b><br>' +
+      //               'Please click on the following link, or paste this into your browser to complete the process:\n\n </b><br>' +
+      //               '<a href="'+'http://' + req.headers.host + '/users/email/' + token +'">'+'http://' + req.headers.host + '/users/email/' + token+'</a>'
+      //       };
+      //       smtpTransport.sendMail(mailOptions, function(err) {
+      //         res.json({status:"OK"});
+      //       });
+      //     }
+      //   ], function(err) {
+      //     res.json({status:error});
+      // })

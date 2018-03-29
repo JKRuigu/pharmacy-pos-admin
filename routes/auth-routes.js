@@ -53,60 +53,17 @@ router.post('/profile/register',function (req,res,next) {
       secretToken:secretToken
 		});
 
-    User.createUser(newUser,function (err, user) {
-      if (err){
-        res.status(404).json({message: "Email already taken."});
-    	}else {
-//Email verification
-      //   async.waterfall([
-      //     function(done) {
-      //       crypto.randomBytes(20, function(err, buf) {
-      //         var token = buf.toString('hex');
-      //         done(err, token);
-      //       });
-      //     },
-      //     function(token, done) {
-      //         if (!newUser) {
-      //           return res.redirect('/users/login');
-      //         }else {
-      //           // console.log('hey am token',token);
-      //           newUser.emailverficationToken = token;
-      //           newUser.emailverficationExpires = Date.now() + 86400000; // 24 hour
-      //           var user = newUser;
-      //           user.save(function(err) {
-      //             done(err, token, user);
-      //           });
-      //         }
-      //     },
-      //     function(token, user, done) {
-      //       var smtpTransport = nodemailer.createTransport({
-      //         service: 'Gmail',
-      //         auth: {
-      //           user: keys.facebook.clientID,
-      //           pass: keys.facebook.clientSecret
-      //         }
-      //       });
-      //       var mailOptions = {
-      //         to: user.email,
-      //         from: 'chegeherman@gmail.com',
-      //         subject: 'Email Verification your account.',
-      //         html: '<b>You’re almost there.</b>Thank you so much for signing up with us.\n\n' +
-      //               '<b>After your click the link below your account will be automatically activated and you we be able to access your account by loging in.\n\n</b>'+
-      //               'Incase your account is not activated after this process please contact us for more information.\n\n </b><br>' +
-      //               'Please click on the following link, or paste this into your browser to complete the process:\n\n </b><br>' +
-      //               '<a href="'+'http://' + req.headers.host + '/users/email/' + token +'">'+'http://' + req.headers.host + '/users/email/' + token+'</a>'
-      //       };
-      //       smtpTransport.sendMail(mailOptions, function(err) {
-      //         res.json({status:"OK"});
-      //       });
-      //     }
-      //   ], function(err) {
-      //     res.json({status:error});
-      // })
-      res.json({status:"OK"});
-      req.app.locals.user = newUser;
-    };
-	 	});
+    User.createUser(newUser,function (err,user) {
+        if (err){
+          res.status(404).json({message: "Email already taken."});
+      	}else {
+          req.app.locals.user = user;
+          res.writeHead(302, {
+            'Location': '/users/profile'
+          });
+          res.end();
+        }
+  	 	});    
 	}
 });
 
