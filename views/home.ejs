@@ -203,10 +203,10 @@
                               window.location = '/users/profile';
                             });
                         }else {
-                          wal({
+                          swal({
                               title: "Registration successful!",
-                              text: 'We were an able to redirect your you can login to access your Account' ,
-                              icon: "success"
+                              text: 'We were unable to redirect your to your profile. Please login to access your Account' ,
+                              icon: "info"
                           })
                         }
                     },
