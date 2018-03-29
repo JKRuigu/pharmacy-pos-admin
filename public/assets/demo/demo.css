@@ -61,3 +61,8 @@
 #userTable button {
     margin:2px 5px;
 }
+#addUpdates {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}

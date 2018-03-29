@@ -13,20 +13,8 @@
                     <div class="panel-body">
                         <form id="add-message">
                             <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" id="name" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" id="email" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Phone Number</label>
-                                <input type="tel" id="tel" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label>Message</label>
-                                <input type="text" id="message" class="form-control">
+                                <label for="comment">Message:</label>
+                                <textarea class="form-control" rows="5" id="message" placeholder="Start typing here ..."></textarea>
                             </div>
                             <button type="submit" name="submit" class="btn btn-primary">Send message</button>
                         </form>
@@ -40,5 +28,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    var user = <%- JSON.stringify(user)%>
+</script>
 <script src="/node/js/contact.js"></script>
 <%- include('../partials/users/footer.ejs') %>

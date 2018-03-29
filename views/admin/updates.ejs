@@ -1,0 +1,100 @@
+<%- include('../partials/admin/header.ejs', {title: "Admin-Updates", admin:admin}); %>
+<!-- End Navbar -->
+<div class="panel-header">
+    <div class="header text-center">
+        <h2 class="title">Create Customer Updates</h2>
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <button class="btn btn-success" onclick="$('#addUpdatesForm').modal('show');" id="addUpdates"><i class="now-ui-icons ui-1_simple-add"></i></button>
+                <div class="card-body">
+                    <div class="places-buttons">
+                        <div class="row">
+                            <div class="col-md-6 ml-auto mr-auto text-center">
+                                <h4 class="card-title">
+                                    Notifications
+                                    <p class="category">Notifications seen by customers</p>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="container">
+                                <div id="noUpdates"></div>
+                                <table class="table table-bordered table-hover table-striped">
+                                    <tr>
+                                        <th>ID #</th>
+                                        <th>Title</th>
+                                        <th>Date Added</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    <tbody>
+                                    <% updates.forEach(function (update, index) { %>
+                                    <tr>
+                                        <td><%=index+1%></td>
+                                        <td><%=update.title%></td>
+                                        <td><%=update.createdAt %></td>
+                                        <td>
+                                          <%if(update.isDisplayed){%>
+                                            <span class="text-primary">Visible</span>
+                                          <%} else {%>
+                                            <span class="text-warning">Not Visible</span>
+                                          <%}%>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-success btn-sm" onclick="editUpdate('<%=update._id%>')">Edit</button>
+                                            <button class="btn btn-danger btn-sm" onclick="deleteUpdate('<%=update._id%>')">Delete</button>
+                                        </td>
+                                    </tr>
+                                    <%});%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addUpdatesForm">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add update</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" id="add-updates" class="form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Title of your topic</label>
+                        <input type="text" id="title" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Body</label>
+                        <textarea class="form-control" rows="5" id="body" placeholder="Start typing here ..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+  //TODO:: Edit button
+  var updates = <%- JSON.stringify(updates)%>;
+</script>
+<script src="/node/js/updates.js"></script>
+<%- include('../partials/admin/footer.ejs') %>

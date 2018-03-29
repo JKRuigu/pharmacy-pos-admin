@@ -1,0 +1,210 @@
+<%- include('../partials/admin/header.ejs', {title: "Admin-register", admin:admin}); %>
+<!-- End Navbar -->
+<div class="panel-header panel-header-sm">
+</div>
+<div class="content">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">List of admins</h5>
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered table-hover table-striped">
+            <tr>
+              <th>ID #</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+            <tbody id="subscriptionsTable">
+            <% admins.forEach(function (admin, index) { %>
+            <tr>
+              <td><%=index+1%></td>
+              <td><%=admin.username%></td>
+              <td><%=admin.email%></td>
+              <td>
+                <%if(admin.isSuperAdmin){%>
+                  Super-admin
+                <%} else {%>
+                  Admin
+                <%}%>
+              </td>
+              <td><i class="now-ui-icons ui-1_lock-circle-open text-success"></i></td>
+              <td>
+                <button class="btn btn-danger btn-sm" onclick="deleteUser('<%=admin._id%>')">Delete</button>
+              </td>
+            </tr>
+            <%});%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Add admin</h5>
+        </div>
+        <div class="card-body">
+          <form id="addAdminForm" method="post">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Username</label>
+                  <input type="text" class="form-control" placeholder="Username" id="username" name="username">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="text" class="form-control" placeholder="Enter Email" id="email" name="email">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" class="form-control" placeholder="Enter Password" id="password" name="password">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Password Again</label>
+                  <input type="password" class="form-control" placeholder="Enter Password" id="passwordAgain" name="passwordAgain">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 ">
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <span>Admin</span>
+                    <input class="form-check-input status" name="admin" id="admin" type="checkbox">
+                    <span class="form-check-sign"></span>
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <span>Super Admin</span>
+                    <input class="form-check-input status"  name="superAdmin" id="superAdmin" type="checkbox">
+                    <span class="form-check-sign"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <button type="submit" name="button" class="btn btn-block btn-success">ADD</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    $("#addAdminForm").on('submit', function (e){
+      e.preventDefault();
+      var username = $('#username').val();
+      var email = $('#email').val();
+      var password = $('#password').val();
+      var passwordAgain = $('#passwordAgain').val();
+      var admin = $("#admin")[0].checked;
+      var superAdmin = $("#superAdmin")[0].checked;
+      if (!username || !email || !password || !passwordAgain) {
+        swal({
+          title: "Error!",
+          text: "All field are required...!!",
+          icon: "info",
+        });
+      } else {
+        if (password !== passwordAgain) {
+          swal({
+            title: "Error!",
+            text: "Passwords don't match...!!",
+            icon: "info",
+          });
+        } else if (!admin && !superAdmin){
+          swal({
+            title: "Error!",
+            text: "Set permissions for the admin...!!",
+            icon: "info",
+          });
+        } else {
+          $.ajax({
+            url: "/admin/register",
+            data: JSON.stringify({
+              username,
+              email,
+              password,
+              passwordAgain,
+              admin,
+              superAdmin
+            }),
+            type: "POST",
+            contentType: "application/json",
+            success: function (data, status, msg) {
+              if (data) {
+                swal({
+                  title: "Success ..!!",
+                  text: data.status,
+                  icon: "info"
+                });
+                // TODO:: clear form.
+                // TODO:: Add auto reload of documents
+              }
+            },
+            error: function (xhr, status, msg) {
+              var message;
+              if (xhr.responseJSON)
+                message = xhr.responseJSON.status;
+              else if(msg)
+                message = msg;
+              else
+                message = "Fatal error.";
+
+              swal({
+                title: "Error!",
+                text: message,
+                icon: "error"
+              });
+            }
+          })
+        }
+      }
+    });
+  });
+  function deleteUser(id) {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover user information!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if(willDelete)
+        return axios.delete(`/admin/${id}/delete`);
+    }).then(deleted => {
+      if (deleted){
+        swal("Poof! Admin deleted!", {
+          icon: "success",
+        });
+      }
+    }).catch(error =>{
+      swal("Admin not deleted!"+error);
+    });
+  }
+</script>
+<%- include('../partials/admin/footer.ejs') %>

@@ -1,0 +1,86 @@
+<%- include('../partials/admin/header.ejs', {title: "Admin-messages", admin:admin}); %>
+<!-- End Navbar -->
+<div class="panel-header panel-header-sm">
+    <div class="header text-center">
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card ">
+                <div class="card-header ">
+                    <h3 class="title">Messages from Users</h3>
+                </div>
+                <div class="card-body ">
+                    <table class="table table-bordered table-hover table-striped" id="messages_table">
+                        <thead>
+                        <tr>
+                            <th>ID #</th>
+                            <th>Status</th>
+                            <th>Name</th>
+                            <th>Tel</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+  // TODO:: View message modal, mark them as read
+    $(document).ready(function () {
+      var message_data = '';
+      var messages = <%- JSON.stringify(messages)%>;
+      if (messages){
+        messages.forEach(function (message, index) {
+          var status = message.isRead? "Read": "Unread";
+          message_data += '<tr id="data">';
+          message_data += '<td>' + (index+1) + '</td>';
+          message_data += '<td>' + status + '</td>';
+          message_data += '<td>' + message.name + '</td>';
+          message_data += '<td>' + message.tel + '</td>';
+          message_data += '<td>' + message.email + '</td>';
+          message_data += '<td>' + (message.body.length>30? message.body.substring(0, 30)+'...': message.body) + '</td>';
+          message_data += '<td>';
+          message_data += '<button class="btn btn-danger btn-sm" onclick="deleteMessage(\''+message._id+'\')">Delete</button></td>';
+          message_data += '<tr>';
+        });
+        $('#messages_table').append(message_data);
+      } else {
+        swal({
+          type: info,
+          title: "No Messages",
+          text: "No messages from customers."
+        });
+      }
+    });
+
+    function deleteMessage(id) {
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover the information!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if(willDelete)
+          return axios.delete(`/admin/${id}/messages`);
+      }).then(deleted => {
+        if (deleted){
+          swal("Poof! Message deleted!", {
+            icon: "success",
+          });
+        }
+      }).catch(error =>{
+        swal("Message not deleted!"+error);
+      });
+    }
+</script>
+<%- include('../partials/admin/footer.ejs') %>

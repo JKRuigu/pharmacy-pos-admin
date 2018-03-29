@@ -53,7 +53,7 @@ router.post('/profile/register',function (req,res,next) {
       secretToken:secretToken
 		});
 
-    User.createUser(newUser,function (err,user) {
+    User.createUser(newUser,function (err, user) {
       if (err){
         res.status(404).json({message: "Email already taken."});
     	}else {
@@ -135,7 +135,7 @@ router.post('/profile/login', (req, res) =>{
         User.comparePassword(req.body.password, user.password, function (hash, isMatch) {
 					if (isMatch){
             if (user.active ===true) {
-              res.json({status:"OK"});
+              res.json({status:"OK", isAdmin: user.isAdmin});
               req.app.locals.user = user;
               console.log('user2 is:',req.app.locals.user);
             }else {
