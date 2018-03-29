@@ -103,6 +103,8 @@ router.post('/profile/register',function (req,res,next) {
       //   ], function(err) {
       //     res.json({status:error});
       // })
+      req.app.locals.user = user;
+      console.log(user);
       res.json({status:"OK"});
     };
 	 	});
@@ -199,6 +201,7 @@ router.post('/forgot', function(req, res, next) {
         };
         smtpTransport.sendMail(mailOptions, function(err) {
           res.json({status:"OK"});
+
         });
       }
     ], function(err) {

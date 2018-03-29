@@ -197,10 +197,10 @@
                             $("#register-form").get(0).reset();
                             swal({
                                 title: "Registration successful!",
-                                text: 'You can now login to Download the software' ,
+                                text: 'You will be redirected to your dashboard to Download the Software' ,
                                 icon: "success"
                             }).then(function () {
-                              window.location = '/users/login';
+                              window.location = '/users/profile';
                             });
                         }
                     },
