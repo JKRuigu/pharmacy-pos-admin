@@ -16,6 +16,15 @@
           <h5 class="title">Users</h5>
           <div class="container" >
             <h4>Users Subscription</h4>
+            <div class="form-group col-md-2">
+              <label for="perPage"># of records</label>
+              <select name="perPage" class="form-control" id="perPage" onchange="setPerPage()">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
             <table class="table table-bordered table-hover table-striped">
               <thead>
                 <tr>
@@ -26,6 +35,9 @@
               </thead>
               <tbody id="userTable"></tbody>
             </table>
+            <div>
+              <nav aria-label="Page navigation" id="pagination"></nav>
+            </div>
           </div>
         </div>
       </div>
@@ -106,23 +118,103 @@
     </div>
   </div>
 </div>
-<script>
-  $(function () {
-    var users = <%- JSON.stringify(users) %>;
-    if( users){
-      users.forEach(function (data) {
-        let _id = data._id;
-        systemUsers[_id] = {
-          _id,
-          username: data.email,
-          subscriptions: data.subscriptions
-        }
-      });
-      reloadUsersTable();
-    } else
-      swal('users not set')
-
-  });
-</script>
 <script src="/node/js/subscriptions.js"></script>
+<script>
+  var users = <%- JSON.stringify(users) %>;
+  var total = <%- total%>;
+  var perPage;
+  var pages = 0;
+  var page;
+  var urlParams = parseUrl();
+
+  if(urlParams.perPage){
+    $('#perPage').val(urlParams.perPage);
+  }
+
+  generatePagination();
+
+  if( users){
+    users.forEach(function (data) {
+      let _id = data._id;
+      systemUsers[_id] = {
+        _id,
+        username: data.email,
+        subscriptions: data.subscriptions
+      }
+    });
+    reloadUsersTable();
+  } else{
+    swal('users not set')
+  }
+
+  function setPerPage() {
+    var option = $('#perPage').val();
+    perPage = parseInt(option);
+    generatePagination();
+  }
+
+  function parseUrl() {
+    var params;
+    var match,
+      pl     = /\+/g,  // Regex for replacing addition symbol with a space
+      search = /([^&=]+)=?([^&]*)/g,
+      decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+      query  = window.location.search.substring(1);
+
+    params = {};
+    while (match = search.exec(query))
+      params[decode(match[1])] = decode(match[2]);
+
+    return params;
+  }
+  function generatePagination() {
+    // Get url query params
+
+    // Set current page
+    if(urlParams.page){
+      page = parseInt(urlParams.page);
+      perPage = parseInt($('#perPage').val());
+    } else {
+      page = 1;
+      perPage = parseInt($('#perPage').val());
+    }
+
+    // Get number of pages
+    pages = Math.ceil(total/perPage);
+    var ul = '<ul class="pagination justify-content-end">';
+
+    //Append previous button
+    if(page == 1){
+      ul += '<li class="page-item disabled">' +
+        '<a class="page-link" href="#" tabindex="-1">Previous</a>' +
+        '</li>';
+    } else {
+      ul += '<li class="page-item">' +
+        '<a class="page-link" href="/admin/subscriptions?page='+(page-1)+'&perPage='+perPage+'" tabindex="-1">Previous</a>' +
+        '</li>';
+    }
+
+    // Show all pages
+    for(var i=1;i<=pages;i++){
+      if (i === page)
+        ul += '<li class="page-item active"><a class="page-link" href="/admin/subscriptions?page='+i+'&perPage='+perPage+'">'+(i)+'</a></li>'
+      else
+        ul += '<li class="page-item"><a class="page-link" href="/admin/subscriptions?page='+i+'&perPage='+perPage+'">'+(i)+'</a></li>'
+    }
+
+    // Append next button
+    if (page == pages){
+      ul += '<li class="page-item disabled">' +
+        '<a class="page-link" href="#">Next</a>' +
+        '</li>' +
+        '</ul>';
+    } else {
+      ul += '<li class="page-item">' +
+        '<a class="page-link" href="/admin/subscriptions?page='+(page+1)+'&perPage='+perPage+'">Next</a>' +
+        '</li>' +
+        '</ul>';
+    }
+    $('#pagination').html(ul);
+  }
+</script>
 <%- include('../partials/admin/footer.ejs')%>

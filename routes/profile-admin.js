@@ -68,8 +68,23 @@ router.get('/users', isLoggedIn, (req,res)=>{
 });
 
 router.get('/subscriptions', isLoggedIn, (req, res) =>{
+  let total = 0;
+  let perPage = 10;
+  let skip = 0;
+  let page = 1;
+  if (req.query.perPage && req.query.page){
+    perPage = req.query.perPage;
+    page = req.query.page;
+  }
+  skip = (page-1)*perPage;
+
   User.find({isAdmin:{$exists: false}}).sort({'createdAt':-1}).then(users =>{
-    res.render('admin/index', {admin:req.admin, users});
+    total = users.length;
+    User.find({isAdmin:{$exists: false}}).sort({'createdAt':1}).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
+      res.render('admin/subscriptions', {admin:req.admin, users, total:total});
+    }).catch(error =>{
+      res.send(error.message);
+    });
   }).catch(error =>{
     res.send(error.message);
   });

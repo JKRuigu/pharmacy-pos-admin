@@ -13,6 +13,15 @@
                     <h5 class="title">Users</h5>
                     <div class="container">
                         <h4>Users Information</h4>
+                        <div class="form-group col-md-2">
+                            <label for="perPage"># of records</label>
+                            <select name="perPage" class="form-control" id="perPage" onchange="setPerPage()">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
                         <table id="users" class="table table-bordered table-hover table-striped">
                             <tr>
                                 <th>ID #</th>
@@ -23,7 +32,7 @@
                             </tr>
                         </table>
                         <div>
-                            <nav aria-label="Page navigation example" id="pagination"></nav>
+                            <nav aria-label="Page navigation" id="pagination"></nav>
                         </div>
                     </div>
                 </div>
@@ -34,38 +43,101 @@
 <script>
     var users = <%- JSON.stringify(users)%>;
     var total = <%- total%>;
-    var perPage = 10;
+    var perPage;
     var pages = 0;
-    pages = Math.ceil(total/perPage);
-    var ul = '<ul class="pagination justify-content-end">' +
-      '<li class="page-item disabled">' +
-      '<a class="page-link" href="#" tabindex="-1">Previous</a>' +
-      '</li>';
+    var page;
+    var urlParams = parseUrl();
 
-    for(var i=1;i<=pages;i++){
-        ul += '<li class="page-item"><a class="page-link" href="/admin/users?page='+i+'&perPage='+perPage+'">'+(i)+'</a></li>'
+    if(urlParams.perPage){
+      $('#perPage').val(urlParams.perPage);
     }
 
-    ul += '<li class="page-item">' +
-      '<a class="page-link" href="#">Next</a>' +
-      '</li>' +
-      '</ul>';
-    $('#pagination').append(ul);
-
+    generatePagination();
 
     if (users.length !== 0){
       users.forEach(function (user, index) {
         if (!user.isAdmin || user.isAdmin === undefined) {
-          $("#users").append('<tr><td>'+(index+1)+ '</td><td>'+user.username+ '</td><td>'+user.tel+ '</td><td>'+user.email+ '</td><td>'+user.active+ '</td></tr>');
+          $("#users").append('<tr><td>'+((page-1)*perPage+index+1)+ '</td><td>'+user.username+ '</td><td>'+user.tel+ '</td><td>'+user.email+ '</td><td>'+user.active+ '</td></tr>');
         }
       })
     } else {
       swal({
-
+        type: 'info',
+        icon: 'info',
+        title: 'Ooopps',
+        text: 'No users'
       })
     }
-    console.log(total)
-    console.log(pages)
+
+    function setPerPage() {
+      var option = $('#perPage').val();
+      perPage = parseInt(option);
+      generatePagination();
+    }
+
+    function parseUrl() {
+      var params;
+        var match,
+          pl     = /\+/g,  // Regex for replacing addition symbol with a space
+          search = /([^&=]+)=?([^&]*)/g,
+          decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+          query  = window.location.search.substring(1);
+
+        params = {};
+        while (match = search.exec(query))
+          params[decode(match[1])] = decode(match[2]);
+
+        return params;
+    }
+    function generatePagination() {
+      // Get url query params
+
+      // Set current page
+      if(urlParams.page){
+        page = parseInt(urlParams.page);
+        perPage = parseInt($('#perPage').val());
+      } else {
+        page = 1;
+        perPage = parseInt($('#perPage').val());
+      }
+
+      // Get number of pages
+      pages = Math.ceil(total/perPage);
+      var ul = '<ul class="pagination justify-content-end">';
+
+      //Append previous button
+      if(page == 1){
+        ul += '<li class="page-item disabled">' +
+          '<a class="page-link" href="#" tabindex="-1">Previous</a>' +
+          '</li>';
+      } else {
+        ul += '<li class="page-item">' +
+          '<a class="page-link" href="/admin/users?page='+(page-1)+'&perPage='+perPage+'" tabindex="-1">Previous</a>' +
+          '</li>';
+      }
+
+      // Show all pages
+      for(var i=1;i<=pages;i++){
+        if (i === page)
+          ul += '<li class="page-item active"><a class="page-link" href="/admin/users?page='+i+'&perPage='+perPage+'">'+(i)+'</a></li>'
+        else
+          ul += '<li class="page-item"><a class="page-link" href="/admin/users?page='+i+'&perPage='+perPage+'">'+(i)+'</a></li>'
+      }
+
+      // Append next button
+      if (page == pages){
+        ul += '<li class="page-item disabled">' +
+          '<a class="page-link" href="#">Next</a>' +
+          '</li>' +
+          '</ul>';
+      } else {
+        ul += '<li class="page-item">' +
+          '<a class="page-link" href="/admin/users?page='+(page+1)+'&perPage='+perPage+'">Next</a>' +
+          '</li>' +
+          '</ul>';
+      }
+      $('#pagination').html(ul);
+    }
 </script>
 <!--<script src="/node/js/users.js"></script>-->
 <%- include('../partials/admin/footer.ejs') %>

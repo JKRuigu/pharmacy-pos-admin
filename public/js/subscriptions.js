@@ -84,7 +84,7 @@ function reloadUsersTable(id=null) {
     let i =1;
     for(let user in systemUsers){
       if(systemUsers[user]._id== id) continue;
-      userTable.append('<tr><td>'+(i)+'</td><td>'+systemUsers[user].username+ '</td>'+
+      userTable.append('<tr><td>'+((page-1)*perPage+i)+'</td><td>'+systemUsers[user].username+ '</td>'+
         '<td><buttton class="btn btn-sm btn-success" onClick="showActivateModal(\''+systemUsers[user]._id+'\')">Activate</buttton>'+
         '<button class="btn btn-warning btn-sm '+(systemUsers[user].subscriptions===undefined?'disabled': '')+'\" onClick="showDeactivateModal(\''+systemUsers[user]._id+'\')">Deactivate</button>'+
         '<button class="btn btn-danger btn-sm" onclick="deleteUser(\''+systemUsers[user]._id+'\')">Delete</button></td></tr>');
