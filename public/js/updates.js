@@ -58,6 +58,7 @@ $(document).ready(function () {
       updates_data += '<small class="card-footer">'+ 'Updated on '+ value.date+'</small>';
       updates_data += '</div>';
     });
+    $('#updates_div').append(updates_data);
   } else {
     updates_data += '<div class="card">';
     updates_data += '<h3 class="card-header ">No updates</h3>';
@@ -65,7 +66,7 @@ $(document).ready(function () {
     updates_data += '<p>No Updates available, use the + to add them.</p>';
     updates_data += '</div>';
     updates_data += '</div>';
-    $('#updates_div').append(updates_data);
+    $('#noUpdates').append(updates_data);
   }
 
 });
