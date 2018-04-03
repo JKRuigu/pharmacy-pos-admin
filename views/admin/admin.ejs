@@ -1,9 +1,55 @@
 <%- include('../partials/admin/header.ejs', {title: "Admin-Dashboard", admin:admin}); %>
 <!-- End Navbar -->
-<div class="panel-header panel-header-lg">
-    <!-- Main chart-area -->
+<div class="panel-header panel-header-sm">
 </div>
 <div class="content">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="card card-chart">
+            <div class="card-header">
+              <h5 class="text-center">General Overview</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+              <div class="card col-md-3">
+                <div class="card-body">
+                  <h5 class="card-title">Total Number of Users</h5>
+                  <div class="text-center">
+                    <button class="btn btn-success btn-lg"><%=total%></button>
+
+                  </div>
+                </div>
+              </div>
+              <div class="card col-md-3">
+                <div class="card-body">
+                  <h6 class="card-title">Active Users <span id="totalUsers"></span></h6>
+                  <p>
+                    <label for="online">Online</label>
+                    <button type="button" name="online"  class="btn btn-success btn-lg" id="online">0</button>
+                  </p>
+                  <p>
+                    <label for="offline">Offline</label>
+                    <button type="button" name="offline" id="offline" class="btn btn-light btn-lg">0</button>
+                  </p>
+                </div>
+              </div>
+              <div class="card col-md-3">
+                <div class="card-body">
+                  <h5 class="card-title">Special title treatment</h5>
+                </div>
+              </div>
+              <div class="card col-md-3">
+                <div class="card-body">
+                  <h5 class="card-title">Special title treatment</h5>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
     <div class="row">
         <div class="col-lg-4">
             <div class="card card-chart">
@@ -268,4 +314,26 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+var users = <%- JSON.stringify(users)%>;
+var count = Object.keys(users).length;
+var subscribedUsers = {};
+var i =0;
+users.forEach(function (user) {
+  if(user.hasOwnProperty('subscriptions')){
+      subscribedUsers[i] = user.subscriptions;
+      i++;
+  }
+});
+var activeUsers = Object.keys(subscribedUsers).length
+var activatedUsers=0;
+for(var item in subscribedUsers)
+	subscribedUsers[item][0].status==1?activatedUsers++:'';
+var offlineUsers = activeUsers-activatedUsers
+  $("#totalUsers").text('('+ activeUsers+')');
+  $("#online").text(activatedUsers);
+  $("#offline").text(offlineUsers);
+
+ var activeUsers = Object.keys(subscribedUsers).length
+</script>
 <%- include('../partials/admin/footer.ejs') %>
