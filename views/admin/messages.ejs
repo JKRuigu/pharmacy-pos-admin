@@ -124,6 +124,10 @@
               text: error.message,
               icon: "error",
               dangerMode: true,
+            }).then(function () {
+              $("#"+id).removeClass('btn-success');
+              $("#"+id).addClass('btn-light');
+              $("#"+id).text("Unread");
             })
           });
         }

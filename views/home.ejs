@@ -104,7 +104,7 @@
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
                                             <input type="submit" name="login-submit" class="form-control btn btn-login"
-                                                   value="Log In">
+                                                   value="Log In" >
                                         </div>
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="text-center">
-                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Forgot Password ?</button>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#passwordRestModal">Forgot Password ?</button>
                                             </div>
                                         </div>
                                     </div>
@@ -125,7 +125,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="exampleModal">
+<div class="modal fade" id="passwordRestModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -139,6 +139,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <span class="btn btn-success" style="display:none" id="passwordSuccess">Success ! An e-mail was sent to the Email your have provided</span> <br><br>
+                    <span class="btn btn-info" style="display:none" id="passwordInfo">Please enter an email</span> <br><br>
                     <button type="submit" class="btn btn-success" id="passReset">Reset</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
@@ -171,12 +173,9 @@
             e.preventDefault();
             var email = $('#email-forgot').val();
             if (!email) {
-              swal({
-                title: "Error!",
-                text: 'Please Enter your E-mail' ,
-                icon: "info"
-              });
+              $('#passwordInfo').css({'display':'block'});
             }else {
+              $('#passwordInfo').css({'display':'none'});
               $("#passReset").text("Processing....");
               $.ajax({
                 url: "/users/forgot",
@@ -188,13 +187,14 @@
                 success: function (data, msg) {
                   if (data) {
                     $("#forgot-form").get(0).reset();
-                    $("#passReset").text("Process completed successful!");
+                    $('#passwordSuccess').css({'display':'block'});
+                    $("#passReset").text("Reset");
                     swal({
                       title: "Success",
                       text: 'A message was sent to the e-mail you provided. Please login to that e-mail for more information on how to reset your password.' ,
                       icon: "success"
                     }).then(function () {
-                      $('#exampleModal').modal('hide');
+                      $('#passwordRestModal').modal('hide');
                     });
                   }
                 },
@@ -212,6 +212,7 @@
             }
         });
     });
+
 </script>
 </body>
 </html>

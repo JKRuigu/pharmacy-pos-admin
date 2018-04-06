@@ -23,13 +23,16 @@
 </footer>
 </div>
 </div>
-<!-- <script>
-$(document).ready(function () {
-$( "#profileBtn" ).onload(function() {
-$( "#profileBtn" ).addClass( "active" ).onload;
-});
-});
-</script> -->
+<script>
+var path = window.location.pathname.split('/profile').pop();
+console.log(path);
+  if (path == '') {
+    path = '/profile'
+  }
+  var target = $('.nav li a[href="/profile'+path+'"]');
+  target.addClass('active')
+  console.log(target);
+</script>
 <!--   Core JS Files   -->
 <script src="/node/assets/js/core/jquery.min.js"></script>
 <script src="/node/assets/js/core/popper.min.js"></script>

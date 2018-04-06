@@ -177,6 +177,26 @@ router.post('/:userId/deactivate', isLoggedIn, (req, res) =>{
     res.status(404).json({message:"Send a valid body"});
   }
 });
+router.post('/:id/messages', isLoggedIn, (req, res) =>{
+  console.log('am req.body'+req.body);
+  if(req.body) {
+    MongoClient.connect(url).then(client =>{
+      let db = client.db('pharmacy-pos');
+      db.collection('messages').update(
+        {_id:ObjectId(req.params.messageId)},
+        {$set:{isRead: req.body.status}}).then( ()=>{
+        res.json({status:'ok'});
+      }).catch(error => {
+        res.status(404).json({message:error.message});
+      });
+      client.close();
+    }).catch( error => {
+      res.status(404).json({message:error.message});
+    });
+  } else {
+    res.status(404).json({message:"Send a valid body"});
+  }
+});
 
 router.post('/register', isLoggedIn, isSuperAdmin, (req, res) =>{
   let data = req.body;
