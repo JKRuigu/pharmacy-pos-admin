@@ -166,7 +166,7 @@ router.post('/forgot', function(req, res, next) {
 router.get('/reset/:token', function(req, res) {
   User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
     if (!user) {
-      res.redirect('users/expired');
+      res.redirect('users/login');
     }
     res.render('reset', {token: req.params.token});
   });
