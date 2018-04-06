@@ -90,25 +90,26 @@ router.post('/messages', authCheck, (req, res) =>{
     res.status(404).json({status: "No body for the message."})
   }
 });
-router.post('/:id/edit', authCheck, (req, res) =>{
-  console.log(req.body);
-  if(req.body) {
-    MongoClient.connect(url).then(client =>{
-      let db = client.db('pharmacy-pos');
-      db.collection('users').update(
-        {_id:ObjectId(req.params.userId)},
-        {$set:{username: req.body}}).then( ()=>{
-        res.json({status:'ok'});
-      }).catch(error => {
-        res.status(404).json({message:error.message});
-      });
-      client.close();
-    }).catch( error => {
-      res.status(404).json({message:error.message});
-    });
-  } else {
-    res.status(404).json({message:"Send a valid body"});
-  }
-});
+// //username edit
+// router.post('/:id/edit', authCheck, (req, res) =>{
+//   console.log(req.body);
+//   if(req.body) {
+//     MongoClient.connect(url).then(client =>{
+//       let db = client.db('pharmacy-pos');
+//       db.collection('users').update(
+//         {_id:ObjectId(req.params.userId)},
+//         {$set:{username: req.body}}).then( ()=>{
+//         res.json({status:'ok'});
+//       }).catch(error => {
+//         res.status(404).json({message:error.message});
+//       });
+//       client.close();
+//     }).catch( error => {
+//       res.status(404).json({message:error.message});
+//     });
+//   } else {
+//     res.status(404).json({message:"Send a valid body"});
+//   }
+// });
 
 module.exports = router;

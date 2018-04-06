@@ -62,24 +62,31 @@ console.log(path);
             $('#modal-username').css({'display':'none'});
             $('#usernameInfo').css({'display':'none'});
             $("#usernameReset").text("Processing....");
-            axios.post(`/users/profile/${id}/edit`, data).then( response => {
-              if(response.data.status === 'ok') swal({
-                title: "Success...",
-                text: "Subscription added...!!",
-                icon: "info"
-              }).then( ()=> {
-                $("#editUsernameModal").modal("hide"); // Hide modal
-              })
-            }).catch( error => {
-              $('#modal-username').css({'display':'block'});
-              $('#usernameInfo').css({'display':'block'});
-              $("#usernameReset").text("Error");
-              swal({
-                title: "Error adding subscription...!!",
-                text: error.message,
-                icon: "error",
-                dangerMode: true,
-              })
+            $.ajax({
+              url: "/users/profile/${id}/edit",
+              data: JSON.stringify({
+                "username": username
+              }),
+              type: "post",
+              contentType: "application/json",
+              success: function (data, msg) {
+                if (data) {
+                  $("#usernameReset").text("Success");
+                  swal({
+                    title: "Success",
+                    text: 'A message was sent to the e-mail you provided. Please login to that e-mail for more information on how to reset your password.' ,
+                    icon: "success"
+                  }).then(function () {
+                    $('#passwordRestModal').modal('hide');
+                  });
+                }
+              },
+              error: function (xhr) {
+                if (xhr.status === 404) {
+                  var error = xhr.responseJSON;
+                  $("#usernameReset").text(error.message);
+                }
+              }
             });
           }
       });
