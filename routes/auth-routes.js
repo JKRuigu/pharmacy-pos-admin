@@ -126,13 +126,15 @@ router.post('/forgot', function(req, res, next) {
         User.findOne({ email: req.body.email }, function(err, user) {
           console.log('email',req.body.email);
           if (!user) {
-            res.status(404).json({message: "Your Email doesn't exist."});
-          }
+            console.log('no user');
+            res.status(404).json({message: "Email sent"});
+          }else{
           user.resetPasswordToken = token;
           user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
           user.save(function(err) {
             done(err, token, user);
           });
+        }
         });
       },
       function(token, user, done) {
@@ -154,11 +156,12 @@ router.post('/forgot', function(req, res, next) {
         };
         smtpTransport.sendMail(mailOptions, function(err) {
           res.json({status:"OK"});
+          console.log(err);
 
         });
       }
     ], function(err) {
-      res.json({status:error});
+      res.status(404).json({message: "An error occured"});
     });
 });
 
