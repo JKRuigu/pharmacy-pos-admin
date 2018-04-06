@@ -8,26 +8,26 @@ const url = process.env.DB_MLAB;
 
 // Middleware ~ check if user is logged in and is admin.
 function isLoggedIn(req, res, next) {
-  req.admin = res.app.locals.user;
-  if (req.admin === undefined || !req.admin.isAdmin) {
+  console.log('admin'+req.user);
+  if (req.user.isAdmin ===false) {
     res.redirect('/users/login');
   }else {
     next();
   }
 }
 
-function isSuperAdmin(req, res, next) {
-  if(req.admin.isSuperAdmin)
-    next();
-  else
-    res.status(404).json({status: "You are not allowed to perform this action."})
-}
+// function isSuperAdmin(req, res, next) {
+//   if(req.admin.isSuperAdmin)
+//     next();
+//   else
+//     res.status(404).json({status: "You are not allowed to perform this action."})
+// }
 
 // Handle get requests with /admin/*
 router.get('/',isLoggedIn,(req,res)=>{
   User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).then(users =>{
     Message.find({}).sort({'createdAt':-1}).then(messages =>{
-      res.render('admin/admin', {admin:req.admin, users,messages, total:users.length});
+      res.render('admin/admin', {admin:req.user, users,messages, total:users.length});
     }).catch(error =>{
       res.send(error.message);
     });
@@ -178,8 +178,27 @@ router.post('/:userId/deactivate', isLoggedIn, (req, res) =>{
     res.status(404).json({message:"Send a valid body"});
   }
 });
+router.put('/:id/messages', isLoggedIn, (req, res) =>{
+  if(req.body) {
+    MongoClient.connect(url).then(client =>{
+      let db = client.db('pharmacy-pos');
+      db.collection('messages').update(
+        {_id:ObjectId(req.params.id)},
+        {$set:{isRead: req.body.isRead}}).then( ()=>{
+        res.json({status:'ok'});
+      }).catch(error => {
+        res.status(404).json({message:error.message});
+      });
+      client.close();
+    }).catch( error => {
+      res.status(404).json({message:error.message});
+    });
+  } else {
+    res.status(404).json({message:"Send a valid body"});
+  }
+});
 
-router.post('/register', isLoggedIn, isSuperAdmin, (req, res) =>{
+router.post('/register', isLoggedIn,  (req, res) =>{
   let data = req.body;
   if(data) {
     if (!data.username || !data.password || !data.email || !data.passwordAgain)
@@ -230,7 +249,7 @@ router.post('/updates', isLoggedIn, (req, res)=>{
   }
 });
 
-router.delete('/:userId/delete', isLoggedIn, isSuperAdmin, (req, res) =>{
+router.delete('/:userId/delete', isLoggedIn,  (req, res) =>{
   MongoClient.connect(url).then(client =>{
     let db = client.db('pharmacy-pos');
     db.collection('users').deleteOne({_id:ObjectId(req.params.userId)}).then( ()=>{

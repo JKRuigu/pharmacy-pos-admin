@@ -10,15 +10,15 @@ const bcrypt = require("bcrypt");
 const keys = require('../config/keys');
 const swal = require('sweetalert2')
 const randomstring = require('randomstring');
-const $ = require("jquery");
 
-function generateHash(password) {
-  bcrypt.genSalt(10, function(err, salt) {
-	    bcrypt.hash(User.password, salt, function(err, hash) {
-	        return hash;
-    	});
-	});
-}
+// function generateHash(password) {
+//   bcrypt.genSalt(10, function(err, salt) {
+// 	    bcrypt.hash(User.password, salt, function(err, hash) {
+// 	        return hash;
+//     	});
+// 	});
+// }
+
 //error
 router.get('/profile/expired',(req,res)=>{
   res.render('expired')
@@ -82,34 +82,14 @@ router.post('/profile/register',function (req,res,next) {
 //         return res.redirect('/users/login');
 //   });
 // });
+//passport login
+router.post('/profile/login', passport.authenticate('local-login', {
+		successRedirect: '/users/profile',
+		failureRedirect: '/users/login',
+		failureFlash: true
+	}));
 
-router.post('/profile/login', (req, res) =>{
-	if(req.body){
-		User.findOne({email:req.body.email}).then(user=>{
-			if (!user){
-        res.status(404).json({message:"User doesn't exist!"});
-			} else {
-        User.comparePassword(req.body.password, user.password, function (hash, isMatch) {
-					if (isMatch){
-            if (user.active ===true) {
-              res.json({status:"OK", isAdmin: user.isAdmin});
-              req.app.locals.user = user;
-            }else {
-              res.status(404).json({message:"Please verify your email to activate your account."});
-            }
-					}else
-            res.status(404).json({message:"Email/Password is incorrect...!!!"});
-        })
-      }
-		}).catch(error=>{
-      res.status(404).json({message:error.message});
-		});
-	} else {
-		res.status(404).json({message:"Information invalid"})
-	}
-});
-
-
+//pass recovery route
 router.post('/forgot', function(req, res, next) {
   var email = req.body.email;
     async.waterfall([

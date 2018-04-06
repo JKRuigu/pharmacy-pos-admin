@@ -6,10 +6,11 @@ const Update = require('../models/Updates');
 
 //authenticate function
 const authCheck = (req,res,next)=>{
-  user=res.app.locals.user;
-  req.user=res.app.locals.user;
-  if (!user) {
+  console.log('authCheck'+req.user);
+  if (!req.user) {
     res.redirect('/users/login');
+  }else if (req.user.isAdmin ===true) {
+    res.redirect('/admin/admin');
   }else {
     next();
   }
