@@ -65,7 +65,7 @@ router.get('/users', isLoggedIn, (req,res)=>{
   if (req.query.perPage && req.query.page && req.query.sortBy){
     perPage = req.query.perPage;
     page = req.query.page;
-    sort[req.query.sortBy] = 1;
+    sort[req.query.sortBy] = -1;
   } else {
     sort['createdAt'] = -1;
   }
