@@ -6,9 +6,7 @@ const Update = require('../models/Updates');
 
 //authenticate function
 const authCheck = (req,res,next)=>{
-  user=res.app.locals.user;
-  req.user=res.app.locals.user;
-  if (!user) {
+  if (!req.isAuthenticated()) {
     res.redirect('/users/login');
   }else {
     next();
@@ -16,7 +14,7 @@ const authCheck = (req,res,next)=>{
 };
 
 router.get('/',authCheck,(req,res)=>{
-  res.render('users/profile');
+  res.render('users/profile', {user:req.user});
 });
 
 router.get('/contact',authCheck,(req,res)=>{
