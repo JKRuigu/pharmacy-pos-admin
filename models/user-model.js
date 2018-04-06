@@ -49,8 +49,7 @@ var UserSchema = mongoose.Schema({
 }, { timestamps:true});
 
 UserSchema.plugin(passportLocalMongoose);
-//Export module
-var User = module.exports = mongoose.model('User',UserSchema);
+const User = module.exports = mongoose.model('User',UserSchema);
 
 module.exports.createUser = function (newUser,callback) {
 	bcrypt.genSalt(10, function(err, salt) {
@@ -61,13 +60,12 @@ module.exports.createUser = function (newUser,callback) {
 	});
 };
 
-module.exports.getUserByUsername = function (email) {
-	var query = {email: email};
+module.exports.getUserByUsername = function (email, callback) {
+	const query = {email: email};
 	User.findOne(query).then((user)=>{
-		return user;
+		callback(null, user);
 	}).catch(error=>{
-		console.log(error);
-		return error;
+		callback(error, null);
 	});
 };
 //mongodb functions

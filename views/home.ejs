@@ -16,7 +16,6 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="/node/css/modal.css">
-    <link rel="stylesheet" href="/node/css/modalreset.css">
     <!-- Start of HubSpot Embed Code -->
      <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/4402366.js"></script>
     <!-- End of HubSpot Embed Code -->
@@ -42,7 +41,6 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-login">
-
                 <div class="panel-heading">
                     <div class="row">
 
@@ -58,13 +56,56 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-lg-12">
+<<<<<<< HEAD
                             <form id="login-form"  method="post" role="form" style="display: none;">
+=======
+                            <form id="register-form" action="/users/profile/register" method="post" role="form" style="display:block;">
+>>>>>>> 4fbc35394019c4a4a2e31fb1e074a51b6a71b4d2
                                 <div class="form-group">
-                                    <input type="email" name="email" id="username" class="form-control"
+                                    <input type="text" name="tel" id="tel" class="form-control"
+                                           placeholder="Mobile Number" required minlength='10' maxlength='14'>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="username" id="username2" required class="form-control"
+                                           placeholder="Enter your username" >
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" id="email" required class="form-control"
+                                           placeholder="Email Address" >
+                                </div>
+                                <div class="form-group">
+<<<<<<< HEAD
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <button type="submit" name="login-submit" class="form-control btn btn-login">LOGIN</button>
+                                        </div>
+                                    </div>
+=======
+                                    <input type="password" name="password" id="password" required class="form-control"
+                                           placeholder="Password" minlength=5>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password2" id="password2" required class="form-control"
+                                           placeholder="Confirm Password" minlength=5>
+>>>>>>> 4fbc35394019c4a4a2e31fb1e074a51b6a71b4d2
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <button type="submit" role="button" class="form-control btn btn-register">
+                                                Register Now
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <form id="login-form" method="post" action="/users/profile/login" role="form" style="display: none;">
+                                <div class="form-group">
+                                    <input type="email" name="email" id="username" required class="form-control"
                                            placeholder="Enter your E-mail" value="">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" id="login-pass" class="form-control"
+                                    <input type="password" name="password" id="login-pass" required class="form-control"
                                            placeholder="Password" value="">
                                 </div>
                                 <div class="form-group text-center">
@@ -74,7 +115,8 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <button type="submit" name="login-submit" class="form-control btn btn-login">LOGIN</button>
+                                            <input type="submit" name="login-submit" class="form-control btn btn-login"
+                                                   value="Log In">
                                         </div>
                                     </div>
                                 </div>
@@ -82,39 +124,8 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="text-center">
-                                              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Forgot Password ?</button>
-                                              </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <form id="register-form" method="post" role="form" style="display:block;">
-                                <div class="form-group">
-                                    <input type="tel" name="tel" id="tel" class="form-control"
-                                           placeholder="Mobile Number" minlength=10 maxlength=14>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" name="username2" id="username2" tabindex="1" class="form-control"
-                                           placeholder="Enter your username" >
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" name="email" id="email" class="form-control"
-                                           placeholder="Email Address" >
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="password" id="password" class="form-control"
-                                           placeholder="Password" minlength=5>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="password2" id="password2" class="form-control"
-                                           placeholder="Confirm Password" minlength=5>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-sm-offset-3">
-                                            <button type="submit" role="button" class="form-control btn btn-register">
-                                                Register Now
-                                            </button>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Forgot Password ?</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -158,106 +169,15 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
 <script src="/node/js/main.js"></script>
 <script>
-    $(document).ready(function () {
-        $('#register-form').on('submit', function (e) {
-            e.preventDefault();
-            var username = $('#username2').val();
-            var email = $('#email').val();
-            var tel = $('#tel').val();
-            var password = $('#password').val();
-            var password2 = $('#password2').val();
-
-            if (!email || !password || !tel || !password2 || !username>5) {
-                swal({
-                    title: "Error!",
-                    text: "All fields are required",
-                    icon: "info",
-                });
-            }else if (password !== password2 ) {
-                swal({
-                    title: "Error!",
-                    text: "Your passwords do not match! Please try again",
-                    icon: "info",
-                });
-            } else {
-                $.ajax({
-                    url: "/users/profile/register",
-                    data: JSON.stringify({
-                        "username": username,
-                        "tel": tel,
-                        "email": email,
-                        "password": password,
-                        "password2": password2
-                    }),
-                    type: "POST",
-                    contentType: "application/json",
-                    success: function (data, msg) {
-                        if (data) {
-                            $("#register-form").get(0).reset();
-                            // swal({
-                            //     title: "Registration successful!",
-                            //     text: 'Click Okay to redirect to your dashboard where you can Download the Software.' ,
-                            //     icon: "success"
-                            // }).then(function () {
-                              window.location = '/users/profile';
-                            // });
-                        }
-                    },
-                    error: function (xhr) {
-                      $('#loader').css({'display':'none'});
-                        if (xhr.status === 404) {
-                            var error = xhr.responseJSON;
-                            swal({
-                                title: "Error!",
-                                text: error.message,
-                                icon: "error"
-                            });
-                        }
-                    }
-                });
-            }
-        });
-    });
-    $('#login-form').submit(function (e) {
-      e.preventDefault();
-      var email = $('#username').val();
-      var password = $('#login-pass').val();
-      if (!email || !password) {
-        swal({
-          title: "Error!",
-          text: "Email and password are required !",
-          icon: "info",
-        });
-      }else {
-        $.ajax({
-            url: "/users/profile/login",
-            data: JSON.stringify({
-            "email": email,
-            "password": password
-          }),
-            type: "POST",
-            contentType: "application/json",
-            success: function (data) {
-            if (data) {
-              if(data.isAdmin)
-                window.location = '/admin/';
-              else
-                window.location = '/users/profile';
-            }
-          },
-          error: function (xhr) {
-            var message = xhr.responseJSON.message;
-            if (xhr.status === 404) {
-              swal({
-                title: "Error!",
-                text: message,
-                icon: "error"
-              });
-            }
-          }
-        });
-      }
-    });
+    var message = <%- JSON.stringify(message)%>
+    if(message.length > 0){
+      swal({
+        type: 'info',
+        icon: 'info',
+        title: 'Error',
+        text: message[0]
+      })
+    }
     $(document).ready(function () {
         $('#forgot-form').on('submit', function (e) {
             e.preventDefault();
@@ -304,7 +224,6 @@
             }
         });
     });
-
 </script>
 </body>
 </html>

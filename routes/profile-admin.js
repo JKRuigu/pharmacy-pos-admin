@@ -8,20 +8,19 @@ const url = process.env.DB_MLAB;
 
 // Middleware ~ check if user is logged in and is admin.
 function isLoggedIn(req, res, next) {
-  console.log('admin'+req.user);
-  if (req.user.isAdmin ===false) {
+  if (!req.isAuthenticated() || !req.user.isAdmin) {
     res.redirect('/users/login');
   }else {
     next();
   }
 }
 
-// function isSuperAdmin(req, res, next) {
-//   if(req.admin.isSuperAdmin)
-//     next();
-//   else
-//     res.status(404).json({status: "You are not allowed to perform this action."})
-// }
+function isSuperAdmin(req, res, next) {
+  if(req.user.isSuperAdmin)
+    next();
+  else
+    res.status(404).json({status: "You are not allowed to perform this action."})
+}
 
 // Handle get requests with /admin/*
 router.get('/',isLoggedIn,(req,res)=>{
@@ -38,7 +37,7 @@ router.get('/',isLoggedIn,(req,res)=>{
 
 router.get('/messages', isLoggedIn, (req,res)=>{
   Message.find({}).sort({'createdAt':-1}).then(messages =>{
-    res.render('admin/messages', {admin:req.admin, messages,total:messages.length});
+    res.render('admin/messages', {admin:req.user, messages,total:messages.length});
   }).catch(error =>{
     res.send(error.message);
   });
@@ -47,7 +46,7 @@ router.get('/messages', isLoggedIn, (req,res)=>{
 router.get('/updates', isLoggedIn, (req,res)=>{
   Update.find({}).sort({'createdAt':-1}).then(updates =>{
     Message.find({}).sort({'createdAt':-1}).then(messages =>{
-      res.render('admin/updates', {admin:req.admin,messages, updates});
+      res.render('admin/updates', {admin:req.user,messages, updates});
     }).catch(error =>{
       res.send(error.message);
     });
@@ -76,7 +75,7 @@ router.get('/users', isLoggedIn, (req,res)=>{
     total = users.length;
     User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).sort(sort).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
       Message.find({}).sort({'createdAt':-1}).then(messages =>{
-        res.render('admin/users', {admin:req.admin, users,messages, total:total});
+        res.render('admin/users', {admin:req.user, users,messages, total:total});
       }).catch(error =>{
         res.send(error.message);
       });
@@ -103,7 +102,7 @@ router.get('/subscriptions', isLoggedIn, (req, res) =>{
     total = users.length;
     User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).sort({'createdAt':-1}).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
       Message.find({}).sort({'createdAt':-1}).then(messages =>{
-        res.render('admin/subscriptions', {admin:req.admin, users,messages,total:total});
+        res.render('admin/subscriptions', {admin:req.user, users,messages,total:total});
       }).catch(error =>{
         res.send(error.message);
       });
@@ -118,7 +117,7 @@ router.get('/subscriptions', isLoggedIn, (req, res) =>{
 router.get('/admins', isLoggedIn, (req, res) =>{
   User.find({isAdmin: true}).sort({'createdAt':-1}).then(users =>{
     Message.find({}).sort({'createdAt':-1}).then(messages =>{
-      res.render('admin/super-admin', {admin:req.admin,messages, admins:users});
+      res.render('admin/super-admin', {admin:req.user,messages, admins:users});
     }).catch(error =>{
       res.send(error.message);
     });
@@ -128,12 +127,12 @@ router.get('/admins', isLoggedIn, (req, res) =>{
 });
 
 router.get('/logout', function(req, res){
-  res.app.locals.user = undefined;
+  req.logout();
   res.redirect('/users/login');
 });
 
 router.get('/*', isLoggedIn, (req,res)=>{ // Wildcard route for insane people :)
-  res.render('admin', {admin:req.admin});
+  res.render('admin', {admin:req.user});
 });
 
 
@@ -178,27 +177,8 @@ router.post('/:userId/deactivate', isLoggedIn, (req, res) =>{
     res.status(404).json({message:"Send a valid body"});
   }
 });
-router.put('/:id/messages', isLoggedIn, (req, res) =>{
-  if(req.body) {
-    MongoClient.connect(url).then(client =>{
-      let db = client.db('pharmacy-pos');
-      db.collection('messages').update(
-        {_id:ObjectId(req.params.id)},
-        {$set:{isRead: req.body.isRead}}).then( ()=>{
-        res.json({status:'ok'});
-      }).catch(error => {
-        res.status(404).json({message:error.message});
-      });
-      client.close();
-    }).catch( error => {
-      res.status(404).json({message:error.message});
-    });
-  } else {
-    res.status(404).json({message:"Send a valid body"});
-  }
-});
 
-router.post('/register', isLoggedIn,  (req, res) =>{
+router.post('/register', isLoggedIn, isSuperAdmin, (req, res) =>{
   let data = req.body;
   if(data) {
     if (!data.username || !data.password || !data.email || !data.passwordAgain)
@@ -249,7 +229,7 @@ router.post('/updates', isLoggedIn, (req, res)=>{
   }
 });
 
-router.delete('/:userId/delete', isLoggedIn,  (req, res) =>{
+router.delete('/:userId/delete', isLoggedIn, isSuperAdmin, (req, res) =>{
   MongoClient.connect(url).then(client =>{
     let db = client.db('pharmacy-pos');
     db.collection('users').deleteOne({_id:ObjectId(req.params.userId)}).then( ()=>{
