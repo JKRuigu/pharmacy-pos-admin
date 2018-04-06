@@ -6,7 +6,6 @@ const Update = require('../models/Updates');
 
 //authenticate function
 const authCheck = (req,res,next)=>{
-  console.log(req.user);
   if (!req.isAuthenticated()) {
     res.redirect('/users/login');
   }else {

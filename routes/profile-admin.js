@@ -24,12 +24,20 @@ function isSuperAdmin(req, res, next) {
 
 // Handle get requests with /admin/*
 router.get('/',isLoggedIn,(req,res)=>{
-  res.render('admin/admin', {admin:req.user});
+  User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).then(users =>{
+    Message.find({}).sort({'createdAt':-1}).then(messages =>{
+      res.render('admin/admin', {admin:req.user, users,messages, total:users.length});
+    }).catch(error =>{
+      res.send(error.message);
+    });
+  }).catch(error =>{
+    res.send(error.message);
+  });
 });
 
 router.get('/messages', isLoggedIn, (req,res)=>{
   Message.find({}).sort({'createdAt':-1}).then(messages =>{
-    res.render('admin/messages', {admin:req.user, messages});
+    res.render('admin/messages', {admin:req.user, messages,total:messages.length});
   }).catch(error =>{
     res.send(error.message);
   });
@@ -37,7 +45,11 @@ router.get('/messages', isLoggedIn, (req,res)=>{
 
 router.get('/updates', isLoggedIn, (req,res)=>{
   Update.find({}).sort({'createdAt':-1}).then(updates =>{
-    res.render('admin/updates', {admin:req.user, updates});
+    Message.find({}).sort({'createdAt':-1}).then(messages =>{
+      res.render('admin/updates', {admin:req.user,messages, updates});
+    }).catch(error =>{
+      res.send(error.message);
+    });
   }).catch(error =>{
     res.send(error.message);
   });
@@ -62,7 +74,11 @@ router.get('/users', isLoggedIn, (req,res)=>{
   User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).then(users =>{
     total = users.length;
     User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).sort(sort).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
-      res.render('admin/users', {admin:req.user, users, total:total});
+      Message.find({}).sort({'createdAt':-1}).then(messages =>{
+        res.render('admin/users', {admin:req.user, users,messages, total:total});
+      }).catch(error =>{
+        res.send(error.message);
+      });
     }).catch(error =>{
       res.send(error.message);
     });
@@ -85,7 +101,11 @@ router.get('/subscriptions', isLoggedIn, (req, res) =>{
   User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).sort({'createdAt':-1}).then(users =>{
     total = users.length;
     User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).sort({'createdAt':-1}).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
-      res.render('admin/subscriptions', {admin:req.user, users, total:total});
+      Message.find({}).sort({'createdAt':-1}).then(messages =>{
+        res.render('admin/subscriptions', {admin:req.user, users,messages,total:total});
+      }).catch(error =>{
+        res.send(error.message);
+      });
     }).catch(error =>{
       res.send(error.message);
     });
@@ -96,7 +116,11 @@ router.get('/subscriptions', isLoggedIn, (req, res) =>{
 
 router.get('/admins', isLoggedIn, (req, res) =>{
   User.find({isAdmin: true}).sort({'createdAt':-1}).then(users =>{
-    res.render('admin/super-admin', {admin:req.user, admins:users});
+    Message.find({}).sort({'createdAt':-1}).then(messages =>{
+      res.render('admin/super-admin', {admin:req.user,messages, admins:users});
+    }).catch(error =>{
+      res.send(error.message);
+    });
   }).catch(error =>{
     res.send(error.message);
   });

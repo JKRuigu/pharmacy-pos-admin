@@ -19,7 +19,6 @@ router.get('/auth/logout', (req, res) => {
     res.redirect('/users/login');
 });
 
-
 router.post('/profile/register', passport.authenticate('local-signup', {
   successRedirect : '/users/redirect',
   failureRedirect : '/users/login',

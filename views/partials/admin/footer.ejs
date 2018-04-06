@@ -23,6 +23,20 @@
             </footer>
         </div>
     </div>
+    <script>
+    var messages = <%- JSON.stringify(messages)%>;
+    //unread messages
+    var unreadMessages = {};
+    var r = 0;
+    messages.forEach(function (message) {
+      if(message.isRead === false){
+          unreadMessages[r] = message;
+          r++;
+      }
+    });
+    var Unread = Object.keys(unreadMessages).length
+    $("#latestMessages").text(Unread);
+    </script>
     <!--   Core JS Files   -->
     <script src="/node/assets/js/core/popper.min.js"></script>
     <script src="/node/assets/js/core/bootstrap.min.js"></script>
@@ -32,14 +46,6 @@
     <script src="/node/assets/js/plugins/bootstrap-notify.js"></script>
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="/node/assets/js/now-ui-dashboard.js?v=1.0.1"></script>
-    <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-    <script src="/node/assets/demo/demo.js"></script>
-    <script>
-        $(document).ready(function () {
-    // Javascript method's body can be found in assets/js/demos.js
-            demo.initDashboardPageCharts();
-        });
-    </script>
 </body>
 
 </html>
