@@ -1,69 +1,30 @@
 const router = require('express').Router();
-const passport = require('passport');
-const User = require('../models/user-model');
-const LocalStrategy = require('passport-local').Strategy;
-const express = require('express');
 const async = require("async");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const keys = require('../config/keys');
-const swal = require('sweetalert2')
 const randomstring = require('randomstring');
-const $ = require("jquery");
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const User = require('../models/user-model');
 
-function generateHash(password) {
-  bcrypt.genSalt(10, function(err, salt) {
-	    bcrypt.hash(User.password, salt, function(err, hash) {
-	        return hash;
-    	});
-	});
-}
-//error
+
 router.get('/profile/expired',(req,res)=>{
   res.render('expired')
 });
-// auth logout
+
 router.get('/auth/logout', (req, res) => {
-    req.app.locals.user=null;
+    req.logout();
     res.redirect('/users/login');
 });
 
-//Register POST
-router.post('/profile/register',function (req,res,next) {
-	var username = req.body.username;
-	var tel = req.body.tel;
-	var email = req.body.email;
-	var password = req.body.password;
-	var password2 = req.body.password2;
-  var secretToken = randomstring.generate();
 
-	if (!tel || !email || !password || !password2 ||!username ){
-    swal({
-      title: "Error!",
-      text: "Try to fil all the spaces !",
-      icon: "info",
-    });
-	} else {
-		var newUser = new User({
-			tel :tel,
-			username :username,
-			email :email,
-			password :password,
-      secretToken:secretToken
-		});
-
-    User.createUser(newUser,function (err, user) {
-      if (err){
-        res.status(404).json({message: "Email already taken."});
-    	}else {
-      req.app.locals.user = user;
-      res.json({status:"OK"});
-    };
-	 	});
-
-	}
-});
+router.post('/profile/register', passport.authenticate('local-signup', {
+  successRedirect : '/users/redirect',
+  failureRedirect : '/users/login',
+  failureFlash : true
+}));
 
 //profile verification
 // router.get('/email/:token', function(req, res,next) {
@@ -82,32 +43,76 @@ router.post('/profile/register',function (req,res,next) {
 //   });
 // });
 
-router.post('/profile/login', (req, res) =>{
-	if(req.body){
-		User.findOne({email:req.body.email}).then(user=>{
-			if (!user){
-        res.status(404).json({message:"User doesn't exist!"});
-			} else {
-        User.comparePassword(req.body.password, user.password, function (hash, isMatch) {
-					if (isMatch){
-            if (user.active ===true) {
-              res.json({status:"OK", isAdmin: user.isAdmin});
-              req.app.locals.user = user;
-            }else {
-              res.status(404).json({message:"Please verify your email to activate your account."});
+passport.use('local-signup', new LocalStrategy({
+      usernameField : 'email',
+      passwordField : 'password',
+      passReqToCallback : true
+    }, function(req, email, password, done) {
+    process.nextTick(function() {
+      User.findOne({email:email}, function(err, user) {
+        if (err) return done(err);
+        if (user) {
+          return done(null, false, req.flash('message', 'Email is already taken.'));
+        } else {
+          var newUser = new User({
+            tel: req.body.tel,
+            username: req.body.username,
+            email: email,
+            password: password,
+            secretToken: randomstring.generate()
+          });
+          User.createUser(newUser, function (err, user) {
+            if (err) {
+              return done(null, false, req.flash('message', 'Error adding creating your account.'));
+            } else {
+              return done(null, user);
             }
-					}else
-            res.status(404).json({message:"Email/Password is incorrect...!!!"});
-        })
-      }
-		}).catch(error=>{
-      res.status(404).json({message:error.message});
-		});
-	} else {
-		res.status(404).json({message:"Information invalid"})
-	}
+          });
+        }
+      });
+    });
+  })
+);
+
+passport.use('local-login', new LocalStrategy({
+    usernameField : 'email',
+    passwordField : 'password',
+    passReqToCallback : true
+  }, function(req, username, password, done) {
+    process.nextTick(function () {
+      User.getUserByUsername(username, function(err, user){
+        if(err) throw err;
+        if(!user){
+          return done(null, false, req.flash('message', 'User doesn\'t exist.'));
+        }
+        User.comparePassword(password, user.password, function(err, isMatch){
+          if(err) throw err;
+          if(isMatch){
+            return done(null, user);
+          } else {
+            return done(null, false, req.flash('message', 'Incorrect email/password.'));
+          }
+        });
+      });
+    })
+  }));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
 });
 
+passport.deserializeUser(function(id, done) {
+  User.getUserById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+router.post('/profile/login', passport.authenticate('local-login', {
+    successRedirect:'/users/redirect',
+    failureRedirect:'/users/login',
+    failureFlash: true
+  })
+);
 
 router.post('/forgot', function(req, res, next) {
   var email = req.body.email;
