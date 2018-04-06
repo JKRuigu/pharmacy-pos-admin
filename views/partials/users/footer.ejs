@@ -1,3 +1,23 @@
+<div class="modal fade" id="editUsernameModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="post" class="form" id="username-form">
+                <div class="modal-body" id="modal-username">
+                    <div class="form-group" >
+                        <label for="email">Username</label>
+                        <input type="text" id="username-change" name="email" class="form-control" placeholder="Enter your name.." value="<%=user.username%>">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span class="btn btn-success" style="display:none" id="usernameSuccess">Success ! Your username will be changed once your fresh your page</span> <br><br>
+                    <span class="btn btn-info" style="display:none" id="usernameInfo">Please fill the field to proceed</span> <br><br>
+                    <button type="submit" class="btn btn-success" id="usernameReset">Change</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <footer class="footer">
     <div class="container-fluid">
         <nav>
@@ -32,6 +52,39 @@ console.log(path);
   var target = $('.nav li a[href="/profile'+path+'"]');
   target.addClass('active')
   console.log(target);
+  $(document).ready(function () {
+      $('#username-form').on('submit', function (e) {
+          e.preventDefault();
+          var username = $('#username-change').val();
+          if (!username) {
+            $('#usernameInfo').css({'display':'block'});
+          }else {
+            $('#modal-username').css({'display':'none'});
+            $('#usernameInfo').css({'display':'none'});
+            $("#usernameReset").text("Processing....");
+            axios.post(`/users/profile/${id}/edit`, data).then( response => {
+              if(response.data.status === 'ok') swal({
+                title: "Success...",
+                text: "Subscription added...!!",
+                icon: "info"
+              }).then( ()=> {
+                $("#editUsernameModal").modal("hide"); // Hide modal
+              })
+            }).catch( error => {
+              $('#modal-username').css({'display':'block'});
+              $('#usernameInfo').css({'display':'block'});
+              $("#usernameReset").text("Error");
+              swal({
+                title: "Error adding subscription...!!",
+                text: error.message,
+                icon: "error",
+                dangerMode: true,
+              })
+            });
+          }
+      });
+  });
+
 </script>
 <!--   Core JS Files   -->
 <script src="/node/assets/js/core/jquery.min.js"></script>
