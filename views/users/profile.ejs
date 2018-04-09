@@ -1,15 +1,25 @@
 <%- include('../partials/users/header.ejs', {title: "Profile"});%>
 <div class="panel-header panel-header-md">
     <div class="header text-center">
-        <h3 class="title">Hi <%=user.username%>, <br>Welcome to your PharmacyPOS Dashboard</h3>
+        <h3 class="title" id="title">Hi <%=user.username%>, <br>Welcome to your PharmacyPOS Dashboard</h3>
     </div>
 </div>
 <div class="content">
   <div class="col-md-12">
-      <div class="card">
+      <div class="card text-center">
         <div class="card-body text-center">
-          <a href="/pharmacysoftwarefree.exe"><button onclick=""class="btn btn-success btn-round btn-lg">Download the Software Now <i class="now-ui-icons arrows-1_cloud-download-93"></i></button></a>
+          <a href="/pharmacysoftwarefree.exe"><img src="/node/images/download.gif" alt="" id="btnDownload"></a>
+          <p>Please download on a Desktop computer/Laptop of Windows 7 and above.<br> (Downloading and installing using a phone won't work!)</p>
         </div>
+      </div>
+      <div class="card" id="iframe">
+        <div class="card-header">
+            <h4 id="installHeader">How to Install and Use the Software</h4>
+        </div>
+        <di class="card-body ">
+      <iframe id="youtube" width="560" height="315" src="https://www.youtube-nocookie.com/embed/videoseries?list=PLhCUlD8e0xuYPsSppqdeDte3_OcsxgWWx" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <div class="card-footer"></div>
       </div>
   </div>
 </div>
