@@ -2838,8 +2838,8 @@ Created using IcoMoon - icomoon.io
   padding-bottom: 45px;
   background: #141E30;
   /* fallback for old browsers */
-  background: -webkit-gradient(linear, left top, right top, from(#088A29), color-stop(60%, #088A29), to(#088A29));
-  background: linear-gradient(to right, #088A29 0%, ##088A29 60%, ##088A29 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#0c2646), color-stop(60%, #204065), to(#2a5788));
+  background: linear-gradient(to right, #0c2646 0%, #204065 60%, #2a5788 100%);
   position: relative;
   overflow: hidden; }
   .panel-header .header .title {
