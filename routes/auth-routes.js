@@ -60,6 +60,13 @@ passport.use('local-signup', new LocalStrategy({
             password: password,
             secretToken: randomstring.generate()
           });
+          var host= (process.env.ENV === 'DEVELOPMENT')?'localhost':req.hostname;
+          if (host === 'pharmacypluspos.com')
+            newUser.isPharmacy = true;
+          else if( host === 'biasharapos.com')
+            newUser.isBiashara = true;
+          else
+            newUser.isBiashara = true;
           User.createUser(newUser, function (err, user) {
             if (err) {
               return done(null, false, req.flash('message', 'Error adding creating your account.'));
