@@ -45,7 +45,7 @@ router.get('/messages', isLoggedIn, (req,res)=>{
 
 router.get('/updates', isLoggedIn, (req,res)=>{
   Update.find({}).sort({'createdAt':-1}).then(updates =>{
-    Message.find({}).sort({'createdAt':-1}).then(messages =>{
+    Message.find().sort({'createdAt':-1}).then(messages =>{
       res.render('admin/updates', {admin:req.user,messages, updates});
     }).catch(error =>{
       res.send(error.message);
@@ -55,7 +55,7 @@ router.get('/updates', isLoggedIn, (req,res)=>{
   });
 });
 
-router.get('/users', isLoggedIn, (req,res)=>{
+router.get('/users/pharmacy', isLoggedIn, (req,res)=>{
   let total = 0;
   let perPage = 10;
   let skip = 0;
@@ -71,11 +71,11 @@ router.get('/users', isLoggedIn, (req,res)=>{
   }
   skip = (page-1)*perPage;
 
-  User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).then(users =>{
+  User.find({$and:[{$or:[{isPharmacy: {$exists: false}},{isPharmacy: true}]},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).then(users =>{
     total = users.length;
-    User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).sort(sort).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
+    User.find({$and:[{$or:[{isPharmacy: {$exists: false}},{isPharmacy: true}]},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).sort(sort).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
       Message.find({}).sort({'createdAt':-1}).then(messages =>{
-        res.render('admin/users', {admin:req.user, users,messages, total:total});
+        res.render('admin/pharmacy/users', {admin:req.user, users,messages, total:total});
       }).catch(error =>{
         res.send(error.message);
       });
@@ -87,7 +87,39 @@ router.get('/users', isLoggedIn, (req,res)=>{
   });
 });
 
-router.get('/subscriptions', isLoggedIn, (req, res) =>{
+router.get('/users/biashara', isLoggedIn, (req,res)=>{
+  let total = 0;
+  let perPage = 10;
+  let skip = 0;
+  let page = 1;
+  var order = -1;
+  let sort = {};
+  if (req.query.perPage && req.query.page && req.query.sortBy){
+    perPage = req.query.perPage;
+    page = req.query.page;
+    sort[req.query.sortBy] = -1;
+  } else {
+    sort['createdAt'] = -1;
+  }
+  skip = (page-1)*perPage;
+
+  User.find({$and:[{isBiashara: true},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).then(users =>{
+    total = users.length;
+    User.find({$and:[{isBiashara: true},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).sort(sort).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
+      Message.find({}).sort({'createdAt':-1}).then(messages =>{
+        res.render('admin/biashara/users', {admin:req.user, users,messages, total:total});
+      }).catch(error =>{
+        res.send(error.message);
+      });
+    }).catch(error =>{
+      res.send(error.message);
+    });
+  }).catch( error =>{
+    res.send(error.message);
+  });
+});
+
+router.get('/subscriptions/pharmacy', isLoggedIn, (req, res) =>{
   let total = 0;
   let perPage = 10;
   let skip = 0;
@@ -98,11 +130,38 @@ router.get('/subscriptions', isLoggedIn, (req, res) =>{
   }
   skip = (page-1)*perPage;
 
-  User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).sort({'createdAt':-1}).then(users =>{
+  User.find({$and:[{$or:[{isPharmacy: {$exists: false}},{isPharmacy: true}]},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).sort({'createdAt':-1}).then(users =>{
     total = users.length;
-    User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).sort({'createdAt':-1}).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
+    User.find({$and:[{$or:[{isPharmacy: {$exists: false}},{isPharmacy: true}]},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).sort({'createdAt':-1}).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
       Message.find({}).sort({'createdAt':-1}).then(messages =>{
-        res.render('admin/subscriptions', {admin:req.user, users,messages,total:total});
+        res.render('admin/pharmacy/subscription', {admin:req.user, users,messages,total:total});
+      }).catch(error =>{
+        res.send(error.message);
+      });
+    }).catch(error =>{
+      res.send(error.message);
+    });
+  }).catch(error =>{
+    res.send(error.message);
+  });
+});
+
+router.get('/subscriptions/biashara', isLoggedIn, (req, res) =>{
+  let total = 0;
+  let perPage = 10;
+  let skip = 0;
+  let page = 1;
+  if (req.query.perPage && req.query.page){
+    perPage = req.query.perPage;
+    page = req.query.page;
+  }
+  skip = (page-1)*perPage;
+
+  User.find({$and:[{isBiashara: true},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).sort({'createdAt':-1}).then(users =>{
+    total = users.length;
+    User.find({$and:[{isBiashara: true},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).sort({'createdAt':-1}).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
+      Message.find({}).sort({'createdAt':-1}).then(messages =>{
+        res.render('admin/biashara/subscriptions', {admin:req.user, users,messages,total:total});
       }).catch(error =>{
         res.send(error.message);
       });
@@ -178,7 +237,6 @@ router.post('/:userId/deactivate', isLoggedIn, (req, res) =>{
   }
 });
 router.post('/:id/messages', isLoggedIn, (req, res) =>{
-  console.log('am req.body'+req.body);
   if(req.body) {
     MongoClient.connect(url).then(client =>{
       let db = client.db('pharmacy-pos');
@@ -233,11 +291,13 @@ router.post('/register', isLoggedIn, isSuperAdmin, (req, res) =>{
 
 router.post('/updates', isLoggedIn, (req, res)=>{
   if(req.body){
-    let {date, body, title} = req.body;
-    if(!date || !body || !title) {
+    let {date, body, title, isPharmacy, isBiashara} = req.body;
+    if(!date || !body || !title ) {
       res.status(404).json({status: 'All fields are required'});
+      if (!isBiashara && !isPharmacy)
+        res.status(404).json({status: 'Set category field'});
     } else {
-      let update = new Update({date, body, title});
+      let update = new Update({date, body, title, isBiashara, isPharmacy});
       update.save().then(update =>{
         res.json({status: 'ok'});
       }).catch(error =>{

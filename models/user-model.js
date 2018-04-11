@@ -38,6 +38,14 @@ var UserSchema = mongoose.Schema({
 	secretToken: {
     type: String
   },
+	isPharmacy: {
+		type: Boolean,
+		default: false
+	},
+	isBiashara : {
+		type: Boolean,
+		default: false
+	},
 	isAdmin: {
 		type: Boolean,
 		default: false

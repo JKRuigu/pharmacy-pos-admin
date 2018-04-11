@@ -1,11 +1,11 @@
-<%- include('../partials/admin/header.ejs', {title: "Subscribed users", admin:admin});%>
+<%- include('../../partials/admin/header.ejs', {title: "Biashara POS Subscribed users", admin:admin});%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script  src="https://code.jquery.com/jquery-3.3.1.js"  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="  crossorigin="anonymous"></script>
 <div class="panel-header panel-header-md">
   <div class="header text-center">
-    <h3 class="title">Subscribed users</h3>
+    <h3 class="title">Biashara POS Subscribed users</h3>
   </div>
 </div>
 <div class="content">
@@ -15,7 +15,7 @@
         <div class="card-header">
           <h5 class="title">Users</h5>
           <div class="container" >
-            <h4>Users Subscription</h4>
+            <h4>Biashara Users Subscription</h4>
             <div class="form-group col-md-2">
               <label for="perPage"># of records</label>
               <select name="perPage" class="form-control" id="perPage" onchange="setPerPage()">
@@ -190,16 +190,16 @@
         '</li>';
     } else {
       ul += '<li class="page-item">' +
-        '<a class="page-link" href="/admin/subscriptions?page='+(page-1)+'&perPage='+perPage+'" tabindex="-1">Previous</a>' +
+        '<a class="page-link" href="/admin/subscriptions/biashara?page='+(page-1)+'&perPage='+perPage+'" tabindex="-1">Previous</a>' +
         '</li>';
     }
 
     // Show all pages
     for(var i=1;i<=pages;i++){
       if (i === page)
-        ul += '<li class="page-item active"><a class="page-link" href="/admin/subscriptions?page='+i+'&perPage='+perPage+'">'+(i)+'</a></li>'
+        ul += '<li class="page-item active"><a class="page-link" href="/admin/subscriptions/biashara?page='+i+'&perPage='+perPage+'">'+(i)+'</a></li>'
       else
-        ul += '<li class="page-item"><a class="page-link" href="/admin/subscriptions?page='+i+'&perPage='+perPage+'">'+(i)+'</a></li>'
+        ul += '<li class="page-item"><a class="page-link" href="/admin/subscriptions/biashara?page='+i+'&perPage='+perPage+'">'+(i)+'</a></li>'
     }
 
     // Append next button
@@ -210,11 +210,11 @@
         '</ul>';
     } else {
       ul += '<li class="page-item">' +
-        '<a class="page-link" href="/admin/subscriptions?page='+(page+1)+'&perPage='+perPage+'">Next</a>' +
+        '<a class="page-link" href="/admin/subscriptions/biashara?page='+(page+1)+'&perPage='+perPage+'">Next</a>' +
         '</li>' +
         '</ul>';
     }
     $('#pagination').html(ul);
   }
 </script>
-<%- include('../partials/admin/footer.ejs')%>
+<%- include('../../partials/admin/footer.ejs')%>
