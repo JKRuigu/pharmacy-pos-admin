@@ -73,9 +73,9 @@ router.get('/users/pharmacy', isLoggedIn, (req,res)=>{
 
   User.find({$and:[{$or:[{isPharmacy: {$exists: false}},{isPharmacy: true}]},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).then(users =>{
     total = users.length;
-    User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).sort(sort).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
+    User.find({$and:[{$or:[{isPharmacy: {$exists: false}},{isPharmacy: true}]},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).sort(sort).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
       Message.find({}).sort({'createdAt':-1}).then(messages =>{
-        res.render('admin/pharmacy-users', {admin:req.user, users,messages, total:total});
+        res.render('admin/pharmacy/users', {admin:req.user, users,messages, total:total});
       }).catch(error =>{
         res.send(error.message);
       });
@@ -107,7 +107,7 @@ router.get('/users/biashara', isLoggedIn, (req,res)=>{
     total = users.length;
     User.find({$and:[{isBiashara: true},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).sort(sort).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
       Message.find({}).sort({'createdAt':-1}).then(messages =>{
-        res.render('admin/biashara-users', {admin:req.user, users,messages, total:total});
+        res.render('admin/biashara/users', {admin:req.user, users,messages, total:total});
       }).catch(error =>{
         res.send(error.message);
       });
@@ -119,7 +119,7 @@ router.get('/users/biashara', isLoggedIn, (req,res)=>{
   });
 });
 
-router.get('/subscriptions', isLoggedIn, (req, res) =>{
+router.get('/subscriptions/pharmacy', isLoggedIn, (req, res) =>{
   let total = 0;
   let perPage = 10;
   let skip = 0;
@@ -130,11 +130,38 @@ router.get('/subscriptions', isLoggedIn, (req, res) =>{
   }
   skip = (page-1)*perPage;
 
-  User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).sort({'createdAt':-1}).then(users =>{
+  User.find({$and:[{$or:[{isPharmacy: {$exists: false}},{isPharmacy: true}]},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).sort({'createdAt':-1}).then(users =>{
     total = users.length;
-    User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).sort({'createdAt':-1}).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
+    User.find({$and:[{$or:[{isPharmacy: {$exists: false}},{isPharmacy: true}]},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).sort({'createdAt':-1}).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
       Message.find({}).sort({'createdAt':-1}).then(messages =>{
-        res.render('admin/subscriptions', {admin:req.user, users,messages,total:total});
+        res.render('admin/pharmacy/subscription', {admin:req.user, users,messages,total:total});
+      }).catch(error =>{
+        res.send(error.message);
+      });
+    }).catch(error =>{
+      res.send(error.message);
+    });
+  }).catch(error =>{
+    res.send(error.message);
+  });
+});
+
+router.get('/subscriptions/biashara', isLoggedIn, (req, res) =>{
+  let total = 0;
+  let perPage = 10;
+  let skip = 0;
+  let page = 1;
+  if (req.query.perPage && req.query.page){
+    perPage = req.query.perPage;
+    page = req.query.page;
+  }
+  skip = (page-1)*perPage;
+
+  User.find({$and:[{isBiashara: true},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).sort({'createdAt':-1}).then(users =>{
+    total = users.length;
+    User.find({$and:[{isBiashara: true},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).sort({'createdAt':-1}).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
+      Message.find({}).sort({'createdAt':-1}).then(messages =>{
+        res.render('admin/biashara/subscriptions', {admin:req.user, users,messages,total:total});
       }).catch(error =>{
         res.send(error.message);
       });

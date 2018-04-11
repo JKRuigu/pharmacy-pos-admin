@@ -1,4 +1,4 @@
-<%- include('../partials/admin/header.ejs', {title: "Pharmacy POS Users", admin:admin}); %>
+<%- include('../../partials/admin/header.ejs', {title: "Pharmacy POS Users", admin:admin}); %>
 <!-- End Navbar -->
 <div class="panel-header panel-header-md">
     <div class="header text-center">
@@ -129,16 +129,16 @@
           '</li>';
       } else {
         ul += '<li class="page-item">' +
-          '<a class="page-link" href="/admin/users?page='+(page-1)+'&perPage='+perPage+'&sortBy='+sortBy+'" tabindex="-1">Previous</a>' +
+          '<a class="page-link" href="/admin/users/pharmacy?page='+(page-1)+'&perPage='+perPage+'&sortBy='+sortBy+'" tabindex="-1">Previous</a>' +
           '</li>';
       }
 
       // Show all pages
       for(var i=1;i<=pages;i++){
         if (i === page)
-          ul += '<li class="page-item active"><a class="page-link" href="/admin/users?page='+i+'&perPage='+perPage+'&sortBy='+sortBy+'">'+(i)+'</a></li>'
+          ul += '<li class="page-item active"><a class="page-link" href="/admin/users/pharmacy?page='+i+'&perPage='+perPage+'&sortBy='+sortBy+'">'+(i)+'</a></li>'
         else
-          ul += '<li class="page-item"><a class="page-link" href="/admin/users?page='+i+'&perPage='+perPage+'&sortBy='+sortBy+'">'+(i)+'</a></li>'
+          ul += '<li class="page-item"><a class="page-link" href="/admin/users/pharmacy?page='+i+'&perPage='+perPage+'&sortBy='+sortBy+'">'+(i)+'</a></li>'
       }
 
       // Append next button
@@ -149,7 +149,7 @@
           '</ul>';
       } else {
         ul += '<li class="page-item">' +
-          '<a class="page-link" href="/admin/users?page='+(page+1)+'&perPage='+perPage+'&sortBy='+sortBy+'">Next</a>' +
+          '<a class="page-link" href="/admin/users/pharmacy?page='+(page+1)+'&perPage='+perPage+'&sortBy='+sortBy+'">Next</a>' +
           '</li>' +
           '</ul>';
       }
@@ -157,4 +157,4 @@
     }
 </script>
 <!--<script src="/node/js/users.js"></script>-->
-<%- include('../partials/admin/footer.ejs') %>
+<%- include('../../partials/admin/footer.ejs') %>
