@@ -28,7 +28,7 @@ router.get('/services',authCheck,(req,res)=>{
 });
 
 router.get('/updates',authCheck,(req,res)=>{
-  Update.find({}).sort({'createdAt':-1}).then(updates =>{
+  Update.find({isPharmacy: true}).sort({'createdAt':-1}).then(updates =>{
     res.render('users/updates',{user:req.user, updates});
   }).catch(error =>{
     res.send(error.message);

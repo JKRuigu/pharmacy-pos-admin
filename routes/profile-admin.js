@@ -45,7 +45,7 @@ router.get('/messages', isLoggedIn, (req,res)=>{
 
 router.get('/updates', isLoggedIn, (req,res)=>{
   Update.find({}).sort({'createdAt':-1}).then(updates =>{
-    Message.find({}).sort({'createdAt':-1}).then(messages =>{
+    Message.find().sort({'createdAt':-1}).then(messages =>{
       res.render('admin/updates', {admin:req.user,messages, updates});
     }).catch(error =>{
       res.send(error.message);
@@ -237,7 +237,6 @@ router.post('/:userId/deactivate', isLoggedIn, (req, res) =>{
   }
 });
 router.post('/:id/messages', isLoggedIn, (req, res) =>{
-  console.log('am req.body'+req.body);
   if(req.body) {
     MongoClient.connect(url).then(client =>{
       let db = client.db('pharmacy-pos');
@@ -292,11 +291,13 @@ router.post('/register', isLoggedIn, isSuperAdmin, (req, res) =>{
 
 router.post('/updates', isLoggedIn, (req, res)=>{
   if(req.body){
-    let {date, body, title} = req.body;
-    if(!date || !body || !title) {
+    let {date, body, title, isPharmacy, isBiashara} = req.body;
+    if(!date || !body || !title ) {
       res.status(404).json({status: 'All fields are required'});
+      if (!isBiashara && !isPharmacy)
+        res.status(404).json({status: 'Set category field'});
     } else {
-      let update = new Update({date, body, title});
+      let update = new Update({date, body, title, isBiashara, isPharmacy});
       update.save().then(update =>{
         res.json({status: 'ok'});
       }).catch(error =>{
