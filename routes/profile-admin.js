@@ -55,7 +55,7 @@ router.get('/updates', isLoggedIn, (req,res)=>{
   });
 });
 
-router.get('/users', isLoggedIn, (req,res)=>{
+router.get('/users/pharmacy', isLoggedIn, (req,res)=>{
   let total = 0;
   let perPage = 10;
   let skip = 0;
@@ -71,11 +71,43 @@ router.get('/users', isLoggedIn, (req,res)=>{
   }
   skip = (page-1)*perPage;
 
-  User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).then(users =>{
+  User.find({$and:[{$or:[{isPharmacy: {$exists: false}},{isPharmacy: true}]},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).then(users =>{
     total = users.length;
     User.find({$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}).sort(sort).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
       Message.find({}).sort({'createdAt':-1}).then(messages =>{
-        res.render('admin/users', {admin:req.user, users,messages, total:total});
+        res.render('admin/pharmacy-users', {admin:req.user, users,messages, total:total});
+      }).catch(error =>{
+        res.send(error.message);
+      });
+    }).catch(error =>{
+      res.send(error.message);
+    });
+  }).catch( error =>{
+    res.send(error.message);
+  });
+});
+
+router.get('/users/biashara', isLoggedIn, (req,res)=>{
+  let total = 0;
+  let perPage = 10;
+  let skip = 0;
+  let page = 1;
+  var order = -1;
+  let sort = {};
+  if (req.query.perPage && req.query.page && req.query.sortBy){
+    perPage = req.query.perPage;
+    page = req.query.page;
+    sort[req.query.sortBy] = -1;
+  } else {
+    sort['createdAt'] = -1;
+  }
+  skip = (page-1)*perPage;
+
+  User.find({$and:[{isBiashara: true},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).then(users =>{
+    total = users.length;
+    User.find({$and:[{isBiashara: true},{$or:[{isAdmin:{$exists: false}}, {isAdmin:false}]}]}).sort(sort).skip(parseInt(skip)).limit(parseInt(perPage)).then(users =>{
+      Message.find({}).sort({'createdAt':-1}).then(messages =>{
+        res.render('admin/biashara-users', {admin:req.user, users,messages, total:total});
       }).catch(error =>{
         res.send(error.message);
       });
