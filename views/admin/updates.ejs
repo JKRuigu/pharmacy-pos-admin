@@ -29,6 +29,7 @@
                                         <th>Title</th>
                                         <th>Date Added</th>
                                         <th>Status</th>
+                                        <th>POS</th>
                                         <th>Actions</th>
                                     </tr>
                                     <tbody>
@@ -42,6 +43,13 @@
                                             <span class="text-primary">Visible</span>
                                           <%} else {%>
                                             <span class="text-warning">Not Visible</span>
+                                          <%}%>
+                                        </td>
+                                        <td>
+                                          <%if(update.isPharmacy){%>
+                                            <span class="text-primary">Pharmacy</span>
+                                          <%} else {%>
+                                            <span class="text-warning">Biashara</span>
                                           <%}%>
                                         </td>
                                         <td>
