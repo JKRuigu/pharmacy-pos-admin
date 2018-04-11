@@ -1,0 +1,160 @@
+<%- include('../../partials/admin/header.ejs', {title: "Biashara POS Users", admin:admin}); %>
+<!-- End Navbar -->
+<div class="panel-header panel-header-md">
+  <div class="header text-center">
+    <h3 class="title">Information of Users Downloading Software</h3>
+  </div>
+</div>
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Users</h5>
+          <div class="container">
+            <h4>Biashara POS Users Information</h4>
+            <div class="row">
+              <div class="form-group col-md-2">
+                <label for="perPage"># of records</label>
+                <select name="perPage" class="form-control" id="perPage" onchange="setParams()">
+                  <option value="10" class="form-control">10</option>
+                  <option value="20" class="form-control">20</option>
+                  <option value="50" class="form-control">50</option>
+                  <option value="100" class="form-control">100</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="sortBy">Sort by</label>
+                <select name="sortBy" class="form-control" id="sortBy" onchange="setParams()">
+                  <option value="createdAt">Date</option>
+                  <option value="email">Email</option>
+                  <option value="username">Username</option>
+                </select>
+              </div>
+            </div>
+            <table id="users" class="table table-bordered table-hover table-striped">
+              <tr>
+                <th>ID #</th>
+                <th>Username</th>
+                <th>Mobile Number</th>
+                <th>Email</th>
+                <th>Account status</th>
+              </tr>
+            </table>
+            <div>
+              <nav aria-label="Page navigation" id="pagination"></nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var users = <%- JSON.stringify(users)%>;
+  console.log(users);
+  var total = <%- total%>;
+  var perPage;
+  var pages = 0;
+  var page;
+  var sortBy = 'createdAt';
+  var urlParams = parseUrl();
+
+  if(urlParams.perPage){
+    $('#perPage').val(urlParams.perPage);
+  }
+
+  if(urlParams.sortBy){
+    $('#sortBy').val(urlParams.sortBy);
+  }
+
+  generatePagination();
+
+  if (users.length !== 0){
+    users.forEach(function (user, index) {
+      if (!user.isAdmin || user.isAdmin === undefined) {
+        $("#users").append('<tr><td>'+((page-1)*perPage+index+1)+ '</td><td>'+user.username+ '</td><td>'+user.tel+ '</td><td>'+user.email+ '</td><td>'+user.active+ '</td></tr>');
+      }
+    })
+  } else {
+    swal({
+      type: 'info',
+      icon: 'info',
+      title: 'Ooopps',
+      text: 'No users'
+    })
+  }
+
+  function setParams() {
+    perPage = parseInt($('#perPage').val());
+    sortBy = $('#sortBy').val()
+    generatePagination();
+  }
+
+  function parseUrl() {
+    var params;
+    var match,
+      pl     = /\+/g,  // Regex for replacing addition symbol with a space
+      search = /([^&=]+)=?([^&]*)/g,
+      decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+      query  = window.location.search.substring(1);
+
+    params = {};
+    while (match = search.exec(query))
+      params[decode(match[1])] = decode(match[2]);
+
+    return params;
+  }
+  function generatePagination() {
+    // Get url query params
+
+    // Set current page
+    if(urlParams.page){
+      page = parseInt(urlParams.page);
+    } else {
+      page = 1;
+    }
+
+    perPage = parseInt($('#perPage').val());
+    sortBy = $('#sortBy').val();
+
+    // Get number of pages
+    pages = Math.ceil(total/perPage);
+    var ul = '<ul class="pagination justify-content-end">';
+
+    //Append previous button
+    if(page == 1 || perPage >= total){
+      ul += '<li class="page-item disabled">' +
+        '<a class="page-link" href="#" tabindex="-1">Previous</a>' +
+        '</li>';
+    } else {
+      ul += '<li class="page-item">' +
+        '<a class="page-link" href="/admin/users/biashara?page='+(page-1)+'&perPage='+perPage+'&sortBy='+sortBy+'" tabindex="-1">Previous</a>' +
+        '</li>';
+    }
+
+    // Show all pages
+    for(var i=1;i<=pages;i++){
+      if (i === page)
+        ul += '<li class="page-item active"><a class="page-link" href="/admin/users/biashara?page='+i+'&perPage='+perPage+'&sortBy='+sortBy+'">'+(i)+'</a></li>'
+      else
+        ul += '<li class="page-item"><a class="page-link" href="/admin/users/biashara?page='+i+'&perPage='+perPage+'&sortBy='+sortBy+'">'+(i)+'</a></li>'
+    }
+
+    // Append next button
+    if (page == pages || perPage >= total){
+      ul += '<li class="page-item disabled">' +
+        '<a class="page-link" href="#">Next</a>' +
+        '</li>' +
+        '</ul>';
+    } else {
+      ul += '<li class="page-item">' +
+        '<a class="page-link" href="/admin/users/biashara?page='+(page+1)+'&perPage='+perPage+'&sortBy='+sortBy+'">Next</a>' +
+        '</li>' +
+        '</ul>';
+    }
+    $('#pagination').html(ul);
+  }
+</script>
+<!--<script src="/node/js/users.js"></script>-->
+<%- include('../../partials/admin/footer.ejs') %>
