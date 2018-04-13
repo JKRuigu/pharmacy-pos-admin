@@ -53,7 +53,12 @@ $(document).ready(function () {
     $("#packageType").text('Life Time');
     $("#packageTitle").text('Lifetime');
     $(".summary-text").text('Ksh 39,999.00/=');
-    var a = '200000'
     computeTotal();
+});
+  $( "#checkOut" ).click(function() {
+    $("#checkOut").text('Processing..');
+    setTimeout(function(){
+      $("#checkOut").text('CheckOut');
+    }, 300);
 });
 });
