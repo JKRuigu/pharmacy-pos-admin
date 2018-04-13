@@ -27,6 +27,10 @@ router.get('/services',authCheck,(req,res)=>{
   res.render('users/services',{user:req.user});
 });
 
+router.get('/help',authCheck,(req,res)=>{
+  res.render('users/help',{user:req.user});
+});
+
 router.get('/updates',authCheck,(req,res)=>{
   let isPharmacy = !!req.user.isPharmacy;
   let isBiashara = !!req.user.isBiashara;
