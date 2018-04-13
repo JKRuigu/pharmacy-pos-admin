@@ -11,6 +11,7 @@ const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 require('dotenv').config();
+// const Mongoconnect = require('mongo-connect');
 
 const app = express(); //App initialize
 app.set('view engine', 'ejs'); // set view engine
@@ -20,7 +21,12 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(session({name: 'ppos-session', secret: process.env.SESSIONKEY, resave: false, saveUninitialized: true}));
+app.use(session({
+  name: 'ppos-session',
+  secret: process.env.SESSIONKEY,
+  resave: false,
+  saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -42,6 +48,14 @@ app.get('/users/login', (req, res) => {
   } else {
     res.render('home', { user: req.user , message: req.flash('message') });
   }
+});
+//package page
+app.get('/users/package', (req, res) => {
+    res.render('package');
+});
+//payment page
+app.get('/users/cart', (req, res) => {
+    res.render('checkout');
 });
 
 app.get('/users/redirect', (req, res) =>{
