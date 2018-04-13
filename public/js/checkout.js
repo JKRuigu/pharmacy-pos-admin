@@ -61,7 +61,7 @@ $(document).ready(function () {
     $("#checkOut").text('Processing...');
     setTimeout(function(){
       $("#checkOut").text('CheckOut');
-    }, 300);
+    }, 20000);
   });
 
   $('#cart').on('submit', function (e) {
