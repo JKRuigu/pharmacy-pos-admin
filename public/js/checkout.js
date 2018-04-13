@@ -38,7 +38,8 @@ $(document).ready(function () {
     $(".summary-text").text('29,999.00/=');
     $("#NumberOfItem").val('1');
     computeTotal();
-});
+  });
+
   $( "#lifeTime" ).click(function() {
     $('#life-text').css({'display':'none'});
     $('#formNum').css({'display':'none'});
@@ -54,9 +55,14 @@ $(document).ready(function () {
     $("#packageType").text('Life Time');
     $("#packageTitle").text('Lifetime');
     $(".summary-text").text('Ksh 39,999.00/=');
-    var a = '200000'
     computeTotal();
-});
+  });
+  $( "#checkOut" ).click(function() {
+    $("#checkOut").text('Processing...');
+    setTimeout(function(){
+      $("#checkOut").text('CheckOut');
+    }, 300);
+  });
 
   $('#cart').on('submit', function (e) {
     e.preventDefault();

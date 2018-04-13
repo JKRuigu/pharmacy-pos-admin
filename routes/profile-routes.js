@@ -28,6 +28,10 @@ router.get('/services',authCheck,(req,res)=>{
   res.render('users/services',{user:req.user});
 });
 
+router.get('/help',authCheck,(req,res)=>{
+  res.render('users/help',{user:req.user});
+});
+
 router.get('/updates',authCheck,(req,res)=>{
   let isBiashara = req.hostname == 'biasharapos.com';
   let isPharmacy = req.hostname == 'pharmacypluspos.com';
