@@ -131,9 +131,7 @@ router.post('/forgot', function(req, res, next) {
       },
       function(token, done) {
         User.findOne({ email: req.body.email }, function(err, user) {
-          console.log('email',req.body.email);
           if (!user) {
-            console.log('no user');
             res.status(404).json({message: "Email sent"});
           }else{
           user.resetPasswordToken = token;
@@ -209,7 +207,6 @@ router.post('/reset/:token', function(req, res,next) {
         });
       },
       function(user, done) {
-        console.log(user);
         var smtpTransport = nodemailer.createTransport({
           service: 'Gmail',
           auth: {

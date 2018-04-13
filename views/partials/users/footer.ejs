@@ -45,13 +45,11 @@
 </div>
 <script>
 var path = window.location.pathname.split('/profile').pop();
-console.log(path);
   if (path == '') {
     path = '/profile'
   }
   var target = $('.nav li a[href="/profile'+path+'"]');
   target.addClass('active')
-  console.log(target);
   $(document).ready(function () {
       $('#username-form').on('submit', function (e) {
           e.preventDefault();

@@ -30,7 +30,7 @@ router.get('/services',authCheck,(req,res)=>{
 router.get('/updates',authCheck,(req,res)=>{
   let isPharmacy = !!req.user.isPharmacy;
   let isBiashara = !!req.user.isBiashara;
-  Update.find({$or:[{isPharmacy:isPharmacy},{isBiashara: isBiashara}]}).sort({'createdAt':-1}).then(updates =>{
+  Update.find({$or:[{isPharmacy:isPharmacy}, {isPharmacy: {$exists: false}},{isBiashara: isBiashara}]}).sort({'createdAt':-1}).then(updates =>{
     res.render('users/updates',{user:req.user, updates});
   }).catch(error =>{
     res.send(error.message);
