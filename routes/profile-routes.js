@@ -3,6 +3,7 @@ const MongoClient = require("mongodb").MongoClient;
 const url = require('../config/keys').mongodb.dbURI;
 const Message = require('../models/Messages');
 const Update = require('../models/Updates');
+const Subscription = require('../models/Subscriptions');
 
 //authenticate function
 const authCheck = (req,res,next)=>{
@@ -35,6 +36,27 @@ router.get('/updates',authCheck,(req,res)=>{
   }).catch(error =>{
     res.send(error.message);
   });
+});
+
+router.get('/cart', authCheck, (req, res) => {
+  res.render('checkout', {user:req.user});
+});
+
+router.post('/cart', (req, res) =>{
+  let subscription = new Subscription({
+    item: req.body.item,
+    quantity: req.body.quantity,
+    amount: req.body.total,
+    date: new Date().getTime(),
+    isPharmacy: req.hostname==='pharmacypluspos.com',
+    isBiashara: req.hostname==='biasharapos.com',
+    customerId: req.user._id
+  });
+  subscription.save().then(subscription =>{
+    res.json({subscription});
+  }).catch(error =>{
+    res.status(505).json({error: error.message});
+  })
 });
 
 router.get('/subscription',(req,res)=>{

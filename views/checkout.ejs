@@ -9,7 +9,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <link rel="stylesheet" href="/node/assets/css/cart.css">
 </head>
@@ -111,7 +111,7 @@
             <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
                 <div class="widget">
                     <h4 class="widget-title">Order Summary <i class="fas fa-calculator"></i></h4>
-                  <form action="/cart/checkout.php" method="post">
+                  <form action="/cart/checkout.php" method="post" id="cart">
                     <div class="summary-block">
                       <h4>My Package Type: <u id="packageType">None</u></h4>
                       <div class="summary-content">
@@ -149,20 +149,19 @@
 
     <!-- Modal -->
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" style="width: 75%;">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Processing Payment</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            ...
+            <div id="iframe" class="col-sm-12"></div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Submit</button>
           </div>
         </div>
       </div>
@@ -193,31 +192,38 @@
         </footer>
     </div>
 </div>
+<script>
+  var user = <%- JSON.stringify(user)%>
+</script>
 <script src="/node/js/checkout.js"></script>
 <script>
 function computeTotal() {
   var packageType = $( "#packageTitle" ).text().toLowerCase();
   var totalPackages = Math.ceil(document.getElementById('NumberOfItem').value);
    $('#NumberOfItem').val(totalPackages);
+   var Payment = 0;
+   var formTotal;
   String(totalPackages)
   if (packageType ==='monthly') {
     let cost = 2999.00
-    var Payment = (cost*totalPackages).toFixed(2);
+    Payment = (cost*totalPackages).toFixed(2);
+    formTotal = Payment;
     total = Payment.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
     $(".total-text").text(total);
   } else if (packageType ==='yearly') {
     let cost = 29999.00
-    var Payment = (cost*totalPackages).toFixed(2);
-
+    Payment = (cost*totalPackages).toFixed(2);
+    formTotal = Payment;
     total = Payment.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
     $(".total-text").text(total);
   }else{
-    var Payment = (39999).toFixed(2);
+    Payment = (39999).toFixed(2);
+    formTotal = Payment;
     total = Payment.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
     $(".total-text").text(total);
   }
   $('#inputPackage').val(packageType);
-  $('#inputTotal').val($('.total-text')[0].innerText);
+  $('#inputTotal').val(formTotal);
 }
 </script>
 </body>

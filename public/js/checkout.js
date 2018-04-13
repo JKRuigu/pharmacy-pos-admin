@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
   $( "#monthly" ).click(function() {
     $('#monthly-text').css({'display':'none'});
@@ -56,4 +57,30 @@ $(document).ready(function () {
     var a = '200000'
     computeTotal();
 });
+
+  $('#cart').on('submit', function (e) {
+    e.preventDefault();
+    var quantity = $('#NumberOfItem').val();
+    var total = $('#inputTotal').val();
+    var item = $('#inputPackage').val();
+    axios.post('/users/profile/cart', {
+      quantity, item, total
+    }).then(response => {
+      var data = response.data.subscription;
+      data.email=user.email;
+      $.ajax('/cart/checkout.php', {
+        method: 'post',
+        data: (data),
+        success: function (data) {
+          $('#iframe').html(data);
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      })
+    }).catch(error =>{
+      console.log(error);
+    });
+  //  TODO:: swal the errors :)
+  });
 });
