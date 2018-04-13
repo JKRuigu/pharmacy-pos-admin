@@ -28,8 +28,8 @@ router.get('/services',authCheck,(req,res)=>{
 });
 
 router.get('/updates',authCheck,(req,res)=>{
-  let isBiashara = req.headers.referer == 'http://biasharapos.com/users/profile';
-  let isPharmacy = req.headers.referer == 'http://pharmacypluspos.com/users/profile';
+  let isBiashara = req.hostname == 'biasharapos.com';
+  let isPharmacy = req.hostname == 'pharmacypluspos.com';
   Update.find({$or:[{isPharmacy:isPharmacy}, {isBiashara: isBiashara}] }).sort({'createdAt':-1}).then(updates =>{
     res.render('users/updates',{user:req.user, updates});
   }).catch(error =>{

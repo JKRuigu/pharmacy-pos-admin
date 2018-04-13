@@ -61,9 +61,9 @@ passport.use('local-signup', new LocalStrategy({
             secretToken: randomstring.generate()
           });
           var host= (process.env.ENV === 'DEVELOPMENT')?'localhost':req.hostname;
-          if (host === 'pharmacypluspos.com')
+          if (host == 'pharmacypluspos.com')
             newUser.isPharmacy = true;
-          else if( host === 'biasharapos.com')
+          else if( host == 'biasharapos.com')
             newUser.isBiashara = true;
           else
             newUser.isBiashara = true;
