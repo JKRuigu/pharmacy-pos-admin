@@ -111,32 +111,36 @@
             <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
                 <div class="widget">
                     <h4 class="widget-title">Order Summary <i class="fas fa-calculator"></i></h4>
+                  <form action="/cart/checkout.php" method="post">
                     <div class="summary-block">
                       <h4>My Package Type: <u id="packageType">None</u></h4>
-                        <div class="summary-content">
-                            <div class="summary-head"><h5 class="summary-title"><span id="packageTitle"></span> Payment (Ksh)</h5></div>
-                            <div class="summary-price">
-                                <p class="summary-text"><span id="packageTotalCost"></span></p>
-                            </div>
-                            <div class="summary-price" id="formNum">
-                              <label for="NumberOf">
-                                <h5 class="summary-title" id="NumberOf"></h5>
-                              </label>
-                              <input type="number" name="NumberOf" value="1" onchange="computeTotal();"  id="NumberOfItem" min="1" onkeyup="computeTotal();">
-                            </div>
+                      <div class="summary-content">
+                        <div class="summary-head"><h5 class="summary-title"><span id="packageTitle"></span> Payment (Ksh)</h5></div>
+                        <div class="summary-price">
+                          <p class="summary-text"><span id="packageTotalCost"></span></p>
                         </div>
+                        <input type="hidden" name="package" id="inputPackage">
+                        <div class="summary-price" id="formNum">
+                          <label for="quantity">
+                            <h5 class="summary-title" id="NumberOf"></h5>
+                          </label>
+                          <input type="number" name="quantity" value="1" onchange="computeTotal();"  id="NumberOfItem" min="1" onkeyup="computeTotal();">
+                        </div>
+                      </div>
                     </div>
                     <div class="summary-block">
-                        <div class="summary-content">
-                            <div class="summary-head"><h5 class="summary-title">Total</h5></div>
-                            <div class="summary-price">
-                                <p class="total-text">Ksh <b>0</b></p>
-                            </div>
+                      <div class="summary-content">
+                        <div class="summary-head"><h5 class="summary-title">Total</h5></div>
+                        <div class="summary-price">
+                          <p>Ksh <span class="total-text">0</span>/=</p>
+                          <input type="hidden" name="total" id="inputTotal">
                         </div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal" id="checkOut">
-                          CheckOut
-                        </button>
+                      </div>
+                      <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#login-modal" id="checkOut">
+                        CheckOut
+                      </button>
                     </div>
+                  </form>
                 </div>
 
             </div>
@@ -200,18 +204,20 @@ function computeTotal() {
     let cost = 2999.00
     var Payment = (cost*totalPackages).toFixed(2);
     total = Payment.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
-    $(".total-text").text(total+"/=");
+    $(".total-text").text(total);
   } else if (packageType ==='yearly') {
     let cost = 29999.00
     var Payment = (cost*totalPackages).toFixed(2);
 
     total = Payment.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
-    $(".total-text").text(total+"/=");
+    $(".total-text").text(total);
   }else{
     var Payment = (39999).toFixed(2);
     total = Payment.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
-    $(".total-text").text(total+"/=");
+    $(".total-text").text(total);
   }
+  $('#inputPackage').val(packageType);
+  $('#inputTotal').val($('.total-text')[0].innerText);
 }
 </script>
 </body>
