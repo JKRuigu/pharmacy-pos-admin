@@ -29,6 +29,7 @@
                                         <th>Title</th>
                                         <th>Date Added</th>
                                         <th>Status</th>
+                                        <th>POS</th>
                                         <th>Actions</th>
                                     </tr>
                                     <tbody>
@@ -42,6 +43,13 @@
                                             <span class="text-primary">Visible</span>
                                           <%} else {%>
                                             <span class="text-warning">Not Visible</span>
+                                          <%}%>
+                                        </td>
+                                        <td>
+                                          <%if(update.isPharmacy){%>
+                                            <span class="text-primary">Pharmacy</span>
+                                          <%} else {%>
+                                            <span class="text-warning">Biashara</span>
                                           <%}%>
                                         </td>
                                         <td>
@@ -82,6 +90,26 @@
                     <div class="form-group">
                         <label for="comment">Body</label>
                         <textarea class="form-control" rows="5" id="body" placeholder="Start typing here ..."></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 ">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <span>Pharmacy POS</span>
+                                    <input class="form-check-input status" name="isPharmacy" id="isPharmacy" type="checkbox">
+                                    <span class="form-check-sign"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <span>Biashara POS</span>
+                                    <input class="form-check-input status"  name="isBiashara" id="isBiashara" type="checkbox">
+                                    <span class="form-check-sign"></span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

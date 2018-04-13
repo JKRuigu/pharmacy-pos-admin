@@ -4,6 +4,8 @@ $(document).ready(function () {
     var title = $('#title').val();
     var date = $('#date').val();
     var body = $('#body').val();
+    var isPharmacy = $("#isPharmacy")[0].checked;
+    var isBiashara = $("#isBiashara")[0].checked;
 
     if(!title || !date || !body){
       swal({
@@ -12,11 +14,18 @@ $(document).ready(function () {
         icon: "error"
       });
     }
+    if(!isPharmacy || isBiashara){
+      swal({
+        title: "Error!",
+        text: 'Select either of the categories.',
+        icon: "error"
+      });
+    }
 
     $.ajax( {
       url: "/admin/updates",
 		  data: JSON.stringify({
-        title, date, body
+        title, date, body, isPharmacy, isBiashara
      }),
 		  type: "POST",
 		  contentType: "application/json",

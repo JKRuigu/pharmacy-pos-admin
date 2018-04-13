@@ -15,6 +15,14 @@ const updatesSchema = new mongoose.Schema({
   isDisplayed: {
     type: Boolean,
     default: false
+  },
+  isPharmacy: {
+    type: Boolean,
+    default: false,
+  },
+  isBiashara: {
+    type: Boolean,
+    default: false
   }
 }, { timestamps: true });
 
