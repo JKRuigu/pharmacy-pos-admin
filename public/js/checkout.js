@@ -14,7 +14,7 @@ $(document).ready(function () {
     $("#packageType").text('Monthly');
     $("#packageTitle").text('Monthly');
     $("#NumberOf").text('Number of months');
-    $(".summary-text").text('2,999');
+    $(".summary-text").text('2,999.00/=');
     $("#NumberOfItem").val('1');
     computeTotal();
 });
@@ -31,10 +31,10 @@ $(document).ready(function () {
     $('#lifetimeCard').css({'display':'none'});
 		$("#yearCard").delay(500).slideDown("slow");
  		$("#plan-text").fadeOut(200);
-    $("#packageType").text('Yeary');
-    $("#packageTitle").text('Yeary');
+    $("#packageType").text('Yearly');
+    $("#packageTitle").text('Yearly');
     $("#NumberOf").text('Number of years');
-    $(".summary-text").text('29,999/-');
+    $(".summary-text").text('29,999.00/=');
     $("#NumberOfItem").val('1');
     computeTotal();
 });
@@ -52,7 +52,7 @@ $(document).ready(function () {
  		$("#plan-text").fadeOut(200);
     $("#packageType").text('Life Time');
     $("#packageTitle").text('Lifetime');
-    $(".summary-text").text('Ksh 39,999/-');
+    $(".summary-text").text('Ksh 39,999.00/=');
     var a = '200000'
     computeTotal();
 });

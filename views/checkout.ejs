@@ -19,12 +19,11 @@
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
                 <div class="box">
-                  <h3>Hint:<span><small>Once your click <b>purchase</b> your package will be added into the <b>Order Summary</b></small></span></h3> <hr>
                   <div class="plan-selection">
                       <div class="plan-data">
                         <div class="row">
                           <div class="col-md-8">
-                            <h3><b>Monthly Package  </b><span id="packageCost">Ksh 29,999 / year</span></h3>
+                            <h3><b>Monthly Package  </b><span id="packageCost">Ksh 2,999.00 / month</span></h3>
                               <p id="monthly-text">
                                 Simple Download | Quick Configuration  | more...
                               </p>
@@ -39,7 +38,7 @@
                           <div class="card-header">Package Description</div>
                           <div class="card-body">
                             <ul>
-                              <li>Cost of Plug and Play when the license expires after 14 days</li>
+                              <li>Cost of Plug and Play software monthly when the license expires after 14 days</li>
                               <li>Simple Download</li>
                               <li>Quick Configuration </li>
                               <li>24/7 Support and Customer Care Service</li>
@@ -52,9 +51,9 @@
                       <div class="plan-data">
                         <div class="row">
                           <div class="col-md-8">
-                            <h3><b>Yeary Package  </b><span id="packageCost">Ksh 29,999 / year</span></h3>
+                            <h3><b>Yearly Package  </b><span id="packageCost">Ksh 29,999.00 / year</span></h3>
                               <p id="yeary-text">
-                                Simple Download | Quick Configuration  | more...
+                                Most Popular | Yearly License  | more...
                               </p>
                           </div>
                           <div class="col-md-4">
@@ -67,7 +66,8 @@
                           <div class="card-header">Package Description</div>
                           <div class="card-body">
                             <ul>
-                              <li>Cost of Plug and Play when the license expires after 14 days</li>
+                              <li>Most Popular package (with 20% savings)</li>
+                              <li>Cost of Plug and Play software yearly when the license expires after 14 days</li>
                               <li>Simple Download</li>
                               <li>Quick Configuration </li>
                               <li>24/7 Support and Customer Care Service</li>
@@ -82,9 +82,9 @@
                       <div class="plan-data">
                         <div class="row">
                           <div class="col-md-8">
-                            <h3><b>Life Time  Package  </b><span id="packageCost">Ksh 39,999 </span></h3>
+                            <h3><b>Life Time  Package  </b><span id="packageCost">Ksh 39,999.00 </span></h3>
                               <p id="life-text">
-                                Simple Download | Quick Configuration  | more...
+                                Never pay again | Lifetime License  | more...
                               </p>
                           </div>
                           <div class="col-md-4">
@@ -97,11 +97,9 @@
                           <div class="card-header">Package Description</div>
                           <div class="card-body">
                             <ul>
-                              <li>Cost of Plug and Play when the license expires after 14 days</li>
+                              <li>Lifetime License never pay anything again!</li>
                               <li>Simple Download</li>
                               <li>Quick Configuration </li>
-                              <li>24/7 Support and Customer Care Service</li>
-                              <li>All Year round Support and maintainance</li>
                               <li>Periodic upgrades of new and improved features</li>
                             </ul>
                           </div>
@@ -124,7 +122,7 @@
                               <label for="NumberOf">
                                 <h5 class="summary-title" id="NumberOf"></h5>
                               </label>
-                              <input type="number" name="NumberOf" value="1" onchange="computeTotal();"  id="NumberOfItem" min="1">
+                              <input type="number" name="NumberOf" value="1" onchange="computeTotal();"  id="NumberOfItem" min="1" onkeyup="computeTotal();">
                             </div>
                         </div>
                     </div>
@@ -199,19 +197,20 @@ function computeTotal() {
    $('#NumberOfItem').val(totalPackages);
   String(totalPackages)
   if (packageType ==='monthly') {
-    let cost = 2999
+    let cost = 2999.00
     var Payment = (cost*totalPackages).toFixed(2);
     total = Payment.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
-    $(".total-text").text(total);
-  } else if (packageType ==='yeary') {
-    let cost = 29999
+    $(".total-text").text(total+"/=");
+  } else if (packageType ==='yearly') {
+    let cost = 29999.00
     var Payment = (cost*totalPackages).toFixed(2);
+
     total = Payment.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
-    $(".total-text").text(total);
+    $(".total-text").text(total+"/=");
   }else{
     var Payment = (39999).toFixed(2);
     total = Payment.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
-    $(".total-text").text(total);
+    $(".total-text").text(total+"/=");
   }
 }
 </script>
