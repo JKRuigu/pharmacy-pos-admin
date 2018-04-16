@@ -1,0 +1,72 @@
+<%- include('../partials/users/header.ejs', {title: "Subscription"}); %>
+<div class="panel-header panel-header-md">
+    <div class="header text-center">
+        <h3 class="title"><%=user.username%> here is all Subscriptions</h3>
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="title"></h5>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body">
+                        Ooops! You have no subscription yet Try to purchase one
+                        <p>
+                          <%=user%>
+                        </p>
+                        <table id="subscriptionTable">
+                          <thead>
+                            <th>ID</th>
+                            <th>expiryDate</th>
+                            <th>activationDate</th>
+                            <th>status</th>
+                          </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    var user = <%- JSON.stringify(user)%>
+    var i =0;
+    var n = {};
+
+      if(user.hasOwnProperty('subscriptions')){
+          n[i] = user.subscriptions;
+          i++;
+      }
+      var subscription =JSON.stringify(n);
+      console.log(subscription);
+      var count = Object.keys(subscription).length;
+
+
+      function reloadUsersTable(subscription) {
+        var userTable = $("#subscriptionTable");
+        subscriptionTable.text('');
+        if(subscription) {
+          let i =1;
+          for(let items in systemUsers){
+            if(subscription[items]._id== id) continue;
+            subscriptionTable.append('<tr><td>'+systemUsers[user].username+ '</td>'+
+              '<td><buttton class="btn btn-sm btn-success" onClick="showActivateModal(\''+systemUsers[user]._id+'\')">Activate</buttton>'+
+              '<button class="btn btn-warning btn-sm '+(systemUsers[user].subscriptions===undefined?'disabled': '')+'\" onClick="showDeactivateModal(\''+systemUsers[user]._id+'\')">Deactivate</button>'+
+              '<button class="btn btn-danger btn-sm" onclick="deleteUser(\''+systemUsers[user]._id+'\')">Delete</button></td></tr>');
+            i++;
+          }
+        }else {
+          userTable.text("No subscribed users...");
+        }
+      }
+
+</script>
+<script src="/node/js/contact.js"></script>
+<%- include('../partials/users/footer.ejs') %>
