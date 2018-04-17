@@ -73,7 +73,9 @@ $(document).ready(function () {
       quantity, item, total
     }).then(response => {
       var data = response.data.subscription;
-      data.email=user.email;
+      data.email = user.email;
+      data.tel = user.tel;
+      data.username = user.username;
       $.ajax('/cart/checkout.php', {
         method: 'post',
         data: (data),
