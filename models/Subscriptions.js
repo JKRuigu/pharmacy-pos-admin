@@ -23,6 +23,9 @@ const updatesSchema = new mongoose.Schema({
   customerId: {
     type: String
   },
+  pesapalId: {
+    type: String
+  },
   isPharmacy: {
     type: Boolean,
     default: false,

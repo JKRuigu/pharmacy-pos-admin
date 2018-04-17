@@ -1,0 +1,119 @@
+<%- include('../partials/users/header.ejs', {title: "Subscription"}); %>
+<div class="panel-header panel-header-md">
+    <div class="header text-center">
+        <h3 class="title"><%=user.username%> here is all Subscriptions</h3>
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="title"></h5>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body">
+                        <table class="table table-bordered table-hover table-striped">
+                          <thead>
+                            <th>ID #</th>
+                            <th>Expiry Date</th>
+                            <th>Activation Date</th>
+                            <th>Period (days)</th>
+                            <th>Status</th>
+                          </thead>
+                          <tbody id="subscriptionTable" ></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+      <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="title">Cart status</h5>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body">
+                        <table class="table table-bordered table-hover table-striped">
+                          <thead>
+                            <th>ID #</th>
+                            <th>Package</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                          </thead>
+                          <tbody id="transactions" ></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+<script>
+    var user = <%- JSON.stringify(user)%>
+    var cart = <%- JSON.stringify(cart)%>
+    var params = parseUrl();
+    if(user.hasOwnProperty('subscriptions')){
+      for (var i=0;i<user.subscriptions.length;i++) {
+        $("#subscriptionTable").append('<tr><td>' + (i + 1) + '</td><td>' + (moment(user.subscriptions[i].activationDate).format('Do/MMMM/YYYY')) + '</td><td>' + (moment(user.subscriptions[i].expiryDate).format('Do/MMMM/YYYY')) + '</td><td style="text-align:center;">' + (moment(user.subscriptions[i].expiryDate).diff(moment(user.subscriptions[i].activationDate), 'days')) + '</td><td>' + (user.subscriptions[i].status == 1 ? 'Active' : 'Deactivated') + '</td></tr>');
+      }
+    }else {
+      $("#subscriptionTable").html('<tr><td colspan="5" class="text-center"><h3>You have no subscription yet, purchase one <a href="/users/profile/cart">here</a></h3></td></tr>')
+    }
+
+    console.log(cart);
+    if(cart.length > 0 && Object.keys(params).length > 0){
+      for(var i=0; i< cart.length;i++){
+        var status;
+        if(params.pesapal_merchant_reference === cart[i]._id){
+          $.ajax('/cart/status-check.php', {
+            method: 'get',
+            data: params,
+            success: function (data) {
+              status = data.split('&')[3].split('=')[1];
+              setUpdate(status, params.pesapal_transaction_tracking_id, params.pesapal_merchant_reference);
+            },
+            error: function (error) {
+              status = error;
+              console.log(error);
+            }
+          });
+        }
+        $("#transactions").append('<tr><td>' + (i + 1) + '</td><td>' + (cart[i].item.toUpperCase()) + '</td><td>' + cart[i].quantity + '</td><td>' + 'Ksh '+ cart[i].amount + '</td><td>' + (cart[i].status == 0 ? 'Pending' : '')+(cart[i].status == 1 ? 'Completed' : '') +(cart[i].status == 3 ? 'Failed' : '') + '</td></tr>');
+      }
+    }
+
+    function setUpdate(status, pesapalId, id) {
+      $.ajax('/users/profile/cart/pesapalUpdate', {
+        method: 'post',
+        data: {status, pesapalId, id},
+        success: function (data) {
+          console.log(data)
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      })
+    }
+    function parseUrl() {
+      var params;
+      var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = window.location.search.substring(1);
+
+      params = {};
+      while (match = search.exec(query))
+        params[decode(match[1])] = decode(match[2]);
+
+      return params;
+    }
+</script>
+<%- include('../partials/users/footer.ejs') %>

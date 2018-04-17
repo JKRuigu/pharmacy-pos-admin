@@ -24,12 +24,16 @@ router.get('/contact',authCheck,(req,res)=>{
   res.render('users/contact',{user:req.user});
 });
 
-router.get('/services',authCheck,(req,res)=>{
+router.get('/services', authCheck, (req,res)=>{
   res.render('users/services',{user:req.user});
 });
 
-router.get('/subscription',authCheck,(req,res)=>{
-  res.render('users/subscription',{user:req.user});
+router.get('/subscriptions', authCheck, (req,res)=>{
+  Subscription.find({customerId: req.user._id}).sort({'createdAt':-1}).then(cart => {
+    res.render('users/subscriptions', {user:req.user, cart});
+  }).catch(error => {
+    console.log(error);
+  });
 });
 
 router.get('/help',authCheck,(req,res)=>{
@@ -67,10 +71,6 @@ router.post('/cart', (req, res) =>{
   })
 });
 
-router.get('/subscription',(req,res)=>{
-  res.render('users/users');
-});
-
 router.get('/license/subscription' ,(req,res)=>{
   res.header("Access-Control-Allow-Origin", '*');
   if (req.query){
@@ -101,6 +101,22 @@ router.get('/license/subscription' ,(req,res)=>{
 
 router.get('/*',authCheck,(req,res)=>{
   res.render('users/profile',{user:req.user});
+});
+
+router.post('/cart/pesapalUpdate', (req, res) =>{
+  Subscription.findOne({_id: req.body.id}).then( transaction =>{
+    transaction.pesapalId = req.body.pesapalId;
+    if(req.body.status === 'COMPLETED')
+      transaction.status = 1;
+    if (req.body.status=== 'FAILED')
+      transaction.status = 3;
+    if(req.body.status === 'PENDING')
+      transaction.status = 0;
+    transaction.save();
+    res.json({message: 'OK'});
+  }).catch(error  =>{
+    console.log(error);
+  })
 });
 
 router.post('/messages', authCheck, (req, res) =>{
