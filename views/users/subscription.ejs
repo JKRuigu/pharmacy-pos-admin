@@ -18,7 +18,7 @@
                             <th>ID #</th>
                             <th>Expiry Date</th>
                             <th>Activation Date</th>
-                            <th>Period (days)</th>
+                            <th style="text-align:center;">Period (days)</th>
                             <th>Status</th>
                           </thead>
                         </table>
@@ -39,12 +39,10 @@
     var n = {};
       if(user.hasOwnProperty('subscriptions')){
           for (var i=0;i<user.subscriptions.length;i++) {
-
             $("#subscriptionTable").append('<tr><td>'+(i+1)+'</td><td>'+(moment(user.subscriptions[i].activationDate).format('Do/MMMM/YYYY'))+'</td><td>'+(moment(user.subscriptions[i].expiryDate).format('Do/MMMM/YYYY'))+'</td><td style="text-align:center;">'+(moment(user.subscriptions[i].expiryDate).diff(moment(user.subscriptions[i].activationDate), 'days'))+'</td><td>'+(user.subscriptions[i].status==1?'Active':'Deactivated')+'</td></tr>');
-            console.log(user.subscriptions[i]);
           }
       }else {
-        $("#subscriptionTable").text('Ooops! You have no subscription yet Try to purchase one')
+        $("#subscriptionTable").html('<tr><td colspan="5">'+'Sorry, You do not have an active subscription buy to activate/renew your subscription.'+'</td></tr>')
       }
 
 

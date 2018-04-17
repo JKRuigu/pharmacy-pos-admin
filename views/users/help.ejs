@@ -1,4 +1,33 @@
 <%- include('../partials/users/header.ejs', {title: "Help"});%>
+<style>
+    #btnDownload {
+        height: 60px;
+        width: 300px;
+    }
+
+    #iframe {
+        text-align: center;
+        display: inline-block;
+        justify-content: center;
+    }
+
+    @media only screen and (max-width: 600px) {
+        #btnDownload {
+            height: 50px;
+            width: 200px;
+        }
+
+        #youtube {
+            height: 150px;
+            width: 90%;
+        }
+
+        #installHeader {
+            font-size: 12px;
+        }
+
+    }
+</style>
 <div class="panel-header panel-header-md">
     <div class="header text-center">
         <h3 class="title" id="title"><br>PharmacyPOS Installation guideline</h3>

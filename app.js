@@ -53,10 +53,6 @@ app.get('/users/login', (req, res) => {
 app.get('/users/package', (req, res) => {
     res.render('package');
 });
-//payment page
-app.get('/users/cart', (req, res) => {
-    res.render('checkout');
-});
 
 app.get('/users/redirect', (req, res) =>{
   if(req.user.isAdmin)
