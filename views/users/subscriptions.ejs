@@ -40,7 +40,7 @@
                             <th>Package</th>
                             <th>Quantity</th>
                             <th>Amount</th>
-                            <th>Status</th>
+                            <th>Transaction Status</th>
                           </thead>
                           <tbody id="transactions"></tbody>
                         </table>
@@ -59,6 +59,8 @@
     var user = <%- JSON.stringify(user)%>
     var cart = <%- JSON.stringify(cart)%>
     var params = parseUrl();
+    var pendingTransactions = [];
+    var index = 1, timer;
     if(user.hasOwnProperty('subscriptions')){
       for (var i=0;i<user.subscriptions.length;i++) {
         $("#subscriptionTable").append('<tr><td>' + (i + 1) + '</td><td>' + (moment(user.subscriptions[i].activationDate).format('Do/MMMM/YYYY')) + '</td><td>' + (moment(user.subscriptions[i].expiryDate).format('Do/MMMM/YYYY')) + '</td><td style="text-align:center;">' + (moment(user.subscriptions[i].expiryDate).diff(moment(user.subscriptions[i].activationDate), 'days')) + '</td><td>' + (user.subscriptions[i].status == 1 ? 'Active' : 'Deactivated') + '</td></tr>');
@@ -68,40 +70,58 @@
     }
 
     if(Object.keys(params).length > 0){
-      setInterval(function () {
-        window.location.reload(true);
-      }, 10000);
+      setUpdate('PENDING', params.pesapal_transaction_tracking_id, params.pesapal_merchant_reference)
     }
-
     if(cart.length > 0){
       for(var i=0; i< cart.length;i++){
         var status = 'COMPLETE';
-        if(Object.keys(params).length > 0){
-          if(params.pesapal_merchant_reference === cart[i]._id){
-            $.ajax('/cart/status-check.php', {
-              method: 'get',
-              data: params,
-              success: function (data) {
-                status = data.split('&')[3].split('=')[1];
-                setUpdate(status, params.pesapal_transaction_tracking_id, params.pesapal_merchant_reference);
-              },
-              error: function (error) {
-                status = error;
-                console.log(error);
-              }
-            });
-          }
+        if(Object.keys(params).length > 0 || cart[i].pesapalId){
+          if(cart[i].status !== 1 && cart[i].pesapalId)
+            pendingTransactions.push(cart[i]);
+          $("#transactions").append('<tr><td>' + index + '</td><td>' + (cart[i].item.toUpperCase()) + '</td><td>' + cart[i].quantity + '</td><td>' + 'Ksh '+ cart[i].amount + '</td><td id="'+cart[i]._id+'">' + (cart[i].status == 0 ? 'Pending <i class="fa fa-spinner fa-spin "></i>' : '')+(cart[i].status == 1 ? 'Completed' : '') +(cart[i].status == 3 ? 'Failed' : '') + '</td></tr>');
+          index ++;
         }
-        $("#transactions").append('<tr><td>' + (i + 1) + '</td><td>' + (cart[i].item.toUpperCase()) + '</td><td>' + cart[i].quantity + '</td><td>' + 'Ksh '+ cart[i].amount + '</td><td>' + (cart[i].status == 0 ? 'Pending' : '')+(cart[i].status == 1 ? 'Completed' : '') +(cart[i].status == 3 ? 'Failed' : '') + '</td></tr>');
+      }
+    }
+    if(pendingTransactions.length >0){
+      setInterval(interval(), 5000);
+    }
+    function interval() {
+      for(var i=0;i<pendingTransactions.length;i++){
+        if(pendingTransactions[i].status === 0)
+          queryStatus(pendingTransactions[i].pesapalId, pendingTransactions[i]._id);
       }
     }
 
+    function queryStatus(pesapalId, transactionId) {
+      var status;
+      $.ajax('/cart/status-check.php', {
+        method: 'get',
+        data: ({pesapalId:pesapalId, transactionId:transactionId}),
+        success: function (data) {
+          status = data.split('&')[3].split('=')[1];
+          setUpdate(status, pesapalId, transactionId);
+          if( status==='PENDING')
+            $('#'+transactionId).html(status+' <i class="fa fa-spinner fa-spin "></i>');
+          else
+            $('#'+transactionId).text(status);
+        },
+        error: function (error) {
+          status = error;
+          console.log(error);
+          return status;
+        }
+      });
+    }
     function setUpdate(status, pesapalId, id) {
       $.ajax('/users/profile/cart/pesapalUpdate', {
         method: 'post',
         data: {status, pesapalId, id},
         success: function (data) {
-          console.log(data)
+          if(status==='COMPLETED' && data) {
+            // clearInterval(timer);
+            window.location.reload(true);
+          }
         },
         error: function (error) {
           console.log(error);
