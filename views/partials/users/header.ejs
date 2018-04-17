@@ -19,35 +19,6 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116865713-1"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <style>
-        #btnDownload {
-            height: 60px;
-            width: 300px;
-        }
-
-        #iframe {
-            text-align: center;
-            display: inline-block;
-            justify-content: center;
-        }
-
-        @media only screen and (max-width: 600px) {
-            #btnDownload {
-                height: 50px;
-                width: 200px;
-            }
-
-            #youtube {
-                height: 150px;
-                width: 90%;
-            }
-
-            #installHeader {
-                font-size: 12px;
-            }
-
-        }
-    </style>
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -77,6 +48,18 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
+                <li id="helpBtn">
+                    <a href="/users/profile/subscriptions">
+                        <i class="now-ui-icons shopping_credit-card"></i>
+                        <p>Subscription</p>
+                    </a>
+                </li>
+                <li id="buyBtn">
+                    <a href="/users/profile/cart">
+                        <i class="now-ui-icons shopping_cart-simple"></i>
+                        <p>Buy / Renew Subscription</p>
+                    </a>
+                </li>
                 <li id="updatesBtn">
                     <a href="/users/profile/updates">
                         <i class="now-ui-icons ui-1_bell-53"></i>
@@ -93,12 +76,6 @@
                     <a href="/users/profile/cart">
                         <i class="now-ui-icons ui-1_email-85"></i>
                         <p>Buy</p>
-                    </a>
-                </li>
-                <li id="helpBtn">
-                    <a href="/users/profile/subscriptions">
-                        <i class="now-ui-icons shopping_credit-card"></i>
-                        <p>Subscription</p>
                     </a>
                 </li>
                 <li id="helpBtn">

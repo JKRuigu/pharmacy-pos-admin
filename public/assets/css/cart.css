@@ -1,12 +1,12 @@
 body {
-   -webkit-font-smoothing: antialiased;
+   /* -webkit-font-smoothing: antialiased; */
    text-rendering: optimizeLegibility; font-family: 'Noto Sans', sans-serif;
    letter-spacing: 0px;
     font-size: 14px;
     color: #2e3139;
     font-weight: 400;
     line-height: 26px;
-  background-color: #E6E6E6;
+  /* background-color: #E6E6E6; */
 }
 h1 { font-size: 42px; line-height: 50px; }
 h2 { font-size: 36px; line-height: 42px; }
@@ -18,8 +18,15 @@ p { margin: 0 0 20px; line-height: 1.8; }
 p:last-child { margin: 0px; }
 ul, ol { }
 a { text-decoration: none; color: #2e3139; -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s; }
-a:focus, a:hover { text-decoration: none; color: #0943c6; }
-.content{padding-top:80px; padding-bottom:80px};
+a:focus, a:hover {
+   text-decoration: none;
+    color: #0943c6;
+  }
+.content{
+  padding-top:80px;
+  padding-bottom:80px;
+  margin-top: 500px;
+};
 
 
 /*------------------------
@@ -73,22 +80,12 @@ Radio & Checkbox CSS
   border: solid 2px #000;
   color: #000;
 }
-.footer {
-  padding: 24px 0; }
-  .footer.footer-default {
-    background-color: #f2f2f2; }
-  .footer .copyright {
-    font-size: 0.8571em;
-    line-height: 1.8; }
-  .footer:after {
-    display: table;
-    clear: both;
-    content: " "; }
+
 #btnPurchase{
   margin-right:500px !important;
 }
 #checkOut{
-  display: none;
+  display: none !important;
 }
 /* set element styles to fit tablet and higher(desktop) */
 @media only screen and (max-width: 1000px) {

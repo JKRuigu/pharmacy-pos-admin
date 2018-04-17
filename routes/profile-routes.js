@@ -24,6 +24,10 @@ router.get('/contact',authCheck,(req,res)=>{
   res.render('users/contact',{user:req.user});
 });
 
+router.get('/cart',authCheck, (req,res)=>{
+  res.render('users/checkout',{user:req.user});
+});
+
 router.get('/services', authCheck, (req,res)=>{
   res.render('users/services',{user:req.user});
 });
