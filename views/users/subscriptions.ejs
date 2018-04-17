@@ -42,7 +42,7 @@
                             <th>Amount</th>
                             <th>Status</th>
                           </thead>
-                          <tbody id="transactions" ></tbody>
+                          <tbody id="transactions"></tbody>
                         </table>
                     </div>
                 </div>
@@ -67,23 +67,30 @@
       $("#subscriptionTable").html('<tr><td colspan="5" class="text-center"><h3>You have no subscription yet, purchase one <a href="/users/profile/cart">here</a></h3></td></tr>')
     }
 
-    console.log(cart);
-    if(cart.length > 0 && Object.keys(params).length > 0){
+    if(Object.keys(params).length > 0){
+      setInterval(function () {
+        window.location.reload(true);
+      }, 10000);
+    }
+
+    if(cart.length > 0){
       for(var i=0; i< cart.length;i++){
-        var status;
-        if(params.pesapal_merchant_reference === cart[i]._id){
-          $.ajax('/cart/status-check.php', {
-            method: 'get',
-            data: params,
-            success: function (data) {
-              status = data.split('&')[3].split('=')[1];
-              setUpdate(status, params.pesapal_transaction_tracking_id, params.pesapal_merchant_reference);
-            },
-            error: function (error) {
-              status = error;
-              console.log(error);
-            }
-          });
+        var status = 'COMPLETE';
+        if(Object.keys(params).length > 0){
+          if(params.pesapal_merchant_reference === cart[i]._id){
+            $.ajax('/cart/status-check.php', {
+              method: 'get',
+              data: params,
+              success: function (data) {
+                status = data.split('&')[3].split('=')[1];
+                setUpdate(status, params.pesapal_transaction_tracking_id, params.pesapal_merchant_reference);
+              },
+              error: function (error) {
+                status = error;
+                console.log(error);
+              }
+            });
+          }
         }
         $("#transactions").append('<tr><td>' + (i + 1) + '</td><td>' + (cart[i].item.toUpperCase()) + '</td><td>' + cart[i].quantity + '</td><td>' + 'Ksh '+ cart[i].amount + '</td><td>' + (cart[i].status == 0 ? 'Pending' : '')+(cart[i].status == 1 ? 'Completed' : '') +(cart[i].status == 3 ? 'Failed' : '') + '</td></tr>');
       }

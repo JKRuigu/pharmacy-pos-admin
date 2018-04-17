@@ -55,7 +55,7 @@ router.get('/updates',authCheck,(req,res)=>{
 });
 
 router.get('/cart', authCheck, (req, res) => {
-  res.render('checkout', {user:req.user});
+  res.render('users/checkout', {user:req.user});
 });
 
 router.post('/cart', (req, res) =>{
