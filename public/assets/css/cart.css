@@ -80,8 +80,12 @@ Radio & Checkbox CSS
 .summary-title { font-weight: 700; font-size: 14px; color: #1c1e22; }
 .summary-head { display: inline-block; width: 120px; }
 
-.widget { margin-bottom: 30px; background-color: #e9ebef; padding: 50px; border-radius: 6px; }
-.widget:last-child { border-bottom: 0px; }
+.widget {
+    background-color: #fff;
+    padding: 20px 50px 20px;
+    border-radius: 6px;
+ }
+/* .widget:last-child { border-bottom: 0px; } */
 .widget-title { color: #094bde; font-size: 16px; font-weight: 700; text-transform: uppercase; margin-bottom: 25px; letter-spacing: 1px; display: table; line-height: 1; }
 .btn-success:hover{
   background-color: #FFF;
@@ -104,4 +108,11 @@ Radio & Checkbox CSS
       margin-right: -40px;
       margin-left: 5000px !important;
     }
+}
+
+.card-body{
+  margin-top: 30px;
+}
+#NumberOfItem{
+  width: 100%;
 }
