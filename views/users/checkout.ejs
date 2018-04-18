@@ -1,4 +1,5 @@
 <%- include('../partials/users/header.ejs', {title: "contact"}); %>
+
 <link rel="stylesheet" href="/node/assets/css/cart.css">
 <div class="panel-header panel-header-sm">
   <div class="header text-center">
@@ -24,13 +25,14 @@
                                             </p>
                                         </div>
                                         <div class="col-md-4">
-                                          <button type="button" name="button" class="btn btn-success " id="monthly">Purchase
+                                          <button type="button" name="button" class="btn btn-success " id="monthly" >Purchase
                                             <i class="fas fa-shopping-cart"></i>
                                           </button>
                                         </div>
                                       </div><br>
                                       <div class="card" style="display:none;" id="monthlyCard">
                                         <div class="card-header">Package Description</div>
+                                        <hr>
                                         <div class="card-body">
                                           <ul>
                                             <li>Cost of Plug and Play software monthly when the license expires after 14 days</li>
@@ -59,6 +61,7 @@
                                       </div><br>
                                       <div class="card" style="display:none;" id="yearCard">
                                         <div class="card-header">Package Description</div>
+                                        <hr>
                                         <div class="card-body">
                                           <ul>
                                             <li>Most Popular package (with 20% savings)</li>
@@ -83,13 +86,14 @@
                                             </p>
                                         </div>
                                         <div class="col-md-4">
-                                          <button type="button" name="button" class="btn btn-success" id="lifeTime">Purchase
-                                            <i class="fas fa-shopping-cart"></i>
-                                          </button>
+                                            <button type="button"  name="button" class="btn btn-success" id="lifeTime">Purchase
+                                              <i class="fas fa-shopping-cart"></i>
+                                            </button>
                                         </div>
                                       </div><br>
                                       <div class="card" style="display:none;" id="lifetimeCard">
                                         <div class="card-header">Package Description</div>
+                                        <hr>
                                         <div class="card-body">
                                           <ul>
                                             <li>Lifetime License never pay anything again!</li>
@@ -192,5 +196,4 @@ function computeTotal() {
   }
 }
 </script>
-<script src="/node/js/contact.js"></script>
 <%- include('../partials/users/footer.ejs') %>
