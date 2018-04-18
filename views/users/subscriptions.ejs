@@ -1,7 +1,7 @@
 <%- include('../partials/users/header.ejs', {title: "Subscription"}); %>
 <div class="panel-header panel-header-md">
     <div class="header text-center">
-        <h3 class="title"><%=user.username%> here is all Subscriptions</h3>
+        <h3 class="title">Licenses &amp; Transactions</h3>
     </div>
 </div>
 <div class="content">
@@ -9,7 +9,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="title"></h5>
+                    <h5 class="title">Licenses</h5>
                 </div>
                 <div class="card-body">
                     <div class="panel-body">
@@ -30,7 +30,7 @@
       <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="title">Cart status</h5>
+                    <h5 class="title">Transactions</h5>
                 </div>
                 <div class="card-body">
                     <div class="panel-body">
@@ -63,10 +63,10 @@
     var index = 1, timer;
     if(user.hasOwnProperty('subscriptions')){
       for (var i=0;i<user.subscriptions.length;i++) {
-        $("#subscriptionTable").append('<tr><td>' + (i + 1) + '</td><td>' + (moment(user.subscriptions[i].activationDate).format('Do/MMMM/YYYY')) + '</td><td>' + (moment(user.subscriptions[i].expiryDate).format('Do/MMMM/YYYY')) + '</td><td style="text-align:center;">' + (moment(user.subscriptions[i].expiryDate).diff(moment(user.subscriptions[i].activationDate), 'days')) + '</td><td>' + (user.subscriptions[i].status == 1 ? 'Active' : 'Deactivated') + '</td></tr>');
+        $("#subscriptionTable").append('<tr><td>' + (i + 1) + '</td><td>' + (moment(user.subscriptions[i].activationDate).format('Do MMMM YYYY')) + '</td><td>' + (moment(user.subscriptions[i].expiryDate).format('Do MMMM YYYY')) + '</td><td style="text-align:center;">' + (moment(user.subscriptions[i].expiryDate).diff(moment(user.subscriptions[i].activationDate), 'days')) + '</td><td>' + (user.subscriptions[i].status == 1 ? 'Active' : 'Deactivated') + '</td></tr>');
       }
     }else {
-      $("#subscriptionTable").html('<tr><td colspan="5" class="text-center"><h3>You have no subscription yet, purchase one <a href="/users/profile/cart">here</a></h3></td></tr>')
+      $("#subscriptionTable").html('<tr><td colspan="5" class="text-center"><h3>You have no license yet, purchase one <a href="/users/profile/cart">here</a></h3></td></tr>')
     }
 
     if(Object.keys(params).length > 0){
