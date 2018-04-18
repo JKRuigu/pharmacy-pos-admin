@@ -36,6 +36,11 @@ mongoose.connect(keys.mongodb.dbURI, ()=>{
     console.log('connected to mongodb');
 });
 
+app.use('/*', (req, res, next) =>{
+  app.locals.isBiashara = req.hostname == 'biasharapos.com';
+  app.locals.isPharmacy = req.hostname == 'pharmacypluspos.com';
+  next();
+});
 app.use('/users', authRoutes);
 app.use('/users/profile', profileRoutes);
 app.use('/admin', profileAdmin);

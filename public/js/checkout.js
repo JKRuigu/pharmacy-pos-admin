@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
   $( "#monthly" ).click(function() {
     $('#monthly-text').css({'display':'none'});
@@ -37,7 +38,8 @@ $(document).ready(function () {
     $(".summary-text").text('29,999.00/=');
     $("#NumberOfItem").val('1');
     computeTotal();
-});
+  });
+
   $( "#lifeTime" ).click(function() {
     $('#life-text').css({'display':'none'});
     $('#formNum').css({'display':'none'});
@@ -54,11 +56,39 @@ $(document).ready(function () {
     $("#packageTitle").text('Lifetime');
     $(".summary-text").text('Ksh 39,999.00/=');
     computeTotal();
-});
+  });
   $( "#checkOut" ).click(function() {
-    $("#checkOut").text('Processing..');
+    $("#checkOut").text('Processing...');
     setTimeout(function(){
       $("#checkOut").text('CheckOut');
-    }, 300);
-});
+    }, 20000);
+  });
+
+  $('#cart').on('submit', function (e) {
+    e.preventDefault();
+    var quantity = $('#NumberOfItem').val();
+    var total = $('#inputTotal').val();
+    var item = $('#inputPackage').val();
+    axios.post('/users/profile/cart', {
+      quantity, item, total
+    }).then(response => {
+      var data = response.data.subscription;
+      data.email = user.email;
+      data.tel = user.tel;
+      data.username = user.username;
+      $.ajax('/cart/checkout.php', {
+        method: 'post',
+        data: (data),
+        success: function (data) {
+          $('#iframe').html(data);
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      })
+    }).catch(error =>{
+      console.log(error);
+    });
+  //  TODO:: swal the errors :)
+  });
 });

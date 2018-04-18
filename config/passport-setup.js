@@ -91,7 +91,6 @@ passport.serializeUser(function(user, done){
         		    				newUser.save(function(err){
         		    					if(err)
         		    						throw err;
-                            console.log(profile);
         		    					return done(null, newUser);
         		    				})
         		    			}
@@ -162,14 +161,12 @@ passport.serializeUser(function(user, done){
 		function(req, email, password, done){
       process.nextTick(function(){
 				User.findOne({ 'email': email}, function(err, user){
-          console.log('am the 1st user'+user);
 					if(err)
 						return done(err);
 					if(!user)
 						return done(null, false
             , req.flash('loginMessage', 'No User found')
             );
-            console.log(password);
             User.comparePassword(password,user.password,function (err,isMatch) {
         			if (err)  throw err;
         			if (isMatch) {
@@ -178,7 +175,6 @@ passport.serializeUser(function(user, done){
         				return done(null,false,{message:'Invalid password'});
         			}
         		});
-          console.log('hey am the result'+user);
 					return done(null, user);
 				});
 			});
