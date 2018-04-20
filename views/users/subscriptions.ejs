@@ -34,6 +34,10 @@
                 </div>
                 <div class="card-body">
                     <div class="panel-body">
+                      <div class="alert alert-info" id="confirmationMessage" style="display: none;">
+                        <h3>Waiting for payment confirmation ...</h3>
+                        <p>Thanks for buying, wait for your transaction to be processed by Pesapal. It takes 5-10 minutes before confirmation.</p>
+                      </div>
                         <table class="table table-bordered table-hover table-striped">
                           <thead>
                             <th>ID #</th>
@@ -60,7 +64,7 @@
     var cart = <%- JSON.stringify(cart)%>
     var params = parseUrl();
     var pendingTransactions = [];
-    var index = 1, timer;
+    var index = 1, timer, isInitialLoad = false;
     if(user.hasOwnProperty('subscriptions')){
       for (var i=0;i<user.subscriptions.length;i++) {
         $("#subscriptionTable").append('<tr><td>' + (i + 1) + '</td><td>' + (moment(user.subscriptions[i].activationDate).format('Do MMMM YYYY')) + '</td><td>' + (moment(user.subscriptions[i].expiryDate).format('Do MMMM YYYY')) + '</td><td style="text-align:center;">' + (moment(user.subscriptions[i].expiryDate).diff(moment(user.subscriptions[i].activationDate), 'days')) + '</td><td>' + (user.subscriptions[i].status == 1 ? 'Active' : 'Deactivated') + '</td></tr>');
@@ -70,6 +74,7 @@
     }
 
     if(Object.keys(params).length > 0){
+      isInitialLoad = true;
       setUpdate('PENDING', params.pesapal_transaction_tracking_id, params.pesapal_merchant_reference)
     }
     if(cart.length > 0){
@@ -79,12 +84,18 @@
           if(cart[i].status !== 1 && cart[i].pesapalId)
             pendingTransactions.push(cart[i]);
           $("#transactions").append('<tr><td>' + index + '</td><td>' + (cart[i].item.toUpperCase()) + '</td><td>' + cart[i].quantity + '</td><td>' + 'Ksh '+ cart[i].amount + '</td><td id="'+cart[i]._id+'">' + (cart[i].status == 0 ? 'Pending <i class="fa fa-spinner fa-spin "></i>' : '')+(cart[i].status == 1 ? 'Completed' : '') +(cart[i].status == 3 ? 'Failed' : '') + '</td></tr>');
-          index ++;
         }
+        if(cart[i].pesapalId === undefined && Object.keys(params).length > 0)
+          $("#transactions").append('<tr><td>' + index + '</td><td>' + (cart[i].item.toUpperCase()) + '</td><td>' + cart[i].quantity + '</td><td>' + 'Ksh '+ cart[i].amount + '</td><td id="'+cart[i]._id+'">' + (cart[i].status == 0 ? 'Pending <i class="fa fa-spinner fa-spin "></i>' : '')+(cart[i].status == 1 ? 'Completed' : '') +(cart[i].status == 3 ? 'Failed' : '') + '</td></tr>');
+        index ++;
       }
     }
-    if(pendingTransactions.length >0){
-      setInterval(interval(), 60000);
+    if(pendingTransactions.length > 0){
+      setInterval(interval, 60000);
+      interval();
+      $('#confirmationMessage').show();
+    } else {
+      $('#confirmationMessage').hide();
     }
     function interval() {
       for(var i=0;i<pendingTransactions.length;i++){
@@ -95,16 +106,21 @@
 
     function queryStatus(pesapalId, transactionId) {
       var status;
+      $('#'+transactionId).text('Checking status ...');
       $.ajax('/cart/status-check.php', {
         method: 'get',
         data: ({pesapalId:pesapalId, transactionId:transactionId}),
         success: function (data) {
           status = data.split('&')[3].split('=')[1];
-          setUpdate(status, pesapalId, transactionId);
+          if(status !== 'PENDING')
+            setUpdate(status, pesapalId, transactionId);
           if( status==='PENDING')
             $('#'+transactionId).html(status+' <i class="fa fa-spinner fa-spin "></i>');
+          else if(status === 'COMPLETED')
+            $('#'+transactionId).text('Complete... Wait as we issue the license');
           else
             $('#'+transactionId).text(status);
+
         },
         error: function (error) {
           status = error;
@@ -118,10 +134,12 @@
         method: 'post',
         data: {status, pesapalId, id},
         success: function (data) {
-          if(status==='COMPLETED' && data) {
-            // clearInterval(timer);
-          }
-          // window.location.reload(true);
+          setTimeout(function () {
+            if(status === 'COMPLETED' && data)
+              window.location.reload(true);
+            if(status === 'PENDING' && isInitialLoad)
+              window.location = '/users/profile/subscriptions';
+          }, 5000);
         },
         error: function (error) {
           console.log(error);
