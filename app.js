@@ -16,7 +16,8 @@ require('dotenv').config();
 const app = express(); //App initialize
 app.set('view engine', 'ejs'); // set view engine
 app.set('port',(process.env.PORT || 3000));
-
+// app.use(express.static(__dirname + '/public'));
+app.use('/node',express.static(__dirname + '/public'));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -30,7 +31,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use('/node',express.static(__dirname + '/public'));
 
 mongoose.connect(keys.mongodb.dbURI, ()=>{
     console.log('connected to mongodb');

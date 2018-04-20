@@ -75,7 +75,7 @@
     if(cart.length > 0){
       for(var i=0; i< cart.length;i++){
         var status = 'COMPLETE';
-        if(Object.keys(params).length > 0 || cart[i].pesapalId){
+        if(cart[i].pesapalId){
           if(cart[i].status !== 1 && cart[i].pesapalId)
             pendingTransactions.push(cart[i]);
           $("#transactions").append('<tr><td>' + index + '</td><td>' + (cart[i].item.toUpperCase()) + '</td><td>' + cart[i].quantity + '</td><td>' + 'Ksh '+ cart[i].amount + '</td><td id="'+cart[i]._id+'">' + (cart[i].status == 0 ? 'Pending <i class="fa fa-spinner fa-spin "></i>' : '')+(cart[i].status == 1 ? 'Completed' : '') +(cart[i].status == 3 ? 'Failed' : '') + '</td></tr>');
@@ -84,7 +84,7 @@
       }
     }
     if(pendingTransactions.length >0){
-      setInterval(interval(), 5000);
+      setInterval(interval(), 60000);
     }
     function interval() {
       for(var i=0;i<pendingTransactions.length;i++){
@@ -120,8 +120,8 @@
         success: function (data) {
           if(status==='COMPLETED' && data) {
             // clearInterval(timer);
-            window.location.reload(true);
           }
+          // window.location.reload(true);
         },
         error: function (error) {
           console.log(error);

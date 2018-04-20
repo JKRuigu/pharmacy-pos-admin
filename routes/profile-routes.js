@@ -19,7 +19,8 @@ const authCheck = (req,res,next)=>{
 
 const addSubscription = (req, res, next) =>{
   if(req.body.status === 'COMPLETED') {
-    Subscription.findOne({_id: req.body.id}).then(transaction =>{
+    Subscription.findOne({$and:[{_id: req.body.id}, {status: 0}]}).then(transaction =>{
+      console.log(transaction);
       var now = moment();
       var expiryDate = now;
       var selected = transaction.item;
@@ -53,6 +54,7 @@ const addSubscription = (req, res, next) =>{
       });
     }).catch(error =>{
       console.log(error);
+      next();
     });
   } else {
     next();
