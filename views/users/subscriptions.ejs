@@ -84,10 +84,12 @@
           if(cart[i].status !== 1 && cart[i].pesapalId)
             pendingTransactions.push(cart[i]);
           $("#transactions").append('<tr><td>' + index + '</td><td>' + (cart[i].item.toUpperCase()) + '</td><td>' + cart[i].quantity + '</td><td>' + 'Ksh '+ cart[i].amount + '</td><td id="'+cart[i]._id+'">' + (cart[i].status == 0 ? 'Pending <i class="fa fa-spinner fa-spin "></i>' : '')+(cart[i].status == 1 ? 'Completed' : '') +(cart[i].status == 3 ? 'Failed' : '') + '</td></tr>');
+          index ++;
         }
-        if(cart[i].pesapalId === undefined && Object.keys(params).length > 0)
+        if(cart[i].pesapalId === undefined && Object.keys(params).length > 0) {
           $("#transactions").append('<tr><td>' + index + '</td><td>' + (cart[i].item.toUpperCase()) + '</td><td>' + cart[i].quantity + '</td><td>' + 'Ksh '+ cart[i].amount + '</td><td id="'+cart[i]._id+'">' + (cart[i].status == 0 ? 'Pending <i class="fa fa-spinner fa-spin "></i>' : '')+(cart[i].status == 1 ? 'Completed' : '') +(cart[i].status == 3 ? 'Failed' : '') + '</td></tr>');
-        index ++;
+          index ++;
+        }
       }
     }
     if(pendingTransactions.length > 0){
