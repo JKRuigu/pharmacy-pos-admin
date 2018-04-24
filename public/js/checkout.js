@@ -1,3 +1,7 @@
+var isCheckedout = false;
+if(!isCheckedout){
+  $('#cartIcon').hide();
+}
 
 $(document).ready(function () {
   $( "#monthly" ).click(function() {
@@ -66,29 +70,34 @@ $(document).ready(function () {
 
   $('#cart').on('submit', function (e) {
     e.preventDefault();
-    var quantity = $('#NumberOfItem').val();
-    var total = $('#inputTotal').val();
-    var item = $('#inputPackage').val();
-    axios.post('/users/profile/cart', {
-      quantity, item, total
-    }).then(response => {
-      var data = response.data.subscription;
-      data.email = user.email;
-      data.tel = user.tel;
-      data.username = user.username;
-      $.ajax('/cart/checkout.php', {
-        method: 'post',
-        data: (data),
-        success: function (data) {
-          $('#iframe').html(data);
-        },
-        error: function (error) {
-          console.log(error);
-        }
-      })
-    }).catch(error =>{
-      console.log(error);
-    });
-  //  TODO:: swal the errors :)
+    $('#login-modal').modal('show');
   });
 });
+
+function processSale() {
+  $('#exampleModalLabel').text("Processing payment");
+  var quantity = $('#NumberOfItem').val();
+  var total = $('#inputTotal').val();
+  var item = $('#inputPackage').val();
+  axios.post('/users/profile/cart', {
+    quantity, item, total
+  }).then(response => {
+    var data = response.data.subscription;
+    data.email = user.email;
+    data.tel = user.tel;
+    data.username = user.username;
+    $.ajax('/cart/checkout.php', {
+      method: 'post',
+      data: (data),
+      success: function (data) {
+        isCheckedout = true;
+        $('#iframe').html(data);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    })
+  }).catch(error =>{
+    console.log(error);
+  });
+}
