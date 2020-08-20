@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "async": "^2.6.0",
-    "bcrypt": "^1.0.3",
+    "bcrypt": "^5.0.0",
     "bcryptjs": "*",
     "body-parser": "*",
     "connect-flash": "^0.1.1",
