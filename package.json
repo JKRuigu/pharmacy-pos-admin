@@ -9,7 +9,7 @@
   "author": "jkruigu",
   "license": "ISC",
   "dependencies": {
-    "async": "^2.6.0",
+    "async": "^2.6.4",
     "bcrypt": "^1.0.3",
     "bcryptjs": "*",
     "body-parser": "*",
