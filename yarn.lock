@@ -156,6 +156,10 @@ bson@~1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/bson/-/bson-1.0.5.tgz#34563b73ff1fde9387c1b9fb5afd845ecc4ba623"
 
+buffer-shims@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/buffer-shims/-/buffer-shims-1.0.0.tgz#9978ce317388c649ad8793028c3477ef044a8b51"
+
 busboy@^0.2.11:
   version "0.2.14"
   resolved "https://registry.yarnpkg.com/busboy/-/busboy-0.2.14.tgz#6c2a622efcf47c57bbbe1e2a9c37ad36c7925453"
@@ -200,6 +204,12 @@ concat-stream@^1.5.0:
 connect-flash@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/connect-flash/-/connect-flash-0.1.1.tgz#d8630f26d95a7f851f9956b1e8cc6732f3b6aa30"
+
+connect-mongo@^2.0.1:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/connect-mongo/-/connect-mongo-2.0.3.tgz#db6cabe1e3add5acc9ef9c486681027675a58ee5"
+  dependencies:
+    mongodb "^2.0.36"
 
 console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   version "1.1.0"
@@ -270,7 +280,7 @@ debug@2.6.9, debug@^2.2.0:
   dependencies:
     ms "2.0.0"
 
-debug@3.1.0, debug@^3.1.0:
+debug@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   dependencies:
@@ -336,6 +346,10 @@ encodeurl@~1.0.1:
 es6-object-assign@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/es6-object-assign/-/es6-object-assign-1.1.0.tgz#c2c3582656247c39ea107cb1e6652b6f9f24523c"
+
+es6-promise@3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-3.2.1.tgz#ec56233868032909207170c39448e24449dd1fc4"
 
 escape-html@~1.0.3:
   version "1.0.3"
@@ -510,10 +524,6 @@ gauge@~2.7.3:
     string-width "^1.0.1"
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
-
-generaterr@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/generaterr/-/generaterr-1.5.0.tgz#b0ceb6cc5164df2a061338cc340a8615395c52fc"
 
 getpass@^0.1.1:
   version "0.1.7"
@@ -733,9 +743,16 @@ minimist@^1.2.0:
   dependencies:
     minimist "0.0.8"
 
-moment@^2.21.0:
-  version "2.21.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.21.0.tgz#2a114b51d2a6ec9e6d83cf803f838a878d8a023a"
+moment@^2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+
+mongodb-core@2.1.20:
+  version "2.1.20"
+  resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-2.1.20.tgz#fece8dd76b59ee7d7f2d313b65322c160492d8f1"
+  dependencies:
+    bson "~1.0.4"
+    require_optional "~1.0.0"
 
 mongodb-core@3.0.4:
   version "3.0.4"
@@ -749,6 +766,14 @@ mongodb@3.0.4, mongodb@^3.0.4:
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.0.4.tgz#ee0c0f7bc565edc5f40ee2d23170e522a8ad2286"
   dependencies:
     mongodb-core "3.0.4"
+
+mongodb@^2.0.36:
+  version "2.2.36"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-2.2.36.tgz#1c573680b2849fb0f47acbba3dc5fa228de975f5"
+  dependencies:
+    es6-promise "3.2.1"
+    mongodb-core "2.1.20"
+    readable-stream "2.2.7"
 
 mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"
@@ -860,10 +885,6 @@ oauth-sign@~0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.8.2.tgz#46a6ab7f0aead8deae9ec0565780b7d4efeb9d43"
 
-oauth@0.9.x:
-  version "0.9.15"
-  resolved "https://registry.yarnpkg.com/oauth/-/oauth-0.9.15.tgz#bd1fefaf686c96b75475aed5196412ff60cfb9c1"
-
 object-assign@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-3.0.0.tgz#9bedd5ca0897949bca47e7ff408062d549f587f2"
@@ -907,87 +928,6 @@ parseurl@~1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/parseurl/-/parseurl-1.3.2.tgz#fc289d4ed8993119460c156253262cdc8de65bf3"
 
-passport-facebook@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/passport-facebook/-/passport-facebook-2.1.1.tgz#c39d0b52ae4d59163245a4e21a7b9b6321303311"
-  dependencies:
-    passport-oauth2 "1.x.x"
-
-passport-google-oauth1@1.x.x:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/passport-google-oauth1/-/passport-google-oauth1-1.0.0.tgz#af74a803df51ec646f66a44d82282be6f108e0cc"
-  dependencies:
-    passport-oauth1 "1.x.x"
-
-passport-google-oauth20@1.x.x:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/passport-google-oauth20/-/passport-google-oauth20-1.0.0.tgz#3b960e8a1d70d1dbe794615c827c68c40392a5d0"
-  dependencies:
-    passport-oauth2 "1.x.x"
-
-passport-google-oauth@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/passport-google-oauth/-/passport-google-oauth-1.0.0.tgz#65f50633192ad0627a18b08960077109d84eb76d"
-  dependencies:
-    passport-google-oauth1 "1.x.x"
-    passport-google-oauth20 "1.x.x"
-
-passport-http@*:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/passport-http/-/passport-http-0.3.0.tgz#8ee53d4380be9c60df2151925029826f77115603"
-  dependencies:
-    passport-strategy "1.x.x"
-
-passport-local-mongoose-email@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/passport-local-mongoose-email/-/passport-local-mongoose-email-0.1.3.tgz#4dc007a54c2ceaec53146151c186052373fce78d"
-  dependencies:
-    passport-local "^1.0.0"
-
-passport-local-mongoose@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/passport-local-mongoose/-/passport-local-mongoose-5.0.0.tgz#7a482bd5a256b6112b616b339ee7d1f4e0bc51b3"
-  dependencies:
-    debug "^3.1.0"
-    generaterr "^1.5.0"
-    passport-local "^1.0.0"
-    scmp "^2.0.0"
-    semver "^5.5.0"
-
-passport-local@*, passport-local@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/passport-local/-/passport-local-1.0.0.tgz#1fe63268c92e75606626437e3b906662c15ba6ee"
-  dependencies:
-    passport-strategy "1.x.x"
-
-passport-oauth1@1.x.x:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/passport-oauth1/-/passport-oauth1-1.1.0.tgz#a7de988a211f9cf4687377130ea74df32730c918"
-  dependencies:
-    oauth "0.9.x"
-    passport-strategy "1.x.x"
-    utils-merge "1.x.x"
-
-passport-oauth2@1.x.x:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/passport-oauth2/-/passport-oauth2-1.4.0.tgz#f62f81583cbe12609be7ce6f160b9395a27b86ad"
-  dependencies:
-    oauth "0.9.x"
-    passport-strategy "1.x.x"
-    uid2 "0.0.x"
-    utils-merge "1.x.x"
-
-passport-strategy@1.x.x:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/passport-strategy/-/passport-strategy-1.0.0.tgz#b5539aa8fc225a3d1ad179476ddf236b440f52e4"
-
-passport@*:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/passport/-/passport-0.4.0.tgz#c5095691347bd5ad3b5e180238c3914d16f05811"
-  dependencies:
-    passport-strategy "1.x.x"
-    pause "0.0.1"
-
 path-is-absolute@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
@@ -1009,13 +949,13 @@ pause-stream@0.0.11:
   dependencies:
     through "~2.3"
 
-pause@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/pause/-/pause-0.0.1.tgz#1d408b3fdb76923b9543d96fb4c9dfd535d9cb5d"
-
 performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
+
+process-nextick-args@~1.0.6:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-1.0.7.tgz#150e20b756590ad3f91093f25a4f2ad8bff30ba3"
 
 process-nextick-args@~2.0.0:
   version "2.0.0"
@@ -1085,6 +1025,18 @@ readable-stream@1.1.x:
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
+readable-stream@2.2.7:
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.7.tgz#07057acbe2467b22042d36f98c5ad507054e95b1"
+  dependencies:
+    buffer-shims "~1.0.0"
+    core-util-is "~1.0.0"
+    inherits "~2.0.1"
+    isarray "~1.0.0"
+    process-nextick-args "~1.0.6"
+    string_decoder "~1.0.0"
+    util-deprecate "~1.0.1"
+
 readable-stream@^2.0.6, readable-stream@^2.1.4, readable-stream@^2.2.2:
   version "2.3.5"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.5.tgz#b4f85003a938cbb6ecbce2a124fb1012bd1a838d"
@@ -1128,7 +1080,7 @@ request@^2.81.0:
     tunnel-agent "^0.6.0"
     uuid "^3.1.0"
 
-require_optional@^1.0.1:
+require_optional@^1.0.1, require_optional@~1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/require_optional/-/require_optional-1.0.1.tgz#4cf35a4247f64ca3df8c2ef208cc494b1ca8fc2e"
   dependencies:
@@ -1158,11 +1110,7 @@ save@^2.3.2:
     lodash.assign "^4.2.0"
     mingo "^1.3.1"
 
-scmp@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/scmp/-/scmp-2.0.0.tgz#247110ef22ccf897b13a3f0abddb52782393cd6a"
-
-semver@^5.1.0, semver@^5.3.0, semver@^5.5.0:
+semver@^5.1.0, semver@^5.3.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
 
@@ -1273,7 +1221,7 @@ string_decoder@~0.10.x:
   version "0.10.31"
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-0.10.31.tgz#62e203bc41766c6c28c9fc84301dab1c5310fa94"
 
-string_decoder@~1.0.3:
+string_decoder@~1.0.0, string_decoder@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.0.3.tgz#0fc67d7c141825de94282dd536bec6b9bce860ab"
   dependencies:
@@ -1366,10 +1314,6 @@ uid-safe@~2.1.5:
   dependencies:
     random-bytes "~1.0.0"
 
-uid2@0.0.x:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/uid2/-/uid2-0.0.3.tgz#483126e11774df2f71b8b639dcd799c376162b82"
-
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
@@ -1384,7 +1328,7 @@ util@^0.10.3:
   dependencies:
     inherits "2.0.1"
 
-utils-merge@1.0.1, utils-merge@1.x.x:
+utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
 
